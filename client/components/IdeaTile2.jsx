@@ -23,14 +23,14 @@ const theme = createTheme({
         // Name of the slot
         root: {
           // Some CSS
-          fontSize: '1rem',
-        },
-      },
-    },
-  },
+          fontSize: '1rem'
+        }
+      }
+    }
+  }
 })
 
-export default function IdeaTile2() {
+export default function IdeaTile2 () {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -49,14 +49,43 @@ export default function IdeaTile2() {
         </Typography>
       </CardContent>
       <CardActions>
-        <ThemeProvider theme={theme}>
-          <Button size="small" color="primary">
+        {/* <ThemeProvider theme={theme}> */}
+        {/* <Button size="small" color="primary">
             subtract
           </Button>
           <Button size="small" color="primary">
             add
-          </Button>
-        </ThemeProvider>
+          </Button> */}
+        {/* <!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons--> */}
+        <div className="input-group plus-minus-input">
+          <div className="input-group-button">
+            <button
+              type="button"
+              className="button hollow circle"
+              data-quantity="minus"
+              data-field="quantity"
+            >-
+              <i className="fa fa-minus" aria-hidden="true"></i>
+            </button>
+          </div>
+          <input
+            className="input-group-field"
+            type="number"
+            name="quantity"
+            value="0"
+          />
+          <div className="input-group-button">
+            <button
+              type="button"
+              className="button hollow circle"
+              data-quantity="plus"
+              data-field="quantity"
+            >+
+              <i className="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        {/* </ThemeProvider> */}
       </CardActions>
     </Card>
   )
