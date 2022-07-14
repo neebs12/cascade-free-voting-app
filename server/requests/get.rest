@@ -1,0 +1,11 @@
+### (G_NA)
+GET http://localhost:3000/api/v1/sessions
+
+### (G2)
+GET http://localhost:3000/api/v1/users
+
+### Get all request
+GET http://localhost:3000/api/v1/ideas
+
+### Get all request
+GET http://localhost:3000/api/v1/votes
