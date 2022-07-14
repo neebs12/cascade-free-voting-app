@@ -4,7 +4,8 @@ const db = require('../db/db')
 
 const router = express.Router()
 
-// this is where all the routes are going to be
-
+router.get('/', (req, res) => {
+  res.status(200).json({message: 'users routes not yet implemented'})
+})
 
 module.exports = router

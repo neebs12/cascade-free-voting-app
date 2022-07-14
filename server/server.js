@@ -3,7 +3,9 @@ const path = require('path')
 
 const apiHelper = require('./routes/apiHelper')
 
-const v1Routes = require('./routes/v1') // <--- will possibly change
+const usersRoutes = require('./routes/users')
+const ideasRoutes = require('./routes/ideas')
+const votesRoutes = require('./routes/votes')
 
 const server = express()
 
@@ -12,8 +14,9 @@ server.use(express.static(path.join(__dirname, 'public')))
 
 server.use(apiHelper.terminalLogger)
 
-// server.use('/api/v1/fruits', fruitRoutes)
-server.use('/api/v1', v1Routes)
+server.use('/api/v1/users', usersRoutes)
+server.use('/api/v1/ideas', ideasRoutes)
+server.use('/api/v1/votes', votesRoutes)
 
 server.use(apiHelper.unknownEndpoint) 
 // <--- normal arg cb
