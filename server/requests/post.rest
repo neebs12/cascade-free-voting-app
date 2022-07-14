@@ -6,3 +6,11 @@ Content-Type: application/json
   "title": "this is a new title",
   "numWinners" : 6
 }
+
+### P2
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "chris warne"
+}
