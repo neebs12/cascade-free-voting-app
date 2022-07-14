@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 const bull = (
   <Box
@@ -14,8 +15,22 @@ const bull = (
     •
   </Box>
 )
+const theme = createTheme({
+  components: {
+    // Name of the component
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          fontSize: '1rem',
+        },
+      },
+    },
+  },
+})
 
-export default function IdeaTile2 () {
+export default function IdeaTile2() {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -25,15 +40,24 @@ export default function IdeaTile2 () {
         <Typography variant="h5" component="div">
           7 Minute Abs
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
         <Typography variant="body2">
-        7's the key number here. Think about it. <br />
-        7-Elevens. 7 dwarves. 7, man, that's the number. <br />
-        7 chipmunks twirlin' on a branch, <br />
-        eatin' lots of sunflowers on my uncle's ranch. <br />
+          7's the key number here. Think about it. <br />
+          7-Elevens. 7 dwarves. 7, man, that's the number. <br />
+          7 chipmunks twirlin' on a branch, <br />
+          eatin' lots of sunflowers on my uncle's ranch. <br />
         </Typography>
       </CardContent>
+      <CardActions>
+        <ThemeProvider theme={theme}>
+          <Button size="small" color="primary">
+            subtract
+          </Button>
+          <Button size="small" color="primary">
+            add
+          </Button>
+        </ThemeProvider>
+      </CardActions>
     </Card>
   )
 }
