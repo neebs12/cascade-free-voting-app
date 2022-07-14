@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Login from './Login'
-
-import { fetchFruits } from '../actions'
+import Landing from './Landing'
+import Nav from './Nav'
+import BeforeVote from './BeforeVote'
+import Voting from './Voting'
 
 function App () {
-
   return (
     <>
-      <Login />
+      <Nav />
+
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/user/login' element={<Login />} />
+        <Route path='/user/before_vote' element={<BeforeVote />} />
+        <Route path='/user/voting' element={<Voting />} />
+        {/* <Route path='/user/after_vote' element={<AfterVote />} />
+        <Route path='/user/results' element={<Results />} />
+        <Route path='/user/results' element={<Winners />} /> */}
+
+      </Routes>
     </>
   )
 }
