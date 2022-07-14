@@ -3,7 +3,7 @@ exports.up = function (knex) {
     // PK
     table.increments('id')
     // where name is stored 
-    table.string('user') 
+    table.string('name') 
     // field for voted status - default false
     table.boolean('voted').notNullable().defaultTo(false)
   })

@@ -1,5 +1,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('sessions', function(table) {
+    // PK
+    table.increments('id')
     // useful for A1 form
     // this is the event_name
     table.string('event_name')
