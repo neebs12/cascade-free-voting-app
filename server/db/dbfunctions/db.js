@@ -1,29 +1,6 @@
-const _ =  require('lodash')
-const connection = require('./connection')
+const connection = require('../connection')
 
-// HELPERS for translating between snake and camel case
-const mapToCase = (val, caseFn) => {
-  const isArray = Array.isArray(val)
-  if (isArray) {
-    // is an array of object
-    return val.map(obj => {
-      return _.mapKeys(obj, (__, key) => caseFn(key))
-    })
-  } else {
-    // is an object itself
-    return _.mapKeys(val, (__, key) => caseFn(key))
-  }
-}
-
-const mapToCamelCase = val => {
-  const caseFn = _.camelCase
-  return mapToCase(val, caseFn) 
-}
-
-const mapToSnakeCase = val => {
-  const caseFn = _.snakeCase
-  return mapToCase(val, caseFn)
-}
+const {mapToCamelCase, mapToSnakeCase} = require('./dbHelper') 
 
 // REUSABLES
 function getByTableName(tableName, db = connection) {
@@ -61,7 +38,7 @@ function deleteByTableNameAndId(tableName, id, db = connection) {
     .delete()
 }
 
-function deleteByTableName(tableName, id, db = connection) {
+function deleteByTableName(db = connection) {
   return db.delete()
 }
 
