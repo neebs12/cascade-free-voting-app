@@ -5,6 +5,8 @@ import Box from '@mui/material/Box'
 export default function Login () {
   return (
     <>
+      <h1>U1</h1>
+      <h2>This is the user login page</h2>
       <div className="login_center_div">
         <div className="form_container">
           <h2>User</h2>

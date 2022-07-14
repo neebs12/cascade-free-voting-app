@@ -18,9 +18,9 @@ server.use('/api/v1/users', usersRoutes)
 server.use('/api/v1/ideas', ideasRoutes)
 server.use('/api/v1/votes', votesRoutes)
 
-server.use(apiHelper.unknownEndpoint)
-// <--- normal arg cb
-server.use(apiHelper.errorHandler)
-// <--- err arg cb, hence controlled
+server.get('*', (req, res) => {
+  console.log('hit!!')
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+})
 
 module.exports = server
