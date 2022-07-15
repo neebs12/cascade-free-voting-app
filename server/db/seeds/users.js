@@ -9,8 +9,9 @@ exports.seed = function(knex) {
         {id: 2, name: 'Master Chief 117'},
         {id: 3, name: 'gkford'},
         {id: 4, name: 'j4r3d'},
-        {id: 6, name: 'hello there ---'},
-        {id: 7, name: 'super fly123'}
+        {id: 5, name: 'hello there ---'},
+        {id: 6, name: 'super fly123'},
+        {id: 7, name: 'never-vote person'}
       ]);
     });
 };

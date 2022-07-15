@@ -38,12 +38,9 @@ function deleteByTableNameAndId(tableName, id, db = connection) {
     .delete()
 }
 
-function deleteByTableName(db = connection) {
-  return db.delete()
+function deleteByTableName(tableName, db = connection) {
+  return db(tableName).delete()
 }
-
-// CUSTOM Functions
-// -- dependent on need of custom queries/logic compartmentalization
 
 module.exports = {
   getByTableName,

@@ -8,7 +8,9 @@ exports.up = function(knex) {
     table.string('description')
     // FK for user_id
     table.integer('user_id')
-    table.foreign('user_id').references('users.id')
+    table.foreign('user_id')
+      .references('users.id')
+      .onDelete('CASCADE')
   })
 
 };

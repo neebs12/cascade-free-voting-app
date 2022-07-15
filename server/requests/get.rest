@@ -4,8 +4,22 @@ GET http://localhost:3000/api/v1/sessions
 ### (G2)
 GET http://localhost:3000/api/v1/users
 
-### Get all request
+### (G3yn)
+GET http://localhost:3000/api/v1/votes/is_ready
+
+### (G4)
+GET http://localhost:3000/api/v1/users/status
+
+### (G4yn)
+GET http://localhost:3000/api/v1/votes/is_finished
+
+### G5
+GET http://localhost:3000/api/v1/ideas/winners
+
+### (G6)
+GET http://localhost:3000/api/v1/votes
+
+### (G7)
 GET http://localhost:3000/api/v1/ideas
 
-### Get all request
-GET http://localhost:3000/api/v1/votes
+
