@@ -15,14 +15,9 @@ server.use(express.static(path.join(__dirname, 'public')))
 
 server.use(apiHelper.terminalLogger)
 
-server.use('/api/v1/sessions', sessionsRoutes)
-server.use('/api/v1/users', usersRoutes)
-server.use('/api/v1/ideas', ideasRoutes)
-server.use('/api/v1/votes', votesRoutes)
-
-server.use(apiHelper.unknownEndpoint) 
-// <--- normal arg cb
-server.use(apiHelper.errorHandler)    
-// <--- err arg cb, hence controlled
+server.use('/api/v1/sessions', sessionsRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
+server.use('/api/v1/users', usersRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
+server.use('/api/v1/ideas', ideasRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
+server.use('/api/v1/votes', votesRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
 
 module.exports = server
