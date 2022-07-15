@@ -7,17 +7,41 @@ body {
 h2{
   margin-left: 10px;
 }
+// Oops used underscores (may fix one day...)
 
 .login_center_div{
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.vote-results-div{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.admin-new-center-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px
+}
+
 .login_center_div_col{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.login-center-div-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+
 }
 
 .form_container {

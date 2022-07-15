@@ -1,69 +1,69 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import { alpha } from '@mui/material/styles'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 
-export default function IdeaTile () {
+// Here are a few unused imports that may be helpful if I import some stuff
+// import Box from '@mui/material/Box'
+// import Button from '@mui/material/Button'
+// import { ThemeProvider, createTheme } from '@mui/material/styles'
+
+export default function IdeaTile ({ idea }) {
+  const { title, description } = idea
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        alignItems: 'center',
-        bgcolor: 'background.paper',
-        overflow: 'hidden',
-        borderRadius: '12px',
-        boxShadow: 1,
-        fontWeight: 'bold'
-      }}
-    >
-      <Box
-        component="img"
-        sx={{
-          height: 233,
-          width: 350,
-          maxHeight: { xs: 233, md: 167 },
-          maxWidth: { xs: 350, md: 250 }
-        }}
-        alt="The house from the offer."
-        src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-      />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'flex-start' },
-          m: 3,
-          minWidth: { md: 350 }
-        }}
-      >
-        <Box component="span" sx={{ fontSize: 16, mt: 1 }}>
-          123 Main St, Phoenix AZ
-        </Box>
-        <Box component="span" sx={{ color: 'primary.main', fontSize: 22 }}>
-          $280,000 — $310,000
-        </Box>
-        <Box
-          sx={{
-            mt: 1.5,
-            p: 0.5,
-            backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
-            borderRadius: '5px',
-            color: 'primary.main',
-            fontWeight: 'medium',
-            display: 'flex',
-            fontSize: 12,
-            alignItems: 'center',
-            '& svg': {
-              fontSize: 21,
-              mr: 0.5
-            }
-          }}
-        >
-          <ErrorOutlineIcon />
-          CONFIDENCE SCORE 85%
-        </Box>
-      </Box>
-    </Box>
+    <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {/* The Hitchhiker */}
+        </Typography>
+        <Typography variant="h5" component="div">
+          {title}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
+        <Typography variant="body2">
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        {/* <ThemeProvider theme={theme}> */}
+        {/* <Button size="small" color="primary">
+            subtract
+          </Button>
+          <Button size="small" color="primary">
+            add
+          </Button> */}
+        {/* <!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons--> */}
+        <div className="input-group plus-minus-input">
+          <div className="input-group-button">
+            <button
+              type="button"
+              className="button hollow circle"
+              data-quantity="minus"
+              data-field="quantity"
+            >
+              -<i className="fa fa-minus" aria-hidden="true"></i>
+            </button>
+          </div>
+          <input
+            className="input-group-field"
+            type="number"
+            name="quantity"
+            value="0"
+          />
+          <div className="input-group-button">
+            <button
+              type="button"
+              className="button hollow circle"
+              data-quantity="plus"
+              data-field="quantity"
+            >
+              +<i className="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        {/* </ThemeProvider> */}
+      </CardActions>
+    </Card>
   )
 }
