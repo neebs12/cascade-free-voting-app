@@ -40,4 +40,22 @@ router.get('/is_ready', async (req, res) => {
   })
 })
 
+router.get('/is_finished', async (req, res) => {
+  // need to cross check the existence of userId in `votes` (`voteUserIds`) with all the userIds in `users` (`allUserIds`).
+  // iterate over `allUserIds`, then return false if includes in `voteUserIds`
+  const allUserIds = (await db.getByTableName('users')).map(u => u.id)
+
+  const voteUserIds = (await db.getByTableName('votes')).map(v => v.userId)
+
+  const filteredUserId = allUserIds.filter(aId => {
+    return !voteUserIds.includes(aId)
+  })
+
+  console.log(filteredUserId)
+
+  res.status(200).json({
+    votingFinished: filteredUserId.length === 0
+  })
+})
+
 module.exports = router
