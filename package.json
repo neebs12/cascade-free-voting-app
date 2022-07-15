@@ -18,7 +18,8 @@
     "build:server": "npm run knex -- migrate:latest",
     "lint": "eslint --ext .js,.jsx .",
     "webpack": "webpack --config ./client/webpack.config.js",
-    "knex": "knex --knexfile ./server/db/knexfile.js"
+    "knex": "knex --knexfile ./server/db/knexfile.js",
+    "knex:reset": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run"
   },
   "babel": {
     "presets": [
@@ -45,6 +46,7 @@
     "@vscode/sqlite3": "^5.0.7",
     "express": "^4.17.1",
     "knex": "^1.0.2",
+    "lodash": "^4.17.21",
     "pg": "^8.5.1",
     "superagent": "^6.1.0"
   },

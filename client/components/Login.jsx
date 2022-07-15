@@ -5,6 +5,8 @@ import Box from '@mui/material/Box'
 export default function Login () {
   return (
     <>
+      <h1>U1</h1>
+      <h2>This is the user login page</h2>
       <div className="login_center_div">
         <div className="form_container">
           <h2>User</h2>
@@ -23,7 +25,7 @@ export default function Login () {
               variant="outlined"
             />
             <TextField
-              sx={{ display: 'flex', height: '200px' }}
+              sx={{ display: 'flex' }}
               multiline
               rows={4}
               maxRows={4}
@@ -33,9 +35,6 @@ export default function Login () {
             />
           </Box>
         </div>
-      </div>
-      <div>
-        <h2>User v2</h2>
       </div>
     </>
   )

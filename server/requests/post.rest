@@ -1,0 +1,8 @@
+### P1
+POST http://localhost:3000/api/v1/sessions
+Content-Type: application/json
+
+{
+  "title": "this is a new title",
+  "numWinners" : 6
+}

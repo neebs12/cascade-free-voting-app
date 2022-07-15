@@ -1,39 +1,39 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Login from './Login'
-
-import { fetchFruits } from '../actions'
-import IdeaTile from './IdeaTile'
-import IdeaTile2 from './IdeaTile2'
+import Landing from './Landing'
+import Nav from './Nav'
+import BeforeVote from './BeforeVote'
+import Voting from './Voting'
+import AfterVote from './AfterVote'
+import UserResults from './UserResults'
+import Winners from './Winners'
+import New from './New'
+import Ideas from './Ideas'
+import AdminWaiting from './AdminWaiting'
+import AdminResults from './AdminResults'
 
 function App () {
-  const ideas = [
-    {
-      id: 1,
-      title: '7 Minute Abs',
-      description: "7's the key number here. Think about it."
-    },
-    {
-      id: 2,
-      title: '6 Minute Abs',
-      description: 'But what if someone comes up with 6 minute abs.'
-    },
-    { id: 3, title: 'Minute Abs', description: 'Abs in Minutes' }
-  ]
   return (
     <>
-      <Login />
-      <div className="login_center_div_col">
-        <p>IdeaTile1</p>
-        <IdeaTile />
-      </div>
+      <Nav />
+      <Routes>
+        {/* Landing */}
+        <Route path='/' element={<Landing />} />
+        {/* Users Pages */}
+        <Route path='/user/login' element={<Login />} />
+        <Route path='/user/before_vote' element={<BeforeVote />} />
+        <Route path='/user/voting' element={<Voting />} />
+        <Route path='/user/after_vote' element={<AfterVote />} />
+        <Route path='/user/results' element={<UserResults />} />
+        <Route path='/user/winners' element={<Winners />} />
+        {/* Admin Pages */}
+        <Route path='/admin/new' element={<New />} />
+        <Route path='/admin/ideas' element={<Ideas />} />
+        <Route path='/admin/waiting' element={<AdminWaiting />} />
+        <Route path='/admin/results' element={<AdminResults />} />
 
-      <p>IdeaTile2</p>
-      <div className="tile-container">
-        {ideas.map((idea) => {
-          return <IdeaTile2 key={idea.id} idea={idea} />
-        })}
-      </div>
+      </Routes>
     </>
   )
 }
