@@ -7,14 +7,32 @@ import IdeaTile from './IdeaTile'
 import IdeaTile2 from './IdeaTile2'
 
 function App () {
+  const ideas = [
+    {
+      id: 1,
+      title: '7 Minute Abs',
+      description: "7's the key number here. Think about it."
+    },
+    {
+      id: 2,
+      title: '6 Minute Abs',
+      description: 'But what if someone comes up with 6 minute abs.'
+    },
+    { id: 3, title: 'Minute Abs', description: 'Abs in Minutes' }
+  ]
   return (
     <>
       <Login />
-      <div className='login_center_div_col'>
+      <div className="login_center_div_col">
         <p>IdeaTile1</p>
         <IdeaTile />
-        <p>IdeaTile2</p>
-        <IdeaTile2 />
+      </div>
+
+      <p>IdeaTile2</p>
+      <div className="tile-container">
+        {ideas.map((idea) => {
+          return <IdeaTile2 key={idea.id} idea={idea} />
+        })}
       </div>
     </>
   )

@@ -25,6 +25,12 @@ h2{
   flex-direction: column;
 }
 
+.tile-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 
 .plus-minus-input {
   -webkit-align-items: center;
