@@ -13,4 +13,5 @@ GET http://localhost:3000/api/v1/votes
 ### (G4)
 GET http://localhost:3000/api/v1/users/status
 
-### 
+### (G6)
+GET http://localhost:3000/api/v1/votes

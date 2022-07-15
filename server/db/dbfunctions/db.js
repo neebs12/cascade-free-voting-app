@@ -42,9 +42,6 @@ function deleteByTableName(db = connection) {
   return db.delete()
 }
 
-// CUSTOM Functions
-// -- dependent on need of custom queries/logic compartmentalization
-
 module.exports = {
   getByTableName,
   getByTableNameAndId,

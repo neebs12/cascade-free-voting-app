@@ -1,5 +1,4 @@
 const express = require('express')
-const { useEffect } = require('react')
 
 const db = require('../db/dbfunctions/db')
 const dbUsers = require('../db/dbfunctions/users')
