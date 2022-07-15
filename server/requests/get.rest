@@ -4,11 +4,16 @@ GET http://localhost:3000/api/v1/sessions
 ### (G2)
 GET http://localhost:3000/api/v1/users
 
-### (G7)
-GET http://localhost:3000/api/v1/ideas
+### (G3yn)
+GET http://localhost:3000/api/v1/votes/is_ready
+
+### (G4)
+GET http://localhost:3000/api/v1/users/status
 
 ### (G6)
 GET http://localhost:3000/api/v1/votes
 
-### (G4)
-GET http://localhost:3000/api/v1/users/status
+### (G7)
+GET http://localhost:3000/api/v1/ideas
+
+

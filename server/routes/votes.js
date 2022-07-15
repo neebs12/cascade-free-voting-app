@@ -22,17 +22,22 @@ router.get('/', async (req, res) => {
 router.get('/is_ready', async (req, res) => {
   // need to see if all users have existing ideas
   // need all users, get respective ids
-  const allUserIds = (await db.getByTableName('users'))
-                              .map(u => u.id)
+  const allUserIds = (await db.getByTableName('users')).map(u => u.id)
+
   // need all ideas, get respective user_ids (no need to be unique)
-  const userIdsInIdeas = (await db.getByTableName('ideas'))
-                                  .map(idea => idea.id)
+  const userIdsInIdeas = (await db.getByTableName('ideas')).map(idea => idea.userId)
+
   // filter `allUserIds` - `filteredUserId`
   // -- iterate through `allUserIds`
   // -- if an id exists within `userIdsInIdeas`, return false, else true
   // `booln` = filteredUserId.length === 0, return true, else false {votingReady: bool} 
+  const filteredUserId = allUserIds.filter(aId => {
+    return !userIdsInIdeas.includes(aId)
+  })
 
-
+  res.status(200).json({ 
+    votingReady: filteredUserId.length === 0 
+  })
 })
 
 module.exports = router
