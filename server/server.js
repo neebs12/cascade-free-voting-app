@@ -20,4 +20,9 @@ server.use('/api/v1/users', usersRoutes, apiHelper.unknownEndpoint, apiHelper.er
 server.use('/api/v1/ideas', ideasRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
 server.use('/api/v1/votes', votesRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
 
+server.get('*', (req, res) => {
+  console.log('hit!!')
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+})
+
 module.exports = server
