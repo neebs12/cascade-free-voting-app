@@ -6,9 +6,7 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
   const result = await db.getByTableName('users')
-  // results look like: [{id: '...', name: '...', voted: '...'}, {...}, ...]
-  // simply deletes the `voted` property from the `r` object
-  // result.forEach(r => delete r.voted)
+  // results look like: [{id: '...', name: '...'}, {...}, ...]
   res.status(200).json(result)
 })
 

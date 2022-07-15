@@ -38,8 +38,8 @@ function deleteByTableNameAndId(tableName, id, db = connection) {
     .delete()
 }
 
-function deleteByTableName(db = connection) {
-  return db.delete()
+function deleteByTableName(tableName, db = connection) {
+  return db(tableName).delete()
 }
 
 module.exports = {

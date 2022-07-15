@@ -54,6 +54,10 @@ router.post('/', async (req, res) => {
   
   // then query the database for the whole state
   const ideasState = await db.getByTableName('ideas')
+
+  // then, after ideas have been populated, we delete clear the `votes` table (onDelete(''))
+  // so side effect happens at application level - sigh
+  await db.deleteByTableName('votes')
   res.status(200).json(ideasState)
 })
 
