@@ -13,6 +13,9 @@ GET http://localhost:3000/api/v1/users/status
 ### (G4yn)
 GET http://localhost:3000/api/v1/votes/is_finished
 
+### G5
+GET http://localhost:3000/api/v1/ideas/winners
+
 ### (G6)
 GET http://localhost:3000/api/v1/votes
 

@@ -41,14 +41,14 @@ async function getIdeasWithOwnerAndVotes(db = connection) {
   
   const ideas = await getIdeasWithOwners()
   ideas.forEach(ideaRecord => ideaRecord.votes = 0)
-  console.log(ideas)
+  // console.log(ideas)
 
   const votes = await dbVotes.getVotes()
   votes.forEach(voteRecord => {
     const freq = voteRecord.freq
     const ideaId = voteRecord.ideaId
     const relevantIdea = ideas.find(ideaRecord => {
-      console.log(ideaRecord.id, ideaId)
+      // console.log(ideaRecord.id, ideaId)
       return ideaRecord.id === ideaId
     })
     relevantIdea.votes += freq
