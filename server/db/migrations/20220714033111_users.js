@@ -4,8 +4,6 @@ exports.up = function (knex) {
     table.increments('id')
     // where name is stored 
     table.string('name') 
-    // field for voted status - default false
-    table.boolean('voted').notNullable().defaultTo(false)
   })
 }
 

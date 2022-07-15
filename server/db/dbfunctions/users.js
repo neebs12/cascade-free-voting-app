@@ -5,10 +5,26 @@ const {mapToCamelCase, mapToSnakeCase} = require('./dbHelper')
 
 // CUSTOM
 async function getUsersByVotedStatus(voteStatus, db = connection) {
-  return await db('users')
-    .select()
-    .where('voted', voteStatus)
-    .then(result => mapToCamelCase(result))
+  // OKAY, so this can be done without the need to use the `voted` field in the `users` entity
+  // so lets say, user enters `voteStatus` - a boolean
+  // get the whole `votes` entity
+  // -- map it so that only userId remains `votesUserIds`
+  // get the whole `users` entity
+  // based on required `voteStatus`, filter the the `users` entity
+  // -- then return the filtered collection
+  // BAM, no need for the voted field
+  const votes = await dbGenericFns.getByTableName('votes')
+  const votesUserIds = votes.map(v => v.userId)
+  
+  const users = await dbGenericFns.getByTableName('users')
+  // const allUserIds = users.map(u => u.id)
+
+  const resultUsers = users.filter(u => {
+    // note: voteStatus is a boolean
+    return votesUserIds.includes(u.id) === voteStatus
+  })
+
+  return resultUsers
 }
 
 async function updateUserVoteStatusById(id, voteStatus, db = connection) {

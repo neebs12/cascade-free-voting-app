@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   const result = await db.getByTableName('users')
   // results look like: [{id: '...', name: '...', voted: '...'}, {...}, ...]
   // simply deletes the `voted` property from the `r` object
-  result.forEach(r => delete r.voted)
+  // result.forEach(r => delete r.voted)
   res.status(200).json(result)
 })
 
