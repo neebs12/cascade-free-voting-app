@@ -58,4 +58,17 @@ router.get('/is_finished', async (req, res) => {
   })
 })
 
+router.post('/', async (req, res) => {
+  /* Expected: 
+  votes = [
+    {
+    userId: int,
+    ideaId: int,
+    freq: int
+    }, {....}, {....}
+  ] */
+  // This will populate the `votes` entity with new voteRecords!
+  res.status(200).json({message: 'POST api/v1/votes is not yet implemented!'})
+})
+
 module.exports = router
