@@ -30,4 +30,31 @@ router.get('/winners', async (req, res) => {
   res.status(200).json(slicedIdeas)
 })
 
+router.post('/', async (req, res) => {
+  /*
+  // Adding new ideas to the `ideas` entity 
+  Expecting: 
+  [{
+    userId: int,
+    userName: 'string', // ignored
+    title: 'string',
+    description: 'string'
+  }, {...}, ...]
+  */
+  const rawData = req.body
+  const data = rawData.map(rd => {
+    return {
+      title: rd.title,
+      description: rd.description,
+      userId: rd.userId
+    }
+  })
+
+  await dbIdeas.populateIdeas(data)
+  
+  // then query the database for the whole state
+  const ideasState = await db.getByTableName('ideas')
+  res.status(200).json(ideasState)
+})
+
 module.exports = router

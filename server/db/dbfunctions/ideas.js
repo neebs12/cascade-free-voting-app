@@ -51,14 +51,24 @@ async function getIdeasWithOwnerAndVotes(db = connection) {
       // console.log(ideaRecord.id, ideaId)
       return ideaRecord.id === ideaId
     })
-    relevantIdea.votes += freq
+    if (relevantIdea) {
+      relevantIdea.votes += freq
+    }
   })
 
   return ideas
+}
 
+async function populateIdeas(data, db = connection) {
+  await db('ideas').delete()
+
+  data = mapToSnakeCase(data)
+
+  await db('ideas').insert(data)
 }
 
 module.exports = {
   getIdeasWithOwners,
   getIdeasWithOwnerAndVotes,
+  populateIdeas,
 }
