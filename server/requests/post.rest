@@ -63,3 +63,25 @@ Content-Type: application/json
     "description": "democracy is kinda sus, ngl"        
   }
 ]
+
+### P4
+POST http://localhost:3000/api/v1/votes
+Content-Type: application/json
+
+[
+  {
+    "userId": 6,
+    "ideaId": 3,
+    "freq": 3
+  },
+  {
+    "userId": 6,
+    "ideaId": 6,
+    "freq": 1
+  },
+  {
+    "userId": 6,
+    "ideaId": 4,
+    "freq": 1
+  }
+]

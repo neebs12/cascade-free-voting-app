@@ -10,6 +10,13 @@ async function getVotes(db = connection) {
   return mapToCamelCase(result)
 }
 
+async function addVotes(data, db = connection) {
+  // typical knex return is an array of ids of the records that have been added to the specific entity
+  data = mapToSnakeCase(data)
+  return await db('votes').insert(data)
+} 
+
 module.exports = {
   getVotes,
+  addVotes
 }

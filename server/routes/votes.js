@@ -2,6 +2,7 @@ const express = require('express')
 
 const db = require('../db/dbfunctions/db')
 const dbIdeas = require('../db/dbfunctions/ideas')
+const dbVotes = require('../db/dbfunctions/votes')
 
 
 const router = express.Router()
@@ -67,8 +68,19 @@ router.post('/', async (req, res) => {
     freq: int
     }, {....}, {....}
   ] */
-  // This will populate the `votes` entity with new voteRecords!
-  res.status(200).json({message: 'POST api/v1/votes is not yet implemented!'})
+  // This will populate the `votes` entity with new voteRecords! This will added 'dynamically' as each user adds their own vote (presses submit at U3)
+  // The frontend will provide the userId and the associated ideaId that has been voted on
+  // intention with the return is to return the whole state of the database to the front-end. And it will do what it needs to do with it. 
+  // assume that it wants to use the getIdeasWithOwnerAndVotes function
+  
+  const data = req.body
+  // here the `votes` entity is being changed
+  await dbVotes.addVotes(data)
+  // then we get the flexible return `getIdeasWithOwnerAndVotes`
+  // -- perhaps this is so that we can get a live update of the information from the backend, even if it isn't being used at all!
+  const result = await dbIdeas.getIdeasWithOwnerAndVotes()
+
+  res.status(200).json(result)
 })
 
 module.exports = router
