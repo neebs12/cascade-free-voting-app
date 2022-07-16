@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
+import { Link } from 'react-router-dom'
 
 export default function ButtonAppBar () {
   return (
@@ -21,7 +22,7 @@ export default function ButtonAppBar () {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component={Link} to='/' sx={{ flexGrow: 1, textDecoration: 'none', color: 'white' }}>
             dotCascade
           </Typography>
           <Button color="inherit">Login</Button>
