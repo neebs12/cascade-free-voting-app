@@ -6,3 +6,82 @@ Content-Type: application/json
   "title": "this is a new title",
   "numWinners" : 6
 }
+
+### P2
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+  "name": "lachlan ford"
+}
+
+### P3
+POST http://localhost:3000/api/v1/ideas
+Content-Type: application/json
+
+[
+  {
+    "userId": 1,
+    "userName": "Jason",
+    "title": "cascade free voting v2",
+    "description": "kinda like v1, but more like v2"
+  },
+  {
+    "userId": 2,
+    "userName": "Master Chief 117",
+    "title": "destroying the halo",
+    "description": "I need guns, lots of guns"    
+  },
+  {
+    "userId": 3,
+    "userName": "gkford",
+    "title": "7 minute abs",
+    "description": "definitely worth trying this out"    
+  },
+  {
+    "userId": 4,
+    "userName": "j4r3d",
+    "title": "6 minute abs",
+    "description": "better than the 7 minute abs"        
+  },
+  {
+    "userId": 5,
+    "userName": "hello there ---",
+    "title": "Protect the jedi temple",
+    "description": "make anakin a jedi master - despite what windu says. That bald mf"        
+  },
+  {
+    "userId": 6,
+    "userName": "super fly123",
+    "title": "Do zoomer stuff",
+    "description": "fr fr check this out we gon dip on god no cap"        
+  },
+  {
+    "userId": 7,
+    "userName": "never-vote person",
+    "title": "Stop democracy",
+    "description": "democracy is kinda sus, ngl"        
+  }
+]
+
+### P4
+POST http://localhost:3000/api/v1/votes
+Content-Type: application/json
+
+[
+  {
+    "userId": 6,
+    "ideaId": 3,
+    "freq": 3
+  },
+  {
+    "userId": 6,
+    "ideaId": 6,
+    "freq": 1
+  },
+  {
+    "userId": 6,
+    "ideaId": 4,
+    "freq": 1
+  }
+]

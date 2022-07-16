@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const rawData = req.body
-    await dbSessions.addToSession({
+    await dbSessions.populateSession({
       eventName: rawData.title,
       winningIdeasNum: rawData.numWinners
     })

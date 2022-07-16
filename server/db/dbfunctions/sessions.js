@@ -2,7 +2,7 @@ const connection = require('../connection')
 
 const {mapToCamelCase, mapToSnakeCase} = require('./dbHelper') 
 
-function addToSession(data, db = connection) {
+function populateSession(data, db = connection) {
   // delete the contents of the `sessions` table
   return db('sessions').delete().then(() => {
     // then here, 'sessions' table has been cleared of records
@@ -16,5 +16,5 @@ function addToSession(data, db = connection) {
 }
 
 module.exports = {
-  addToSession,
+  populateSession,
 }
