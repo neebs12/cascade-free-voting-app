@@ -49,6 +49,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.0",
+    "@reduxjs/toolkit": "^1.8.3",
     "@vscode/sqlite3": "^5.0.7",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
