@@ -1,12 +1,15 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import { Link } from 'react-router-dom'
 
 export default function Login () {
   return (
     <>
-      <h1>U1</h1>
-      <h2>This is the user login page</h2>
+      {/* <h1>U1</h1>
+      <h2>This is the user login page</h2> */}
       <div className="login_center_div">
         <div className="form_container">
           <h2>User</h2>
@@ -24,7 +27,7 @@ export default function Login () {
               label="Name"
               variant="outlined"
             />
-            <TextField
+            {/* <TextField
               sx={{ display: 'flex' }}
               multiline
               rows={4}
@@ -32,7 +35,8 @@ export default function Login () {
               id="outlined-basic"
               label="Idea"
               variant="outlined"
-            />
+            /> */}
+            <Button component={Link} to="/user/before_vote" variant="outlined">Submit</Button>
           </Box>
         </div>
       </div>
