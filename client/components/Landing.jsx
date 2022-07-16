@@ -9,7 +9,7 @@ export default function Landing () {
       {/* <h1>AU1</h1>
       <h2>This is the Landing page</h2> */}
       <div className="login-center-div-row">
-        <Button
+        <Button component={Link} to="/admin/new"
           variant="outlined"
           sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
         >

@@ -15,7 +15,7 @@ export default function Voting () {
       title: '6 Minute Abs',
       description: 'But what if someone comes up with 6 minute abs.'
     },
-    { id: 3, title: 'Minute Abs', description: 'Abs in Minutes' }
+    { id: 3, title: 'Minute Abs', description: 'Abs in a Minute' }
   ]
   return (
     <>

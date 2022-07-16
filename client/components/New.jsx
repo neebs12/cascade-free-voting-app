@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
+import { Link } from 'react-router-dom'
 
 export default function New () {
   return (
@@ -33,7 +34,7 @@ export default function New () {
               label="Number of intended final ideas"
               variant="outlined"
             />
-            <Button variant="outlined">Submit</Button>
+            <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button>
           </Box>
         </div>
       </div>

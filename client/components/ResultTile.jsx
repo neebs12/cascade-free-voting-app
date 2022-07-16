@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography'
 // import Button from '@mui/material/Button'
 // import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-export default function ResultsTile ({ idea }) {
-  const { title, description } = idea
+export default function ResultsTile ({ result }) {
+  const { title, description, votes } = result
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -27,7 +27,7 @@ export default function ResultsTile ({ idea }) {
             N
           </Typography>
           <Typography variant="h1" component="div">
-            TN
+            {votes}
           </Typography>
         </div>
       </CardContent>
