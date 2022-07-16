@@ -39,9 +39,6 @@ async function configDbState() {
     case 'prod':
       await prod()
       break
-    case 'same':
-      await Promise.resolve(null)
-      break
     case 'full':
       await Promise.resolve(null)
       break
