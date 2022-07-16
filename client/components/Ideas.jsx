@@ -39,7 +39,7 @@ export default function Ideas () {
             variant="outlined"
           />
           <Button component={Link} to="/admin/ideas" variant="outlined">
-            Next Idea 
+            Submit
           </Button>
         </Box>
       </div>
