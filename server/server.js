@@ -13,12 +13,15 @@ const server = express()
 server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
-server.use(apiHelper.terminalLogger)
+// should no longer populate console during non-api requests
+server.use('/api/v1', apiHelper.terminalLogger('/api/v1'))
 
-server.use('/api/v1/sessions', sessionsRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
-server.use('/api/v1/users', usersRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
-server.use('/api/v1/ideas', ideasRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
-server.use('/api/v1/votes', votesRoutes, apiHelper.unknownEndpoint, apiHelper.errorHandler)
+server.use('/api/v1/sessions', sessionsRoutes)
+server.use('/api/v1/users', usersRoutes)
+server.use('/api/v1/ideas', ideasRoutes)
+server.use('/api/v1/votes', votesRoutes)
+
+server.use('/api/v1', apiHelper.unknownEndpoint, apiHelper.errorHandler)
 
 server.get('*', (req, res) => {
   console.log('hit!!')
