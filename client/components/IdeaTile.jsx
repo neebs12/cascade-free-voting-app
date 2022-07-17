@@ -50,8 +50,7 @@ export default function IdeaTile ({ idea }) {
               className="button hollow circle"
               data-quantity="minus"
               data-field="quantity"
-            >
-              -            </button>
+            >-</button>
           </div>
           <span className="vote-counter">{count}</span>
           <div className="input-group-button">

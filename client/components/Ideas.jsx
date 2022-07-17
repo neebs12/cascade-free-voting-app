@@ -5,16 +5,37 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
 export default function Ideas () {
+  const names = [
+    {
+      id: 1,
+      name: 'John'
+    },
+    {
+      id: 2,
+      name: 'Paul'
+    },
+    {
+      id: 3,
+      name: 'Ringo'
+    }
+  ]
+
   return (
     <>
       <div>
         <h1>A2</h1>
         <h2>This the page where the admin enters all the ideas</h2>
       </div>
+      <h3>Here are a list of names</h3>
+      <div className="name-container">
+        {names.map((name) => {
+          return <Button key={name.id}variant="outlined">{name.name}</Button>
+          // return <IdeaTile key={idea.id} idea={idea} />
+        })}
+      </div>
       <div>
         <Button variant="outlined">Reload</Button>
       </div>
-      <div className="name-container"></div>
       <div className="form_container">
         <Box
           component="form"
@@ -38,8 +59,11 @@ export default function Ideas () {
             label="Idea description"
             variant="outlined"
           />
-          <Button component={Link} to="/admin/ideas" variant="outlined">
-            Submit
+          <Button variant="outlined">
+            Next idea
+          </Button>
+          <Button component={Link} to="/admin/waiting" variant="outlined">
+            All ideas submitted - ready to vote
           </Button>
         </Box>
       </div>

@@ -12,29 +12,52 @@ import New from './New'
 import Ideas from './Ideas'
 import AdminWaiting from './AdminWaiting'
 import AdminResults from './AdminResults'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+// import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(',')
+  },
+  palette: {
+    primary: {
+      light: '#6a1b9a',
+      main: '#9c4dcc',
+      dark: '#38006b',
+      contrastText: '#fff'
+    },
+    secondary: {
+      light: '#fff263',
+      main: '#fbc02d',
+      dark: '#c49000',
+      contrastText: '#000'
+    }
+  }
+})
 
 function App () {
   return (
-    <>
-      <Nav />
-      <Routes>
-        {/* Landing */}
-        <Route path='/' element={<Landing />} />
-        {/* Users Pages */}
-        <Route path='/user/login' element={<Login />} />
-        <Route path='/user/before_vote' element={<BeforeVote />} />
-        <Route path='/user/voting' element={<Voting />} />
-        <Route path='/user/after_vote' element={<AfterVote />} />
-        <Route path='/user/results' element={<UserResults />} />
-        <Route path='/user/winners' element={<Winners />} />
-        {/* Admin Pages */}
-        <Route path='/admin/new' element={<New />} />
-        <Route path='/admin/ideas' element={<Ideas />} />
-        <Route path='/admin/waiting' element={<AdminWaiting />} />
-        <Route path='/admin/results' element={<AdminResults />} />
-
-      </Routes>
-    </>
+    <ThemeProvider theme={theme}>
+      <>
+        <Nav />
+        <Routes>
+          {/* Landing */}
+          <Route path="/" element={<Landing />} />
+          {/* Users Pages */}
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/user/before_vote" element={<BeforeVote />} />
+          <Route path="/user/voting" element={<Voting />} />
+          <Route path="/user/after_vote" element={<AfterVote />} />
+          <Route path="/user/results" element={<UserResults />} />
+          <Route path="/user/winners" element={<Winners />} />
+          {/* Admin Pages */}
+          <Route path="/admin/new" element={<New />} />
+          <Route path="/admin/ideas" element={<Ideas />} />
+          <Route path="/admin/waiting" element={<AdminWaiting />} />
+          <Route path="/admin/results" element={<AdminResults />} />
+        </Routes>
+      </>
+    </ThemeProvider>
   )
 }
 
