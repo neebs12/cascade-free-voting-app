@@ -1,22 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import IdeaTile from './IdeaTile'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchIdeas, selectAllIdeas } from '../features/ideas/ideasSlice'
+import { fetchSession, selectSession } from '../features/session/sessionSlice'
 
 export default function Voting () {
-  const ideas = [
-    {
-      id: 1,
-      title: '7 Minute Abs',
-      description: "7's the key number here. Think about it."
-    },
-    {
-      id: 2,
-      title: '6 Minute Abs',
-      description: 'But what if someone comes up with 6 minute abs.'
-    },
-    { id: 3, title: 'Minute Abs', description: 'Abs in a Minute' }
-  ]
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('use effect')
+    console.log('fetchSession', fetchSession())
+    console.log('fetchIdeas', fetchIdeas())
+    dispatch(fetchIdeas())
+    dispatch(fetchSession())
+  }, [])
+
+  const ideas = useSelector(selectAllIdeas)
+
+  const session = useSelector(selectSession)
+
   return (
     <>
       {/* <h1>U3</h1>
