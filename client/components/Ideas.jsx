@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { selectAllIdeas, fetchIdeas, add } from '../features/ideas/ideasSlice'
+import { selectAllIdeas, fetchIdeas } from '../features/ideas/ideasSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
@@ -10,13 +10,10 @@ export default function Ideas () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('use effect')
     dispatch(fetchIdeas())
-    dispatch(add())
   }, [])
 
   const ideas = useSelector(selectAllIdeas)
-  console.log('ideas', ideas)
   return (
     <>
       <div>
