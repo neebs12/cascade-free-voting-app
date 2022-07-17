@@ -50,9 +50,11 @@ h2{
 }
 
 .tile-container{
+  margin: 50px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 

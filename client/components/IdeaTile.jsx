@@ -3,6 +3,8 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { palette } from '@mui/system'
 
 // Here are a few unused imports that may be helpful if I import some stuff
 // import Box from '@mui/material/Box'
@@ -33,6 +35,7 @@ export default function IdeaTile ({ idea }) {
         <Typography variant="body2">
           {description}
         </Typography>
+        {/* <DeleteIcon sx={{ fontSize: 100 }} color="primary"/> */}
       </CardContent>
       <CardActions>
         {/* <ThemeProvider theme={theme}> */}
