@@ -9,7 +9,6 @@ const users = [1, 2, 3]
 
 export function fetchCurrentUsers () {
   return request.get('api/v1/users').then((res) => {
-    console.log('users apiClient response', res)
     return users
   })
 }

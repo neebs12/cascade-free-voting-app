@@ -24,7 +24,6 @@ server.use('/api/v1/votes', votesRoutes)
 server.use('/api/v1', apiHelper.unknownEndpoint, apiHelper.errorHandler)
 
 server.get('*', (req, res) => {
-  console.log('hit!!')
   res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 

@@ -22,10 +22,8 @@ export const usersSlice = createSlice({
   extraReducers (builder) {
     builder
       .addCase(fetchUsers.pending, (state, action) => {
-        console.log('users pending: action ', action)
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        console.log('users fulfilled: action ', action)
         console.log(action)
         return action.payload
       })
@@ -56,7 +54,6 @@ export const selectUsers = (state) => state.users
 
 export const fetchUsers = createAsyncThunk('fetchUsers', async () => {
   const response = await fetchCurrentUsers()
-  console.log('response', response)
   return response
 })
 

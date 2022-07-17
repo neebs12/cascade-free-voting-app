@@ -18,11 +18,8 @@ export const ideasSlice = createSlice({
   },
   extraReducers (builder) {
     builder
-      .addCase(fetchIdeas.pending, (state, action) => {
-        console.log('ideas pending: action', action)
-      })
+      .addCase(fetchIdeas.pending, (state, action) => {})
       .addCase(fetchIdeas.fulfilled, (state, action) => {
-        console.log('ideas fulfilled: action', action)
         return action.payload
       })
 
@@ -46,6 +43,11 @@ export const ideasSlice = createSlice({
 
 export const selectAllIdeas = (state) => state.ideas
 
+export const selectVoteCount = (state) => {
+  const ideas = state.ideas
+  return ideas.reduce((total, idea) => idea.votes + total, 0)
+}
+
 // Exports:
 
 export const { addIdea } = ideasSlice.actions
@@ -57,7 +59,6 @@ export const fetchIdeas = createAsyncThunk('fetchIdeas', async () => {
   //   setTimeout(() => { resolve() }, 3000)
   // })
   const response = await fetchAllIdeas()
-  console.log('response', response)
   return response
 })
 

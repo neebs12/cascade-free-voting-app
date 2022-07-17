@@ -10,12 +10,10 @@ export default function Ideas () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('use effect')
     dispatch(fetchIdeas())
   }, [])
 
   const ideas = useSelector(selectAllIdeas)
-  console.log('ideas', ideas)
   return (
     <>
       <div>

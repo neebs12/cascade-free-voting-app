@@ -1,33 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import IdeaTile from './IdeaTile'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchIdeas, selectAllIdeas } from '../features/ideas/ideasSlice'
-import { fetchSession, selectSession } from '../features/session/sessionSlice'
+import { fetchIdeas, selectAllIdeas, selectVoteCount } from '../features/ideas/ideasSlice'
+import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
 
 export default function Voting () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log('use effect')
-    console.log('fetchSession', fetchSession())
-    console.log('fetchIdeas', fetchIdeas())
     dispatch(fetchIdeas())
     dispatch(fetchSession())
   }, [])
 
-  const ideas = useSelector(selectAllIdeas)
+  // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record. Hard coded for now.
+  const numVotes = useSelector(selectNumVotes)
+  const voteCount = useSelector(selectVoteCount)
 
-  const session = useSelector(selectSession)
+  const ideas = useSelector(selectAllIdeas)
 
   return (
     <>
       {/* <h1>U3</h1>
       <h2>This is the Voting page with the whiteboard</h2> */}
       <div>
+        <h3>Votes total: {numVotes} </h3>
         <h3>Votes remaining</h3>
-        <h1>4</h1>
+        <h1>{numVotes - voteCount}</h1>
         <Button variant="outlined" disabled>
           Submit
         </Button>

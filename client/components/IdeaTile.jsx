@@ -4,7 +4,8 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { useSelector, useDispatch } from 'react-redux'
-import { addVote, subtractVote } from '../features/ideas/ideasSlice'
+import { addVote, subtractVote, selectVoteCount } from '../features/ideas/ideasSlice'
+import { selectNumVotes, selectVotesLeft } from '../features/session/sessionSlice'
 // import { getVoteById } from '../features/ideas/ideasSlice'
 
 // Here are a few unused imports that may be helpful if I import some stuff
@@ -20,11 +21,12 @@ const getVoteById = (state, id) => {
 }
 
 export default function IdeaTile ({ idea }) {
-  console.log('id', idea.id)
+  const voteCount = useSelector(selectVoteCount)
+  const numVotes = useSelector(selectNumVotes)
+
   const id = idea.id
   const votes = useSelector(state => getVoteById(state, id))
   const dispatch = useDispatch()
-  console.log('votes', votes)
   const { title, description } = idea
 
   return (
@@ -57,6 +59,7 @@ export default function IdeaTile ({ idea }) {
               className="button hollow circle"
               data-quantity="minus"
               data-field="quantity"
+              disabled={voteCount <= 0}
             >
               -            </button>
           </div>
@@ -67,6 +70,7 @@ export default function IdeaTile ({ idea }) {
               className="button hollow circle"
               data-quantity="plus"
               data-field="quantity"
+              disabled={voteCount >= numVotes}
             >
               +<i className="fa fa-plus" aria-hidden="true"></i>
             </button>

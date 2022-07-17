@@ -4,7 +4,7 @@ import { fetchCurrentSession } from '../../apis/session'
 // State and reducers:
 export const sessionSlice = createSlice({
   name: 'session',
-  initialState: [],
+  initialState: {},
   reducers: {
     addSession (state, action) {
       console.log('addSession action called')
@@ -22,12 +22,9 @@ export const sessionSlice = createSlice({
   extraReducers (builder) {
     builder
       .addCase(fetchSession.pending, (state, action) => {
-        console.log('session pending: action ', action)
       })
       .addCase(fetchSession.fulfilled, (state, action) => {
-        console.log('session fulfilled: action ', action)
-        console.log(action)
-        return action.payload
+        return action.payload[0]
       })
 
     // (fetchMovies.fulfilled, (state, action) => {
@@ -47,16 +44,15 @@ export const sessionSlice = createSlice({
 })
 
 // Selectors:
-export const selectSession = (state) => state.session
+export const selectSession = state => state.session
+export const selectNumVotes = state => state.session.numVotes
 // Actions:
 
-// export const { } = sessionSlice.actions
 
 // Thunk
 
 export const fetchSession = createAsyncThunk('fetchSession', async () => {
   const response = await fetchCurrentSession()
-  console.log('response', response)
   return response
 })
 

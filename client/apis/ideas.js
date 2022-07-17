@@ -26,8 +26,8 @@ const ideas = [
 ]
 
 export function fetchAllIdeas () {
-  return request.get('api/v1/ideas').then((res) => {
-    console.log('apiClient fetchAllIdeas response', res)
-    return ideas
+  //the '../' is required because for some reason I don't understand, the  word 'user' is being prepended to the request url
+  return request.get('../api/v1/ideas').then((res) => {
+  return res.body
   })
 }
