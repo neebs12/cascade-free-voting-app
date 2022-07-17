@@ -1,33 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { postUser } from '../features/users/usersSlice'
+import { useDispatch } from 'react-redux'
 
 export default function Login () {
+  const navigate = useNavigate()
+  const [userName, setUserName] = useState()
+  const dispatch = useDispatch()
+
+  const handleChange = (e) => {
+    const name = e.target.value
+    setUserName(name)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(userName)
+    dispatch(postUser(userName))
+    navigate('/user/before_vote', {replace: true})
+  }
   return (
     <>
-      {/* <h1>U1</h1>
-      <h2>This is the user login page</h2> */}
       <div className="login_center_div">
         <div className="form_container">
-          <h2>User</h2>
+          <h2>Enter your name to sign up </h2>
           <Box
-            component="form"
             sx={{
               '& > :not(style)': { m: 1, width: '25ch' }
             }}
             noValidate
             autoComplete="off"
           >
-            <TextField
-              sx={{ display: 'flex' }}
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-            />
-            {/* <TextField
+            <form onSubmit={handleSubmit}>
+              <TextField
+                sx={{ display: 'flex' }}
+                id="outlined-basic"
+                label="Name"
+                variant="outlined"
+                name="name"
+                onChange={handleChange}
+              />
+              {/* <TextField
               sx={{ display: 'flex' }}
               multiline
               rows={4}
@@ -36,7 +52,16 @@ export default function Login () {
               label="Idea"
               variant="outlined"
             /> */}
-            <Button component={Link} to="/user/before_vote" variant="outlined">Submit</Button>
+              <Button
+                onClick={handleSubmit}
+                type="submit"
+                // component={Link}
+                // to="/user/before_vote"
+                variant="outlined"
+              >
+                Submit
+              </Button>
+            </form>
           </Box>
         </div>
       </div>

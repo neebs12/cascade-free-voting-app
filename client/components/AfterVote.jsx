@@ -7,16 +7,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   selectAllIdeas,
   fetchIdeas,
-  selectVoteReady,
+  selectVoteReady
 } from '../features/ideas/ideasSlice'
 import { fetchSession } from '../features/session/sessionSlice'
-import { fetchUsersStatusThunk } from '../features/users/usersSlice'
+import { fetchUsersStatus, fetchUsers } from '../features/users/usersSlice'
 
-export default function AfterVote() {
+export default function AfterVote () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchUsersStatusThunk())
+    dispatch(fetchUsers())
+    dispatch(fetchUsersStatus())
   }, [])
 
   return (
