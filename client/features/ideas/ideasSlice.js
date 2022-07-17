@@ -11,6 +11,7 @@ export const ideasSlice = createSlice({
       const idea = state.find((idea) => idea.id === action.payload)
       idea.votes++
     },
+    // ideas/subtractVote
     subtractVote (state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
       if (idea.votes > 0) idea.votes--
@@ -45,12 +46,11 @@ export const selectAllIdeas = (state) => state.ideas
 
 export const selectVoteCount = (state) => {
   const ideas = state.ideas
-  return ideas.reduce((total, idea) => idea.votes + total, 0)
+  const totalVotes = ideas.reduce((runningTotal, idea) => idea.votes + runningTotal, 0)
+  return totalVotes
 }
 
-// Exports:
-
-export const { addIdea } = ideasSlice.actions
+export const selectVoteReady = (state) => state.ideas.length > 0
 
 // thunk
 

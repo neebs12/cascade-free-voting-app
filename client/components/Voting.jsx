@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import IdeaTile from './IdeaTile'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
@@ -17,7 +17,6 @@ export default function Voting () {
   // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record. Hard coded for now.
   const numVotes = useSelector(selectNumVotes)
   const voteCount = useSelector(selectVoteCount)
-
   const ideas = useSelector(selectAllIdeas)
 
   return (

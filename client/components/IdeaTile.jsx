@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { useSelector, useDispatch } from 'react-redux'
 import { addVote, subtractVote, selectVoteCount } from '../features/ideas/ideasSlice'
-import { selectNumVotes, selectVotesLeft } from '../features/session/sessionSlice'
+import { selectNumVotes } from '../features/session/sessionSlice'
 // import { getVoteById } from '../features/ideas/ideasSlice'
 
 // Here are a few unused imports that may be helpful if I import some stuff
