@@ -16,7 +16,6 @@ export default function BeforeVote () {
 
   const voteReady = useSelector(selectVoteReady)
 
-
   return (
     <>
       {/* <h1>U2</h1> */}

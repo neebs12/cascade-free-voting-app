@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchCurrentUsers } from '../../apis/users'
+import { fetchUsersStatus } from '../../apis/users'
 
 // State and reducers:
 export const usersSlice = createSlice({
@@ -12,9 +12,9 @@ export const usersSlice = createSlice({
   },
   extraReducers (builder) {
     builder
-      .addCase(fetchUsers.pending, (state, action) => {
+      .addCase(fetchUsersStatusThunk.pending, (state, action) => {
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
+      .addCase(fetchUsersStatusThunk.fulfilled, (state, action) => {
         console.log(action)
         return action.payload
       })
@@ -26,8 +26,8 @@ export const selectUsers = (state) => state.users
 
 // Thunk
 
-export const fetchUsers = createAsyncThunk('fetchUsers', async () => {
-  const response = await fetchCurrentUsers()
+export const fetchUsersStatusThunk = createAsyncThunk('fetchUsersStatus', async () => {
+  const response = await fetchUsersStatus()
   return response
 })
 
