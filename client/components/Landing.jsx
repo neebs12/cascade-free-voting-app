@@ -2,26 +2,62 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-import { ButtonUnstyled, buttonUnstyledClasses } from '@mui/base';
+import { ButtonUnstyled, buttonUnstyledClasses } from '@mui/base'
+import { motion } from 'framer-motion'
 
-export default function Landing () {
+const buttonVariants = {
+  hidden: { y: -550, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.1,
+      duration: 1,
+      type: 'spring',
+      stiffness: 75,
+    }
+  }
+}
+
+export default function Landing() {
   return (
     <>
       {/* <h1>AU1</h1>
       <h2>This is the Landing page</h2> */}
       <div className="login-center-div-row">
-        <Button component={Link} to="/admin/new"
-          variant="outlined"
-          sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+        <motion.div
+          variants={buttonVariants}
+          initial="hidden"
+          animate="visible"
         >
-          ADMIN
-        </Button>
-        <Button component={Link} to="/user/login"
-          variant="contained"
-          sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+          <Button
+            component={Link}
+            to="/admin/new"
+            variant="outlined"
+            sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+          >
+            ADMIN
+          </Button>
+        </motion.div>
+        <motion.div
+          initial={{ y: -550, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.3,
+            duration: 1,
+            type: 'spring',
+            stiffness: 75,
+          }}
         >
-          USER
-        </Button>
+          <Button
+            component={Link}
+            to="/user/login"
+            variant="contained"
+            sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+          >
+            USER
+          </Button>
+        </motion.div>
       </div>
     </>
   )
