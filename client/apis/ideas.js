@@ -6,3 +6,12 @@ export function fetchAllIdeas () {
     return res.body
   })
 }
+
+// a4-37 fetching winning ideas
+// note, appended API due to naming consistencies with redux
+export function fetchWinningIdeasAPI() {
+  return request.get('/api/v1/ideas/winners').then(res => {
+    return res.body
+  })
+}
+
