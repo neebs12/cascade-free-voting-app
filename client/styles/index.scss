@@ -40,8 +40,18 @@ h2{
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 75vh;
 
+}
+@media only screen and (max-width: 600px) {
+  .login-center-div-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+  
+  }
 }
 
 .form_container {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import ResultsTile from './ResultTile'
+import WinningResultsTile from './WinningResultsTile'
 
 import { fetchWinningIdeas } from '../features/ideas/ideasSlice'
 
@@ -55,7 +56,7 @@ export default function AdminResults () {
           return <ResultsTile key={result.id} result={result} />
         })} */}
         {winningIdeas.map((result) => {
-          return <ResultsTile key={result.id} result={result} />
+          return <WinningResultsTile key={result.id} result={result} />
         })}
       </div>
     </>
