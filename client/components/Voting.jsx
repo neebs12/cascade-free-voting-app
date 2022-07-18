@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchIdeas,
   selectAllIdeas,
-  selectVoteCount,
+  selectVoteCount
 } from '../features/ideas/ideasSlice'
 import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
 
-export default function Voting() {
+export default function Voting () {
   const dispatch = useDispatch()
 
   useEffect(() => {
