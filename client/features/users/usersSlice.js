@@ -16,7 +16,9 @@ export const usersSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchUsersStatus.pending, (state, action) => {})
+      .addCase(fetchUsersStatus.pending, (state, action) => {
+        console.log('pending')
+      })
       .addCase(fetchUsersStatus.fulfilled, (state, action) => {
         console.log(action)
         state.userStatus = action.payload
@@ -37,8 +39,10 @@ export const usersSlice = createSlice({
 export const selectAllUsers = (state) => state.users
 
 export const selectResultsReady = (state) => {
-  // const votedArr = state.userStatus.voted
-  // return votedArr.length === 0
+  const votedObj = state.users.userStatus
+  const votedArr = votedObj?.voted
+  console.log('resultsReady ', votedArr?.length === 0)
+  return votedArr?.length === 0
 }
 
 // Thunk
