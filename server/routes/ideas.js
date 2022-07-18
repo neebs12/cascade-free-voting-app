@@ -26,7 +26,7 @@ router.get('/winners', async (req, res) => {
     return pb.votes - pa.votes
   })
 
-  const slicedIdeas = populatedIdeas.slice(0, winningIdeasNum)
+  const slicedIdeas = populatedIdeas.slice(0, winningIdeasNum) // <--- limiting slice
   res.status(200).json(slicedIdeas)
 })
 
