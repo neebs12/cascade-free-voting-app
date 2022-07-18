@@ -8,3 +8,9 @@ export function fetchCurrentSession () {
     return res.body
   })
 }
+
+export function postCurrentSession (data) {
+  return request.post('/api/v1/sessions')
+    .send(data)
+    .then(_ => {}) // <--- the server does not send anything back
+}

@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { populateSession } from '../features/session/sessionSlice'
 
 export default function New () {
 
@@ -33,11 +34,12 @@ export default function New () {
     }
     */
     const payload = {
-
+      title: nameOfEvent,
+      numWinners: Number(numFinalIdeas[0])
     }
     
     // dispatch
-
+    dispatch(populateSession(payload))
 
     // renavigate
     navigate("/admin/ideas")
