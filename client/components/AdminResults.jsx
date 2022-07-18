@@ -56,7 +56,7 @@ export default function AdminResults () {
           return <ResultsTile key={result.id} result={result} />
         })} */}
         {winningIdeas.map((result) => {
-          return <ResultsTile key={result.id} result={result} />
+          return <WinningResultsTile key={result.id} result={result} />
         })}
       </div>
     </>
