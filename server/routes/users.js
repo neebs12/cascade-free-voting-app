@@ -41,8 +41,8 @@ router.post('/', async (req, res) => {
   }
   */
   const result = req.body
-  await db.addByTableName('users', result)
-  res.status(201).end()
+  const idValue = (await db.addByTableName('users', result))[0]
+  res.status(201).json({id: idValue})
 })
 
 module.exports = router
