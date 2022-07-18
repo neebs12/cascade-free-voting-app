@@ -36,6 +36,7 @@ export const usersSlice = createSlice({
 })
 
 // Selectors:
+
 export const selectAllUsers = (state) => state.users
 
 export const selectResultsReady = (state) => {
@@ -43,6 +44,11 @@ export const selectResultsReady = (state) => {
   const votedArr = votedObj?.voted
   console.log('resultsReady ', votedArr?.length === 0)
   return votedArr?.length === 0
+}
+
+export const selectUserStatus = (state) => {
+  return state.users?.userStatus
+  // console.log(state)
 }
 
 // Thunk
