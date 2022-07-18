@@ -24,12 +24,14 @@ export const sessionSlice = createSlice({
 export const selectSession = state => state.session
 export const selectNumVotes = state => state.session.numVotes
 
-// Thunk
+// THUNKS
 
 export const fetchSession = createAsyncThunk('fetchSession', async () => {
   const response = await fetchCurrentSession()
   return response
 })
+
+
 
 // Export Reducer:
 
