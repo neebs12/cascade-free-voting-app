@@ -21,15 +21,15 @@ export default function AfterVote () {
         This is the user waiting page after the vote - waiting for all users to
         finish voting
       </h2>
-      {!resultsReady && (
+      {resultsReady && (
         <Box sx={{ display: 'flex' }}>
           <CircularProgress />
         </Box>
       )}
-      <Button variant="contained">Reload</Button>
+      <Button variant="contained" onClick={() => window.location.reload()}>Reload</Button>
       {/* Better fix the sneaky p tags here */}
       <p></p>
-      <Button variant="contained" disabled>
+      <Button variant="contained" disabled={resultsReady}>
         Proceed to Results
       </Button>{' '}
     </>

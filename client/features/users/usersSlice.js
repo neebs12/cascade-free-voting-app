@@ -36,6 +36,7 @@ export const usersSlice = createSlice({
 })
 
 // Selectors:
+//Selector below is probably broken and should possibly be state.users.users
 export const selectAllUsers = (state) => state.users
 
 export const selectResultsReady = (state) => {
