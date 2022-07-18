@@ -19,24 +19,12 @@ export const ideasSlice = createSlice({
   },
   extraReducers (builder) {
     builder
-      .addCase(fetchIdeas.pending, (state, action) => {})
+      .addCase(fetchIdeas.pending, (state, action) => {
+        // this is for the pending side of the async fetchIdeas thunk
+      })
       .addCase(fetchIdeas.fulfilled, (state, action) => {
         return action.payload
       })
-
-    // (fetchMovies.fulfilled, (state, action) => {
-    //   console.log('succeeded')
-    //   // state.status = 'succeeded'
-    //   // Add any fetched posts to the array
-    //   console.log('action', action)
-    //   console.log('state', state)
-
-    //   state = state.concat(action.payload)
-    // })
-    // .addCase(fetchMovies.rejected, (state, action) => {
-    // state.status = 'failed'
-    // state.error = action.error.message
-    // })
   }
 })
 
@@ -55,9 +43,6 @@ export const selectVoteReady = (state) => state.ideas.length > 0
 // thunk
 
 export const fetchIdeas = createAsyncThunk('fetchIdeas', async () => {
-  // await new Promise((resolve, reject) => {
-  //   setTimeout(() => { resolve() }, 3000)
-  // })
   const response = await fetchAllIdeas()
   return response
 })
