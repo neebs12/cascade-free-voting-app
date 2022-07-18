@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { selectAllIdeas, fetchIdeas } from '../features/ideas/ideasSlice'
+import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
@@ -11,19 +12,30 @@ export default function Ideas () {
 
   useEffect(() => {
     dispatch(fetchIdeas())
+    dispatch(fetchUsers())
   }, [])
 
   const ideas = useSelector(selectAllIdeas)
+  const users = useSelector(selectAllUsers)
+  console.log(users)
   return (
     <>
       <div>
         <h1>A2</h1>
         <h2>This the page where the admin enters all the ideas</h2>
       </div>
+      <h3>Here are a list of names</h3>
+      <div className="name-container">
+        {/* {typeof users
+        users.map((name) => {
+          return <Button key={name.id}variant="outlined">{name.name}</Button>
+          return <IdeaTile key={idea.id} idea={idea} />
+        })
+        } */}
+      </div>
       <div>
         <Button variant="outlined">Reload</Button>
       </div>
-      <div className="name-container"></div>
       <div className="form_container">
         <Box
           component="form"
@@ -47,8 +59,11 @@ export default function Ideas () {
             label="Idea description"
             variant="outlined"
           />
-          <Button component={Link} to="/admin/ideas" variant="outlined">
-            Next Idea
+          <Button variant="outlined">
+            Next idea
+          </Button>
+          <Button component={Link} to="/admin/waiting" variant="outlined">
+            All ideas submitted - ready to vote
           </Button>
         </Box>
       </div>

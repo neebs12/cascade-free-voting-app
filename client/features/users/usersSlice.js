@@ -31,7 +31,7 @@ export const usersSlice = createSlice({
 })
 
 // Selectors:
-export const selectUsers = (state) => state.users
+export const selectAllUsers = (state) => state.users
 
 // Thunk
 

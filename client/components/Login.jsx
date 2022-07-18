@@ -20,7 +20,7 @@ export default function Login () {
     e.preventDefault()
     console.log(userName)
     dispatch(postUser(userName))
-    navigate('/user/before_vote', {replace: true})
+    navigate('/user/before_vote', { replace: true })
   }
   return (
     <>
