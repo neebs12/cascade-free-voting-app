@@ -5,13 +5,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  selectAllIdeas,
   fetchIdeas,
-  selectVoteReady,
+  selectVoteReady
 } from '../features/ideas/ideasSlice'
 import { fetchSession } from '../features/session/sessionSlice'
 
-export default function BeforeVote() {
+export default function BeforeVote () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   useEffect(() => {

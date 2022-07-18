@@ -3,10 +3,14 @@ import IdeaTile from './IdeaTile'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchIdeas, selectAllIdeas, selectVoteCount } from '../features/ideas/ideasSlice'
+import {
+  fetchIdeas,
+  selectAllIdeas,
+  selectVoteCount,
+} from '../features/ideas/ideasSlice'
 import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
 
-export default function Voting () {
+export default function Voting() {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,10 +31,12 @@ export default function Voting () {
         <h3>Votes total: {numVotes} </h3>
         <h3>Votes remaining</h3>
         <h1>{numVotes - voteCount}</h1>
-        <Button variant="outlined" disabled>
-          Submit
-        </Button>
-        <Button component={Link} to="/user/after_vote" variant="outlined">
+        <Button
+          component={Link}
+          to="/user/after_vote"
+          variant="outlined"
+          disabled={!(numVotes - voteCount <= 0)}
+        >
           Submit
         </Button>
       </div>
