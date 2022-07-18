@@ -4,14 +4,13 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { selectResultsReady } from '../features/users/usersSlice'
-import { fetchAllUsersStatus } from '../apis/users'
+import { selectResultsReady, fetchUsersStatus } from '../features/users/usersSlice'
 
 export default function AfterVote () {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchAllUsersStatus)
+    dispatch(fetchUsersStatus())
   }, [])
 
   const resultsReady = useSelector(selectResultsReady)
@@ -27,7 +26,7 @@ export default function AfterVote () {
           <CircularProgress />
         </Box>
       )}
-      <Button variant="contained" onClick={window.location.reload}>Reload</Button>
+      <Button variant="contained">Reload</Button>
       {/* Better fix the sneaky p tags here */}
       <p></p>
       <Button variant="contained" disabled>
