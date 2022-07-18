@@ -19,7 +19,13 @@
     "lint": "eslint --ext .js,.jsx .",
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
-    "knex:reset": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run"
+    "knex:reset": "npm run knex migrate:rollback && npm run knex migrate:latest && npm run knex seed:run",
+    "dev:prod": "npm run knex:reset && CI=prod npm run dev",
+    "dev:full": "npm run knex:reset && CI=full npm run dev",
+    "dev:admin1": "npm run knex:reset && CI=admin1 npm run dev",
+    "dev:user1": "npm run knex:reset && CI=user1 npm run dev",
+    "dev:admin2": "npm run knex:reset && CI=admin2 npm run dev",
+    "dev:user2": "npm run knex:reset && CI=user2 npm run dev"
   },
   "babel": {
     "presets": [
@@ -44,7 +50,9 @@
     "@material-ui/styles": "^4.11.5",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.0",
+    "@reduxjs/toolkit": "^1.8.3",
     "@vscode/sqlite3": "^5.0.7",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "knex": "^1.0.2",
     "lodash": "^4.17.21",
