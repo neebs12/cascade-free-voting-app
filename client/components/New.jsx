@@ -7,7 +7,12 @@ import { Link } from 'react-router-dom'
 
 export default function New () {
 
-  
+  /*
+  // There is no side effect for this component
+  // What it needs however is a sole dispath - therefore a useDispatch is required
+  // This will use the features/session/sessionsSlice.js
+  // What we also want is to control the component that we have here
+  */
 
   return (
     <>
