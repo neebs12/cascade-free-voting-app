@@ -25,13 +25,18 @@ export default function AdminWaiting () {
   const user_status = useSelector(selectUserStatus)
 
   useEffect(() => {
-    if (user_status?.notVoted.length === 0) {
-      setVoteSubmit(true)
+    if (user_status?.notVoted.length === 0 && user_status?.voted.length === 0) {
+      setVoteSubmit(false)
+    }
+     else if (user_status?.notVoted.length === 0) {
+        setVoteSubmit(true)
     } else {
       setVoteSubmit(false)
     }
   }, [user_status])
 
+
+  
   return (
     <>
       {user_status && (
@@ -47,7 +52,7 @@ export default function AdminWaiting () {
           <div className="admin-waiting-vote-table">
             <div className="admin-waiting-vote-col">
               <h3>Still waiting to submit vote</h3>
-              {user_status.voted.map((name) => {
+              {user_status.notVoted.map((name) => {
                 return (
                   <div className="admin-waiting-vote-name" key={name.id}>
                     {name.name}
@@ -58,7 +63,7 @@ export default function AdminWaiting () {
             </div>
             <div className="admin-waiting-vote-col">
               <h3>Voting completed</h3>
-              {user_status.notVoted.map((name) => {
+              {user_status.voted.map((name) => {
                 return (
                   <div className="admin-waiting-vote-name" key={name.id}>
                     {name.name}
@@ -68,7 +73,7 @@ export default function AdminWaiting () {
               })}
             </div>
           </div>
-          <Button variant="contained" disabled={voteSubmit} onClick={handleClick}>
+          <Button variant="contained" disabled={!voteSubmit} onClick={handleClick}>
             Show Results
           </Button>
         </>
