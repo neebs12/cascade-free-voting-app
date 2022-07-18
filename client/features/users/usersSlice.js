@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
   fetchAllUsersStatus,
   fetchAllUsers,
-  postOneUser,
+  postOneUser
 } from '../../apis/users'
 
 // State and reducers:
@@ -10,11 +10,11 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState: {},
   reducers: {
-    addUsers(state, action) {
+    addUsers (state, action) {
       console.log('addUsers action called')
-    },
+    }
   },
-  extraReducers(builder) {
+  extraReducers (builder) {
     builder
       .addCase(fetchUsersStatus.pending, (state, action) => {
         console.log('pending')
@@ -32,11 +32,11 @@ export const usersSlice = createSlice({
       .addCase(postUser.rejected, (state, action) => {
         console.log('postUser rejected: ', action)
       })
-  },
+  }
 })
 
 // Selectors:
-
+// Selector below is probably broken and should possibly be state.users.users
 export const selectAllUsers = (state) => state.users
 
 export const selectResultsReady = (state) => {
