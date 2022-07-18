@@ -1,12 +1,14 @@
-const terminalLogger = (request, response, next) => {
-  const log = (...msg) => console.log(...msg)
-
-  log('Method: ', request.method)
-  log('Path: ', request.path)
-  log('Query: ', request.query)
-  log('Body: ', request.body)
-  log('---')
-  next()
+const terminalLogger = (basePath = '') => {
+  return (request, response, next) => {
+    const log = (...msg) => console.log(...msg)
+  
+    log('Method: ', request.method)
+    log('Path: ', basePath + request.path)
+    log('Query: ', request.query)
+    log('Body: ', request.body)
+    log('---')
+    next()
+  }
 }
 
 const unknownEndpoint = (request, response) => {

@@ -1,8 +1,14 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import reducers from './reducers'
-import thunk from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit'
+import ideasReducer from './features/ideas/ideasSlice'
+import sessionReducer from './features/session/sessionSlice'
+import usersReducer from './features/users/usersSlice'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
+const store = configureStore({
+  reducer: {
+    ideas: ideasReducer,
+    session: sessionReducer,
+    users: usersReducer
+  }
+})
 
 export default store

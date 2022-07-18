@@ -1,25 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { selectAllIdeas, fetchIdeas } from '../features/ideas/ideasSlice'
+import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
+import { useSelector, useDispatch } from 'react-redux'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
 export default function Ideas () {
-  const names = [
-    {
-      id: 1,
-      name: 'John'
-    },
-    {
-      id: 2,
-      name: 'Paul'
-    },
-    {
-      id: 3,
-      name: 'Ringo'
-    }
-  ]
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(fetchIdeas())
+    dispatch(fetchUsers())
+  }, [])
+
+  const ideas = useSelector(selectAllIdeas)
+  const users = useSelector(selectAllUsers)
+  console.log(users)
   return (
     <>
       <div>
@@ -28,10 +26,12 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {names.map((name) => {
+        {/* {typeof users
+        users.map((name) => {
           return <Button key={name.id}variant="outlined">{name.name}</Button>
-          // return <IdeaTile key={idea.id} idea={idea} />
-        })}
+          return <IdeaTile key={idea.id} idea={idea} />
+        })
+        } */}
       </div>
       <div>
         <Button variant="outlined">Reload</Button>

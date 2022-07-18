@@ -31,18 +31,18 @@ router.get('/status', async (req, res) => {
     return { id: u.id, name: u.name }
   })
 
-  res.status(200).json({voted, notVoted}) 
+  res.status(200).json({ voted, notVoted })
 })
 
 router.post('/', async (req, res) => {
-  /* Expected: 
+  /* Expected:
   {
     "name": string
   }
   */
   const result = req.body
   await db.addByTableName('users', result)
-  res.status(201).end() 
+  res.status(201).end()
 })
 
 module.exports = router

@@ -1,26 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { palette } from '@mui/system'
+// import DeleteIcon from '@mui/icons-material/Delete'
+// import { palette } from '@mui/system'
+import { useSelector, useDispatch } from 'react-redux'
+import { addVote, subtractVote, selectVoteCount } from '../features/ideas/ideasSlice'
+import { selectNumVotes } from '../features/session/sessionSlice'
+// import { getVoteById } from '../features/ideas/ideasSlice'
 
 // Here are a few unused imports that may be helpful if I import some stuff
 // import Box from '@mui/material/Box'
 // import Button from '@mui/material/Button'
 // import { ThemeProvider, createTheme } from '@mui/material/styles'
 
+const getVoteById = (state, id) => {
+  const ideas = state.ideas
+  const idea = ideas.find((idea) => idea.id === id)
+  const votes = idea.votes
+  return votes
+}
+
 export default function IdeaTile ({ idea }) {
+  const voteCount = useSelector(selectVoteCount)
+  const numVotes = useSelector(selectNumVotes)
+
+  const id = idea.id
+  const votes = useSelector(state => getVoteById(state, id))
+  const dispatch = useDispatch()
   const { title, description } = idea
-
-  const [count, setCount] = useState(0)
-
-  const handleAdd = () => {
-    console.log('click')
-    setCount(count + 1)
-    // count = count + 1
-  }
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -48,20 +57,23 @@ export default function IdeaTile ({ idea }) {
         {/* <!-- Change the `data-field` of buttons and `name` of input field's for multiple plus minus buttons--> */}
         <div className="input-group plus-minus-input">
           <div className="input-group-button">
-            <button onClick={() => setCount(count - 1)}
+            <button onClick={() => dispatch(subtractVote(id))}
               type="button"
               className="button hollow circle"
               data-quantity="minus"
               data-field="quantity"
-            >-</button>
+              disabled={voteCount <= 0}
+            >
+              -            </button>
           </div>
-          <span className="vote-counter">{count}</span>
+          <span className="vote-counter">{votes}</span>
           <div className="input-group-button">
-            <button onClick={handleAdd}
+            <button onClick={() => dispatch(addVote(id))}
               type="button"
               className="button hollow circle"
               data-quantity="plus"
               data-field="quantity"
+              disabled={voteCount >= numVotes}
             >
               +<i className="fa fa-plus" aria-hidden="true"></i>
             </button>
