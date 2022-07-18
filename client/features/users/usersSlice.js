@@ -1,19 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchAllUsersStatus, fetchAllUsers, postOneUser } from '../../apis/users'
+import {
+  fetchAllUsersStatus,
+  fetchAllUsers,
+  postOneUser,
+} from '../../apis/users'
 
 // State and reducers:
 export const usersSlice = createSlice({
   name: 'users',
   initialState: {},
   reducers: {
-    addUsers (state, action) {
+    addUsers(state, action) {
       console.log('addUsers action called')
-    }
+    },
   },
-  extraReducers (builder) {
+  extraReducers(builder) {
     builder
-      .addCase(fetchUsersStatus.pending, (state, action) => {
-      })
+      .addCase(fetchUsersStatus.pending, (state, action) => {})
       .addCase(fetchUsersStatus.fulfilled, (state, action) => {
         console.log(action)
         state.userStatus = action.payload
@@ -27,18 +30,26 @@ export const usersSlice = createSlice({
       .addCase(postUser.rejected, (state, action) => {
         console.log('postUser rejected: ', action)
       })
-  }
+  },
 })
 
 // Selectors:
 export const selectAllUsers = (state) => state.users
 
+export const selectResultsReady = (state) => {
+  // const votedArr = state.userStatus.voted
+  // return votedArr.length === 0
+}
+
 // Thunk
 
-export const fetchUsersStatus = createAsyncThunk('fetchUsersStatus', async () => {
-  const response = await fetchAllUsersStatus()
-  return response
-})
+export const fetchUsersStatus = createAsyncThunk(
+  'fetchUsersStatus',
+  async () => {
+    const response = await fetchAllUsersStatus()
+    return response
+  }
+)
 
 export const fetchUsers = createAsyncThunk('fetchUsers', async () => {
   const response = await fetchAllUsers()
