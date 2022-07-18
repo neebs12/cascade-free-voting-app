@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchAllIdeas } from '../../apis/ideas'
+import { fetchAllIdeas, fetchWinningIdeasAPI } from '../../apis/ideas'
 
 // State and reducers:
 export const ideasSlice = createSlice({
@@ -25,6 +25,13 @@ export const ideasSlice = createSlice({
       .addCase(fetchIdeas.fulfilled, (state, action) => {
         return action.payload
       })
+      .addCase(fetchWinningIdeas.pending, (state, action) => {
+        // pending information
+      })
+      .addCase(fetchWinningIdeas.fulfilled, (state, action) => {
+        // this is where we add to the redux store
+        return action.payload // <--- overwriting the state
+      })
   }
 })
 
@@ -40,12 +47,19 @@ export const selectVoteCount = (state) => {
 
 export const selectVoteReady = (state) => state.ideas.length > 0
 
-// thunk
+// THUNKS:
 
 export const fetchIdeas = createAsyncThunk('fetchIdeas', async () => {
   const response = await fetchAllIdeas()
   return response
 })
+
+// a4-37 async thunk to be placed, fetching winning ideas
+export const fetchWinningIdeas = createAsyncThunk('fetchWinningIdeas', async () => {
+  const response = await fetchWinningIdeasAPI()
+  return response // action object --> {payload: response}
+})
+
 
 // Default export:
 
