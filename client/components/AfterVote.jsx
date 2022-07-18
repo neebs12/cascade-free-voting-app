@@ -3,6 +3,7 @@ import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { selectResultsReady, fetchUsersStatus } from '../features/users/usersSlice'
 
@@ -29,7 +30,7 @@ export default function AfterVote () {
       <Button variant="contained" onClick={() => window.location.reload()}>Reload</Button>
       {/* Better fix the sneaky p tags here */}
       <p></p>
-      <Button variant="contained" disabled={resultsReady}>
+      <Button component={Link} to="/user/results" variant="contained" disabled={resultsReady}>
         Proceed to Results
       </Button>{' '}
     </>
