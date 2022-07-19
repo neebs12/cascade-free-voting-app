@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
   Expecting: 
   [{
     userId: int,
-    userName: 'string', // ignored
+    userName: 'string', // ignored - YES
     title: 'string',
     description: 'string'
   }, {...}, ...]

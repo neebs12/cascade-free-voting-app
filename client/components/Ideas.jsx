@@ -9,8 +9,9 @@ import TextField from '@mui/material/TextField'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { populateIdeas } from '../features/ideas/ideasSlice'
 
+// MOCKS
+import { fetchAllUsers } from '../apis/users'
 import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users' 
-
 import mockbool from '../apis/mock/mockbool'
 
 export default function Ideas () {
@@ -126,7 +127,7 @@ export default function Ideas () {
 
 
   const [isMocked, setIsMocked] = useState(false)
-  const handleMock = () => {
+  const handleMockNames = () => {
     if (isMocked) {
       return console.log('already mocked, cannot execute again')
     }
@@ -136,6 +137,30 @@ export default function Ideas () {
       10
     )
     setIsMocked(true)
+  }
+  const handleMockIdeas = async () => {
+    // YES when sending ideas, the usetName IS ignored by backend
+    if (!confirm('WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again')) {
+      return false
+    }
+
+    const users = await fetchAllUsers()
+    const theIdeasToBeSent = users.map((u, ind) => {
+      const userId = u.id
+      const userName = u.name
+      return {
+        userId, userName,
+        title: `title: ${userName}`,
+        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
+      }
+    })
+    dispatch(populateIdeas(theIdeasToBeSent))
+    clearInterval(askingInterval)
+    setAskingInterval(null)
+
+    alert('mock ideas successfully sent!')
+
+    navigate("/admin/waiting") // <--- for navigating to next page    
   }
 
   return (
@@ -195,9 +220,21 @@ export default function Ideas () {
           <Button onClick={handleOnClickLink} variant="outlined">
             All ideas submitted - ready to vote
           </Button>
-          {mockbool && <Button onClick={handleMock} to="/admin/waiting" variant="outlined">
-            Mock - user name addition
-          </Button>}          
+          {mockbool && 
+          <>
+            <Button 
+              onClick={handleMockNames} 
+              variant="outlined"
+            >
+                Mock - user name addition
+            </Button>
+            <Button 
+              onClick={handleMockIdeas}
+              variant="outlined"
+            >
+              Mock - ideas addition
+            </Button>
+          </>}          
         </Box>
       </div>
     </>

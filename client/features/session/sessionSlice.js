@@ -29,7 +29,9 @@ export const selectNumVotes = (state) => state.session.numVotes
 
 // THUNKS
 
-export const fetchSession = createAsyncThunk('fetchSession', async () => {
+export const fetchSession = createAsyncThunk(
+  'fetchSession', 
+  async () => {
   const response = await fetchCurrentSession()
   return response
 })
@@ -37,7 +39,6 @@ export const fetchSession = createAsyncThunk('fetchSession', async () => {
 export const populateSession = createAsyncThunk(
   'populateSession',
   async (data) => {
-    debugger
     // need an api sister function
     await postCurrentSession(data)
     return data

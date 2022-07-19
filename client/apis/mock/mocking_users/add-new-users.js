@@ -10,18 +10,20 @@ shape of data POSTED:
 }
 */
 
+// consider exporting
+const NAMES = [
+  'jason', 'lachlan', 
+  'jared', 'ford', 
+  'kotare-fellas', 'lad vibes'
+]
+
 // users
 // information that is posted
 export function mockPostUsers(
-  names = [
-    'jason', 'lachlan', 
-    'jared', 'ford', 
-    'kotare-fellas', 'lad vibes'
-  ], 
-  seconds = 30
+  names = NAMES, 
+  seconds = 10
   ) {
 
-  
   const TIME_OF_EACH_OPERATION = Math.floor(
     (seconds / names.length) * 1000
   )
