@@ -15,3 +15,8 @@ export function postCurrentSession (data) {
     // eslint-disable-next-line promise/always-return
     .then(_ => {}) // <--- the server does not send anything back
 }
+
+export function resetCurrentSession() {
+  return request.delete('/api/v1/sessions/reset')
+    .then(_ => {}) // <--- no useful return
+}
