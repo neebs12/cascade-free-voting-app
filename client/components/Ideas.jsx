@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -7,10 +6,16 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
+import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
+import { populateIdeas } from '../features/ideas/ideasSlice'
+
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
   const [descrOfIdea, setDescrOfIdea] = useState('')
+  const [chosenUserId, setChosenUserId] = useState(0)
+  const [chosenUserName, setChosenUserName] = useState('')
+
   const myIdeas = useRef([])
   // becomes {current: []} at the start
 
@@ -32,14 +37,52 @@ export default function Ideas () {
     setAskingInterval(intervalId)
   }, [])
 
+  // is PFA
+  const handleChosenUserClicked = (id, name) => {
+    return () => {
+      // this is where we set the values accordingly
+      console.log(`Clicked on name: ${name} of id: ${id}`)
+      setChosenUserId(Number(id))
+      setChosenUserName(name)
+    }
+  }
+
   const handleOnClickNextIdea = () => {
-    // this is where the ideas are stored (in the ref) `myIdeas`
-    // this is where we reset the states of `nameOfIdea` and `descrOfIdea`
-    // -- this will be done via setNameOfIdea('') && setDescrOfIdea('')
-    // therefore, we can do this one easily!
     // what is the shape fitting?
+    /*
+    -- this is the required shape of the idea 
+    ideas = [
+      <-- see associations
+      {
+        userId: int, <-- chosenUserId
+        userName: 'string', <-- chosenUserName
+        title: 'string', <-- nameOfIdea
+        description: 'string' <-- descrOfIdea
+      }, {...}, ... 
+    ]
+    */
+   // if any are empty, unable to move on
+    if ( !(chosenUserName && nameOfIdea && descrOfIdea) ) {
+      alert('Please chose a user, name of idea and an idea description')
+      return false
+    }
 
+    // therefore ...
+    const payloadIdea = {
+      userId: chosenUserId, 
+      userName: chosenUserName,
+      title: nameOfIdea,
+      description: descrOfIdea,
+    }
 
+    // then we push this to .current of the ref's object `myIdeas`
+    myIdeas.current.push(payloadIdea)
+
+    // then clear all the relevant states
+    setNameOfIdea('')
+    setDescrOfIdea('')
+    setChosenUserId(0)
+    setChosenUserName('')
   }
 
 
@@ -48,9 +91,32 @@ export default function Ideas () {
     // here, we (1)POST to database and (2)DELTA the redux state of the Ideas state
     // . Here, we use the ref object `myIdeas.current` that is an array, that will become the data for the POST of the async thunk
 
+    // console.log('going to the database!')
+    const theIdeasToBeSent = myIdeas.current
+
+    if (theIdeasToBeSent.length === 0) {
+      alert("There are NO ideas recorded!, Please enter atleast ONE idea")
+      return false
+    }
+
+    // this is to include the current ideas page
+    if ( (!chosenUserName || !nameOfIdea || !descrOfIdea) &&  !confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
+      
+      return false
+    } else {
+      // include current entries (as they are valid)
+      theIdeasToBeSent.push({
+        userId: chosenUserId, 
+        userName: chosenUserName,
+        title: nameOfIdea,
+        description: descrOfIdea,        
+      })
+    }
+
+    dispatch(populateIdeas(theIdeasToBeSent))
     clearInterval(askingInterval)
     setAskingInterval(null)
-    // navigate("/admin/waiting") // <--- for navigating to next page
+    navigate("/admin/waiting") // <--- for navigating to next page
   }
 
   return (
@@ -61,14 +127,17 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {users.length && users.map((name) => {
-          return <Button key={name.id} variant="outlined">{name.name}</Button>
+        {users.length && users.map(user => {
+          return <Button 
+            key={user.id} 
+            variant="outlined"
+            onClick={handleChosenUserClicked(user.id, user.name)}
+          >
+            {user.name}
+          </Button>
         })
         }
-      </div>
-      {/* <div>
-        <Button onClick={handleOnClickUsers} variant="outlined">Reload</Button>
-      </div> */}
+      </div> <br />
       <div className="form_container">
         <Box
           component="form"
@@ -85,6 +154,7 @@ export default function Ideas () {
             variant="outlined"
             value={nameOfIdea}
             onChange={e => setNameOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
           />
           <TextField
             sx={{ display: 'flex' }}
@@ -95,13 +165,14 @@ export default function Ideas () {
             variant="outlined"
             value={descrOfIdea}
             onChange={e => setDescrOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
           />
-          <Button onClick={handleOnClickNextIdea} variant="outlined">
+          <Button 
+            onClick={handleOnClickNextIdea} 
+            variant="outlined"
+          >
             Next idea
           </Button>
-          {/* <Button component={Link} to="/admin/waiting" variant="outlined">
-            All ideas submitted - ready to vote
-          </Button> */}
           <Button onClick={handleOnClickLink} to="/admin/waiting" variant="outlined">
             All ideas submitted - ready to vote
           </Button>
