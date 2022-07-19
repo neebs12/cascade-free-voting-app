@@ -9,34 +9,47 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 
 export default function AdminWaiting () {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  /*
+  At the start of this page, we are fetching all the user statuses
+
+  */
+  const navigate = useNavigate() // OK
+  const dispatch = useDispatch() // OK
   const [voteSubmit, setVoteSubmit] = useState()
 
+  const userStatus = useSelector(selectUserStatus)
+
+
   useEffect(() => {
-    dispatch(fetchUsers())
+    // OK this sets the users in the redux store
+    // populates state.users.users
+    // this only needs to be fetched once
+    dispatch(fetchUsers()) 
+    // OK this sets the user statuses in the redux store
+    // populates state.users.users
     dispatch(fetchUsersStatus())
   }, [])
 
   // const voted = useSelector(nameofselector)
 
-  const handleClick = () => navigate('/admin/results', { replace: true })
+  const handleClick = () => {
+    // navigate('/admin/results')
+  }
 
-  const user_status = useSelector(selectUserStatus)
 
   useEffect(() => {
-    if (user_status?.notVoted.length === 0 && user_status?.voted.length === 0) {
+    if (userStatus?.notVoted.length === 0 && userStatus?.voted.length === 0) {
       setVoteSubmit(false)
-    } else if (user_status?.notVoted.length === 0) {
+    } else if (userStatus?.notVoted.length === 0) {
       setVoteSubmit(true)
     } else {
       setVoteSubmit(false)
     }
-  }, [user_status])
+  }, [userStatus])
 
   return (
     <>
-      {user_status && (
+      {userStatus && (
         <>
           <h1>A3</h1>
           <h2>
@@ -49,7 +62,7 @@ export default function AdminWaiting () {
           <div className="admin-waiting-vote-table">
             <div className="admin-waiting-vote-col">
               <h3>Still waiting to submit vote</h3>
-              {user_status.notVoted.map((name) => {
+              {userStatus.notVoted.map((name) => {
                 return (
                   <div className="admin-waiting-vote-name" key={name.id}>
                     {name.name}
@@ -60,7 +73,7 @@ export default function AdminWaiting () {
             </div>
             <div className="admin-waiting-vote-col">
               <h3>Voting completed</h3>
-              {user_status.voted.map((name) => {
+              {userStatus.voted.map((name) => {
                 return (
                   <div className="admin-waiting-vote-name" key={name.id}>
                     {name.name}
