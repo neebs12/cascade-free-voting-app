@@ -134,7 +134,7 @@ export default function Ideas () {
     console.log('is mocking')
     mockPostUsers(
       ['jason', 'graeme', 'jared', 'kotare', 'emily', 'kelly', 'joseph'],
-      10
+      5
     )
     setIsMocked(true)
   }
