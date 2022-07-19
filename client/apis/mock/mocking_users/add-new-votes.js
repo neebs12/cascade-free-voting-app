@@ -113,23 +113,25 @@ export async function mockVotes(durationSeconds = TIME) {
     payload.push(localPayload)
   })
 
-  debugger
-
   // period of each interval dependent on duration / number of users
-  // const INTERVAL_PERIOD = Math.floor(
-  //   (durationSeconds / users.length) * 1000
-  // )
+  const INTERVAL_PERIOD = Math.floor(
+    (durationSeconds / users.length) * 1000
+  )
 
-  // let intervalId = null
+  let intervalId = null
 
-  // intervalId = setInterval(
-  //   myRequestCb, INTERVAL_PERIOD
-  // )
+  intervalId = setInterval(
+    myRequestCb, INTERVAL_PERIOD
+  )
   
-  // function myRequestCb() {
-  //   const foo = 1
-  // }
-
+  function myRequestCb() {
+    const currentPayload = payload.shift()
+    if (!currentPayload) {
+      clearInterval(intervalId)
+    } else {
+      postVotesAPI(currentPayload)
+    }
+  }
 }
 
 function getRandomInds(targetCollection, requiredLength) {
