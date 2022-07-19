@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {
-  fetchAllIdeas,
-  fetchWinningIdeasAPI,
-  postVotesAPI
+import { 
+  fetchAllIdeas, 
+  fetchWinningIdeasAPI, 
+  postIdeasAPI,
+  postVotesAPI,
 } from '../../apis/ideas'
 
 // State and reducers:
@@ -23,9 +24,7 @@ export const ideasSlice = createSlice({
   },
   extraReducers (builder) {
     builder
-      .addCase(fetchIdeas.pending, (state, action) => {
-        // this is for the pending side of the async fetchIdeas thunk
-      })
+      .addCase(fetchIdeas.pending, (state, action) => {})
       .addCase(fetchIdeas.fulfilled, (state, action) => {
         return action.payload
       })
@@ -34,7 +33,11 @@ export const ideasSlice = createSlice({
       })
       .addCase(fetchWinningIdeas.fulfilled, (state, action) => {
         // this is where we add to the redux store
-        return action.payload // <--- overwriting the state
+        return action.payload // <--- overwriting the state!
+      })
+      .addCase(populateIdeas.pending, (state, action) => {})
+      .addCase(populateIdeas.fulfilled, (state, action) => {
+        return action.payload // <--- overwriting state!
       })
       .addCase(postVotes.fulfilled, (state, action) => {})
       .addCase(fetchIdeasMyVotes.fulfilled, (state, action) => {
@@ -109,11 +112,17 @@ export const fetchWinningIdeas = createAsyncThunk(
 
 export const postVotes = createAsyncThunk('postVotes', async (data) => {
   console.log('post Votes Thunk data:', data)
-
   await postVotesAPI(data)
   return data
 })
 
+// a2-30 async thunk for placing ideas to the database
+export const populateIdeas = createAsyncThunk('populateIdeas', async (data) => {
+  await postIdeasAPI(data)
+  // do another await here for fetching all ideas, and this is the one stored in the redux state
+  const response = await fetchAllIdeas()
+  return response
+})
 // Default export:
 
 export const { addVote, subtractVote } = ideasSlice.actions

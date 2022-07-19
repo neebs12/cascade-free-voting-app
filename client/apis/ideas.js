@@ -15,6 +15,14 @@ export function fetchWinningIdeasAPI () {
   })
 }
 
+// a2-30 populatingIdeasAPI
+export function postIdeasAPI(data){
+  return request.post('/api/v1/ideas').send(data).then(_ => {
+    // discard response for RESTFULNESS, front-end functionality will do another request for fetching information
+  })
+  .catch(error => console.error(error))
+}
+
 export function postVotesAPI (data) {
   console.log('postVoteAPI data', data)
   
