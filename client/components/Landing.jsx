@@ -22,8 +22,6 @@ const buttonVariants = {
 export default function Landing() {
   return (
     <>
-      {/* <h1>AU1</h1>
-      <h2>This is the Landing page</h2> */}
       <div className="login-center-div-row">
         <motion.div
           variants={buttonVariants}
@@ -34,9 +32,9 @@ export default function Landing() {
             component={Link}
             to="/admin/new"
             variant="outlined"
-            sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+            sx={{ width: 300, height: 100, fontSize: 36, margin: 10 }}
           >
-            ADMIN
+            Admin
           </Button>
         </motion.div>
         <motion.div
@@ -53,9 +51,9 @@ export default function Landing() {
             component={Link}
             to="/user/login"
             variant="contained"
-            sx={{ width: 300, height: 100, fontSize: 36, margin: 5 }}
+            sx={{ width: 300, height: 100, fontSize: 36, margin: 10 }}
           >
-            USER
+            User
           </Button>
         </motion.div>
       </div>

@@ -11,7 +11,7 @@ import { populateIdeas } from '../features/ideas/ideasSlice'
 
 // MOCKS
 import { fetchAllUsers } from '../apis/users'
-import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users' 
+import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users'
 import mockbool from '../apis/mock/mockbool'
 
 export default function Ideas () {
@@ -25,15 +25,14 @@ export default function Ideas () {
   // becomes {current: []} at the start
 
   const users = useSelector(selectAllUsers)
-  
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
 
   useEffect(() => {
     dispatch(fetchUsers())
     // set the asking interval here
-    
+
     const intervalId = setInterval(() => {
       // console.log('getting new users!')
       dispatch(fetchUsers())
@@ -55,7 +54,7 @@ export default function Ideas () {
   const handleOnClickNextIdea = () => {
     // what is the shape fitting?
     /*
-    -- this is the required shape of the idea 
+    -- this is the required shape of the idea
     ideas = [
       <-- see associations
       {
@@ -63,21 +62,21 @@ export default function Ideas () {
         userName: 'string', <-- chosenUserName
         title: 'string', <-- nameOfIdea
         description: 'string' <-- descrOfIdea
-      }, {...}, ... 
+      }, {...}, ...
     ]
     */
-   // if any are empty, unable to move on
-    if ( !(chosenUserName && nameOfIdea && descrOfIdea) ) {
+    // if any are empty, unable to move on
+    if (!(chosenUserName && nameOfIdea && descrOfIdea)) {
       alert('Please chose a user, name of idea and an idea description')
       return false
     }
 
     // therefore ...
     const payloadIdea = {
-      userId: chosenUserId, 
+      userId: chosenUserId,
       userName: chosenUserName,
       title: nameOfIdea,
-      description: descrOfIdea,
+      description: descrOfIdea
     }
 
     // then we push this to .current of the ref's object `myIdeas`
@@ -90,7 +89,6 @@ export default function Ideas () {
     setChosenUserName('')
   }
 
-
   const handleOnClickLink = () => {
     // clears the interval (no longer asking for new updates)
     // here, we (1)POST to database and (2)DELTA the redux state of the Ideas state
@@ -100,31 +98,34 @@ export default function Ideas () {
     const theIdeasToBeSent = myIdeas.current
 
     if (theIdeasToBeSent.length === 0) {
-      alert("There are NO ideas recorded!, Please enter atleast ONE idea")
+      alert('There are NO ideas recorded!, Please enter atleast ONE idea')
       return false
     }
 
     // this is to include the current ideas page
-    if ( (!chosenUserName || !nameOfIdea || !descrOfIdea)) {
-      if (!confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
+    if (!chosenUserName || !nameOfIdea || !descrOfIdea) {
+      if (
+        !confirm(
+          'Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?'
+        )
+      ) {
         return false
       }
     } else {
       // include current entries (as they are valid)
       theIdeasToBeSent.push({
-        userId: chosenUserId, 
+        userId: chosenUserId,
         userName: chosenUserName,
         title: nameOfIdea,
-        description: descrOfIdea,        
+        description: descrOfIdea
       })
     }
 
     dispatch(populateIdeas(theIdeasToBeSent))
     clearInterval(askingInterval)
     setAskingInterval(null)
-    navigate("/admin/waiting") // <--- for navigating to next page
+    navigate('/admin/waiting') // <--- for navigating to next page
   }
-
 
   const [isMocked, setIsMocked] = useState(false)
   const handleMockNames = () => {
@@ -140,7 +141,11 @@ export default function Ideas () {
   }
   const handleMockIdeas = async () => {
     // YES when sending ideas, the usetName IS ignored by backend
-    if (!confirm('WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again')) {
+    if (
+      !confirm(
+        'WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again'
+      )
+    ) {
       return false
     }
 
@@ -149,7 +154,8 @@ export default function Ideas () {
       const userId = u.id
       const userName = u.name
       return {
-        userId, userName,
+        userId,
+        userName,
         title: `title: ${userName}`,
         description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
       }
@@ -160,82 +166,69 @@ export default function Ideas () {
 
     alert('mock ideas successfully sent!')
 
-    navigate("/admin/waiting") // <--- for navigating to next page    
+    navigate('/admin/waiting') // <--- for navigating to next page
   }
 
   return (
     <>
-      <div>
-        <h1>A2</h1>
-        <h2>This the page where the admin enters all the ideas</h2>
-      </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {(users.length || null) && users.map(user => {
-          return <Button 
-            key={user.id} 
-            variant="outlined"
-            onClick={handleChosenUserClicked(user.id, user.name)}
-          >
-            {user.name}
-          </Button>
-        })
-        }
-      </div> <br />
-      <div className="form_container">
-        <Box
-          component="form"
-          sx={{
-            '& > :not(style)': { m: 1, width: '25ch' }
-          }}
-          noValidate
-          autoComplete="off"
+        {(users.length || null) &&
+          users.map((user) => {
+            return (
+              <Button
+                key={user.id}
+                variant="outlined"
+                onClick={handleChosenUserClicked(user.id, user.name)}
+              >
+                {user.name}
+              </Button>
+            )
+          })}
+        <TextField
+          sx={{ display: 'flex', my: 2 }}
+          id="outlined-basic"
+          label="Name of Idea"
+          variant="outlined"
+          value={nameOfIdea}
+          onChange={(e) => setNameOfIdea(e.target.value)}
+          disabled={chosenUserName === ''}
+        />
+        <TextField
+          sx={{ display: 'flex', my: 2 }}
+          multiline
+          rows={4}
+          id="outlined-basic"
+          label="Idea description"
+          variant="outlined"
+          value={descrOfIdea}
+          onChange={(e) => setDescrOfIdea(e.target.value)}
+          disabled={chosenUserName === ''}
+        />
+        <Button
+          sx={{ width: 292.8 }}
+          onClick={handleOnClickNextIdea}
+          variant="outlined"
         >
-          <TextField
-            sx={{ display: 'flex' }}
-            id="outlined-basic"
-            label="Name of Idea"
-            variant="outlined"
-            value={nameOfIdea}
-            onChange={e => setNameOfIdea(e.target.value)}
-            disabled={chosenUserName === ''}
-          />
-          <TextField
-            sx={{ display: 'flex' }}
-            multiline
-            rows={4}
-            id="outlined-basic"
-            label="Idea description"
-            variant="outlined"
-            value={descrOfIdea}
-            onChange={e => setDescrOfIdea(e.target.value)}
-            disabled={chosenUserName === ''}
-          />
-          <Button 
-            onClick={handleOnClickNextIdea} 
-            variant="outlined"
-          >
-            Next idea
-          </Button>
-          <Button onClick={handleOnClickLink} variant="outlined">
-            All ideas submitted - ready to vote
-          </Button>
-          {mockbool && 
+          Next idea
+        </Button>
+        <Button
+          sx={{ width: 292.8, my: 2 }}
+          onClick={handleOnClickLink}
+          variant="outlined"
+        >
+          All ideas submitted - ready to vote
+        </Button>
+        {mockbool && (
           <>
-            <Button 
-              onClick={handleMockNames} 
-              variant="outlined"
-            >
-                Mock - user name addition
+            <Button onClick={handleMockNames} variant="outlined">
+              Mock - user name addition
             </Button>
-            <Button 
-              onClick={handleMockIdeas}
-              variant="outlined"
-            >
+            <Button onClick={handleMockIdeas} variant="outlined">
               Mock - ideas addition
             </Button>
-          </>}          
-        </Box>
+          </>
+        )}
       </div>
     </>
   )
