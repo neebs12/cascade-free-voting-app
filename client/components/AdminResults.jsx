@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+
+import CardHeader from '@material-ui/core/CardHeader';
+import { makeStyles } from '@material-ui/styles'
+
 import ResultsTile from './ResultTile'
 import WinningResultsTile from './WinningResultsTile'
+import WRtest from './WRtest'
 
 import { fetchWinningIdeas } from '../features/ideas/ideasSlice'
 

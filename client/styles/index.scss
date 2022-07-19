@@ -65,6 +65,7 @@ h2{
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  align-content: space-between;
 }
 
 
@@ -232,4 +233,8 @@ h2{
   line-height: 30px;
   margin: 10px;
 
+}
+.MuiCardHeader-root{
+  background-color: #9c4dcc;
+  margin-bottom: 0;
 }
