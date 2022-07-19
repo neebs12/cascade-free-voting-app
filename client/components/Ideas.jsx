@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+
+import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
+import { populateIdeas } from '../features/ideas/ideasSlice'
 
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
@@ -59,6 +61,11 @@ export default function Ideas () {
       }, {...}, ... 
     ]
     */
+   // if any are empty, unable to move on
+    if ( !(chosenUserName && nameOfIdea && descrOfIdea) ) {
+      return false
+    }
+
     // therefore ...
     const payloadIdea = {
       userId: chosenUserId, 
@@ -75,8 +82,6 @@ export default function Ideas () {
     setDescrOfIdea('')
     setChosenUserId(0)
     setChosenUserName('')
-
-    console.log(myIdeas)
   }
 
 
@@ -85,6 +90,10 @@ export default function Ideas () {
     // here, we (1)POST to database and (2)DELTA the redux state of the Ideas state
     // . Here, we use the ref object `myIdeas.current` that is an array, that will become the data for the POST of the async thunk
 
+    console.log('going to the database!')
+    const theIdeasToBeSent = myIdeas.current
+
+    dispatch(populateIdeas(theIdeasToBeSent))
     clearInterval(askingInterval)
     setAskingInterval(null)
     // navigate("/admin/waiting") // <--- for navigating to next page
@@ -108,10 +117,7 @@ export default function Ideas () {
           </Button>
         })
         }
-      </div>
-      {/* <div>
-        <Button onClick={handleOnClickUsers} variant="outlined">Reload</Button>
-      </div> */}
+      </div> <br />
       <div className="form_container">
         <Box
           component="form"
@@ -141,12 +147,12 @@ export default function Ideas () {
             onChange={e => setDescrOfIdea(e.target.value)}
             disabled={chosenUserName === ''}
           />
-          <Button onClick={handleOnClickNextIdea} variant="outlined">
+          <Button 
+            onClick={handleOnClickNextIdea} 
+            variant="outlined"
+          >
             Next idea
           </Button>
-          {/* <Button component={Link} to="/admin/waiting" variant="outlined">
-            All ideas submitted - ready to vote
-          </Button> */}
           <Button onClick={handleOnClickLink} to="/admin/waiting" variant="outlined">
             All ideas submitted - ready to vote
           </Button>
