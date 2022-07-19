@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -8,16 +8,38 @@ import { fetchIdeas, selectVoteReady } from '../features/ideas/ideasSlice'
 import { fetchSession } from '../features/session/sessionSlice'
 
 export default function BeforeVote () {
+  const [askingInterval, setAskingInterval] = useState(null)
+  const voteReady = useSelector(selectVoteReady)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchIdeas())
     dispatch(fetchSession())
+
+    const intervalId = setInterval(() => {
+      dispatch(fetchIdeas())
+      dispatch(fetchSession())
+    }, 1000) // updates every 1 second
+
+    setAskingInterval(intervalId)    
   }, [])
 
-  const handleClick = () => navigate('/user/voting', { replace: true })
+  useEffect(() => {
+    // terminate the intervaled request here
+    // assuming is initially false, therefore will be switched to true and this useEffect is first executed
+    if (askingInterval) {
+      // only executes if this is true
+      clearInterval(askingInterval)
+      setAskingInterval(null)
+    }
+  }, [voteReady]) // <--- is boolean therefore safe
 
-  const voteReady = useSelector(selectVoteReady)
+  const handleClick = () => {
+    navigate('/user/voting', { replace: true })
+  }
+
+  
 
   return (
     <>
