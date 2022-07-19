@@ -1,5 +1,12 @@
 import request from 'superagent'
 
+export function makeNewSession () {
+  return request.post('../api/v1/users').then(res => {
+    console.log('new Session body: ', res.body)
+    return res.body
+  })
+}
+
 export function fetchCurrentSession () {
   return request.get('../api/v1/sessions').then((res) => {
     // Code below is hard coding an extra key/value pair that can be handled on backend
