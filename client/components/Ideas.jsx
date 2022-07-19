@@ -9,6 +9,8 @@ import TextField from '@mui/material/TextField'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { populateIdeas } from '../features/ideas/ideasSlice'
 
+import { mockPostUsers } from '../apis/mock/add-new-users' 
+
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
@@ -120,6 +122,17 @@ export default function Ideas () {
     navigate("/admin/waiting") // <--- for navigating to next page
   }
 
+
+  const [isMocked, setIsMocked] = useState(false)
+  const handleMock = () => {
+    if (isMocked) {
+      return console.log('already mocked, cannot execute again')
+    }
+    console.log('is mocking')
+    mockPostUsers()
+    setIsMocked(true)
+  }
+
   return (
     <>
       <div>
@@ -128,7 +141,7 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {users.length && users.map(user => {
+        {(users.length || null) && users.map(user => {
           return <Button 
             key={user.id} 
             variant="outlined"
@@ -174,9 +187,12 @@ export default function Ideas () {
           >
             Next idea
           </Button>
-          <Button onClick={handleOnClickLink} to="/admin/waiting" variant="outlined">
+          <Button onClick={handleOnClickLink} variant="outlined">
             All ideas submitted - ready to vote
           </Button>
+          <Button onClick={handleMock} to="/admin/waiting" variant="outlined">
+            Mock
+          </Button>          
         </Box>
       </div>
     </>

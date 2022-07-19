@@ -23,3 +23,4 @@ export function postOneUser (userName) {
       return res.body
     }).catch(err => console.log(err))
 }
+
