@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {
-  fetchAllIdeas,
-  fetchWinningIdeasAPI,
-  postVotesAPI
-} from '../../apis/ideas'
+import { fetchAllIdeas, fetchWinningIdeasAPI } from '../../apis/ideas'
 
 // State and reducers:
 export const ideasSlice = createSlice({
@@ -13,12 +9,12 @@ export const ideasSlice = createSlice({
     // ideas/addVote
     addVote (state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
-      idea.myvotes++
+      idea.votes++
     },
     // ideas/subtractVote
     subtractVote (state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
-      if (idea.myvotes > 0) idea.myvotes--
+      if (idea.votes > 0) idea.votes--
     }
   },
   extraReducers (builder) {
@@ -36,17 +32,6 @@ export const ideasSlice = createSlice({
         // this is where we add to the redux store
         return action.payload // <--- overwriting the state
       })
-      .addCase(postVotes.fulfilled, (state, action) => {})
-      .addCase(fetchIdeasMyVotes.fulfilled, (state, action) => {
-        console.log('payload', action.payload)
-        const ideasArr = action.payload.map((idea) => {
-          return {
-            ...idea,
-            myvotes: 0
-          }
-        })
-        return ideasArr
-      })
   }
 })
 
@@ -56,29 +41,11 @@ export const selectAllIdeas = (state) => state.ideas
 
 export const selectVoteCount = (state) => {
   const ideas = state.ideas
-  const totalVotes = ideas.reduce(
-    (runningTotal, idea) => idea.myvotes + runningTotal,
-    0
-  )
+  const totalVotes = ideas.reduce((runningTotal, idea) => idea.votes + runningTotal, 0)
   return totalVotes
 }
 
 export const selectVoteReady = (state) => state.ideas.length > 0
-
-export const selectVoteArr = (state) => {
-  const ideasWithVotes = state.ideas.filter((idea) => idea.myvotes > 0)
-  const currentUserVotes = ideasWithVotes?.map((idea) => {
-    const preppedIdea = {
-      userId: state.session.id,
-      ideaId: idea.id,
-      freq: idea.myvotes
-    }
-    delete preppedIdea.myvotes
-    return preppedIdea
-  })
-
-  return currentUserVotes
-}
 
 // THUNKS:
 
@@ -87,27 +54,10 @@ export const fetchIdeas = createAsyncThunk('fetchIdeas', async () => {
   return response
 })
 
-export const fetchIdeasMyVotes = createAsyncThunk(
-  'fetchIdeasMyVotes',
-  async () => {
-    const response = await fetchAllIdeas()
-    return response
-  }
-)
-
 // a4-37 async thunk to be placed, fetching winning ideas
-export const fetchWinningIdeas = createAsyncThunk(
-  'fetchWinningIdeas',
-  async () => {
-    const response = await fetchWinningIdeasAPI()
-    return response // action object --> {payload: response}
-  }
-)
-
-export const postVotes = createAsyncThunk('postVotes', async (data) => {
-  console.log('post Votes Thunk data:', data)
-  await postVotesAPI(data)
-  return data
+export const fetchWinningIdeas = createAsyncThunk('fetchWinningIdeas', async () => {
+  const response = await fetchWinningIdeasAPI()
+  return response // action object --> {payload: response}
 })
 
 // Default export:

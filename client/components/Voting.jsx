@@ -37,7 +37,6 @@ export default function Voting () {
         <h1>{numVotes - voteCount}</h1>
         <Button
           onClick={() => {
-            console.log('voteArr:', voteArr)
             dispatch(postVotes(voteArr))
           }}
           component={Link}

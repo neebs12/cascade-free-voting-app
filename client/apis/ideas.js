@@ -16,11 +16,11 @@ export function fetchWinningIdeasAPI () {
 }
 
 export function postVotesAPI (data) {
-  console.log('postVoteAPI data', data)
-  
-  return request
-    .post('/api/v1/votes')
-    .send(data)
-    // eslint-disable-next-line promise/always-return
-    .then((_) => {}) // <--- the server does not send anything back
+  return (
+    request
+      .post('/api/v1/votes')
+      .send(data)
+      // eslint-disable-next-line promise/always-return
+      .then((_) => {})
+  ) // <--- the server does not send anything back
 }

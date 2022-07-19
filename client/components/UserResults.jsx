@@ -1,24 +1,10 @@
 import React from 'react'
-import Button from '@mui/material/Button'
-import { Link } from 'react-router-dom'
-import ResultsTile from './ResultTile'
+import ResultTile from './ResultTile'
+import { useSelector } from 'react-redux'
+import { selectAllIdeas } from '../features/ideas/ideasSlice'
 
 export default function UserResults () {
-  const results = [
-    {
-      id: 1,
-      title: '7 Minute Abs',
-      description: "7's the key number here. Think about it.",
-      votes: 20
-    },
-    {
-      id: 2,
-      title: '6 Minute Abs',
-      description: 'But what if someone comes up with 6 minute abs.',
-      votes: 30
-    },
-    { id: 3, title: 'Minute Abs', description: 'Abs in a Minute', votes: 40 }
-  ]
+  const results = useSelector(selectAllIdeas)
   return (
     <>
       <h1>U5</h1>
@@ -26,14 +12,12 @@ export default function UserResults () {
       <div>
         <p></p>
         <p></p>
-        <Button component={Link} to="/user/winners" variant="outlined">
-          View winners
-        </Button>
+
       </div>
 
       <div className="tile-container">
         {results.map((result) => {
-          return <ResultsTile key={result.id} result={result} />
+          return <ResultTile key={result.id} result={result} />
         })}
       </div>
     </>

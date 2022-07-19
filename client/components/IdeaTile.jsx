@@ -30,7 +30,6 @@ export default function IdeaTile ({ idea }) {
   const votes = useSelector(state => getVoteById(state, id))
   const dispatch = useDispatch()
   const { title, description } = idea
-  console.log('votes', votes)
 
   return (
     <Card sx={{ minWidth: 275 }}>
