@@ -50,7 +50,7 @@ export async function mockVotes(durationSeconds = TIME) {
   // map to match better mental model shape
   const users = (await fetchAllUsers()).map(u => Object.assign({userId: u.id}))
   // note the {..., freq: 0}!!
-  const ideas = (await fetchAllIdeas).map(i => Object.assign({ideaId: i.id, freq: 0}))
+  const ideas = (await fetchAllIdeas()).map(i => Object.assign({ideaId: i.id, freq: 0}))
 
 
 
@@ -86,6 +86,7 @@ export async function mockVotes(durationSeconds = TIME) {
   -- end iteration
   */
 
+
   const payload = []
   users.forEach(u => {
     const localPayload = []
@@ -94,12 +95,20 @@ export async function mockVotes(durationSeconds = TIME) {
 
     randomIndAry.forEach((rndElm, ind) => {
       const currIdea = ideas[rndElm]
-      currIdea.freq += DISTRIBUTED_VOTES[ind]
-      localPayload.push({
-        userId, 
-        ideaId: currIdea.ideaId,
-        freq: currIdea.freq
-      })
+      const ideaId = currIdea.ideaId
+      const checkIdeaInLocalPayload = localPayload.find(lpIdea => lpIdea.ideaId === ideaId)
+      
+      if (!checkIdeaInLocalPayload) {
+        // if not found, then push to localPayload, othewise ignore
+        // currIdea.freq += DISTRIBUTED_VOTES[ind]
+        localPayload.push({
+          userId, 
+          ideaId: currIdea.ideaId,
+          freq: DISTRIBUTED_VOTES[ind]
+        })
+      } else {
+        checkIdeaInLocalPayload.freq += DISTRIBUTED_VOTES[ind]
+      } 
     })
     payload.push(localPayload)
   })
