@@ -194,7 +194,7 @@ export default function Ideas () {
             All ideas submitted - ready to vote
           </Button>
           <Button onClick={handleMock} to="/admin/waiting" variant="outlined">
-            Mock
+            Mock - user name addition
           </Button>          
         </Box>
       </div>

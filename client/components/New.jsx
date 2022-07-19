@@ -9,33 +9,22 @@ import { populateSession } from '../features/session/sessionSlice'
 
 export default function New () {
 
-  /*
-  // There is no side effect for this component
-  // What it needs however is a sole dispath - therefore a useDispatch is required
-  // This will use the features/session/sessionsSlice.js
-  // What we also want is to control the component that we have here
-  // -- therefore there will be two controlled components
-  // With the button, we would want to use `useNavigate` intead of linking directly
-  // therefore there will be an onclick handler on the Button component
-  // -- run this on dev:prod for empty database state
-  */
-
   const [nameOfEvent, setNameOfEvent] = useState('')
   const [numFinalIdeas, setNumFinalIdeas] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const onClickHandler = () => {
-    // this is the one that is going to dispatch, with an executed async thunk in the argument of the dispatch
-    /*
-    new_session = {
-        title: 'string',
-        numWinners: int
-    }
-    */
+  const onClickHandler = (
+    nameOfEvent = nameOfEvent,
+    numFinalIdeas = numFinalIdeas
+  ) => {
+    const myNumWinners = (typeof numFinalIdeas === 'number') 
+      ? numFinalIdeas
+      : Number(numFinalIdeas[0])
+
     const payload = {
       title: nameOfEvent,
-      numWinners: Number(numFinalIdeas[0])
+      numWinners: myNumWinners
     }
     
     // dispatch
@@ -43,6 +32,14 @@ export default function New () {
 
     // renavigate
     navigate("/admin/ideas")
+  }
+
+  const onClickMock = () => {
+    alert('mock: \nname of event: summer jared\nnumber of ideas: 5')
+    // setNameOfEvent('summer jared')
+    // setNumFinalIdeas(5) // ignoring local state
+    onClickHandler('summer jared', 5)
+    // setTimeout(onClickHandler, 1000) // 1 sec delay (dangerous code)
   }
 
 
@@ -80,6 +77,9 @@ export default function New () {
             />
             {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
             <Button onClick={onClickHandler} variant="outlined">Submit</Button>
+            <Button onClick={onClickMock} variant="outlined">
+              Mock - new idea addition
+            </Button>
           </Box>
         </div>
       </div>
