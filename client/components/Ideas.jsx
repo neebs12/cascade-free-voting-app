@@ -9,6 +9,11 @@ import TextField from '@mui/material/TextField'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { populateIdeas } from '../features/ideas/ideasSlice'
 
+// MOCKS
+import { fetchAllUsers } from '../apis/users'
+import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users' 
+import mockbool from '../apis/mock/mockbool'
+
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
@@ -120,6 +125,44 @@ export default function Ideas () {
     navigate("/admin/waiting") // <--- for navigating to next page
   }
 
+
+  const [isMocked, setIsMocked] = useState(false)
+  const handleMockNames = () => {
+    if (isMocked) {
+      return console.log('already mocked, cannot execute again')
+    }
+    console.log('is mocking')
+    mockPostUsers(
+      ['jason', 'graeme', 'jared', 'kotare', 'emily', 'kelly', 'joseph'],
+      10
+    )
+    setIsMocked(true)
+  }
+  const handleMockIdeas = async () => {
+    // YES when sending ideas, the usetName IS ignored by backend
+    if (!confirm('WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again')) {
+      return false
+    }
+
+    const users = await fetchAllUsers()
+    const theIdeasToBeSent = users.map((u, ind) => {
+      const userId = u.id
+      const userName = u.name
+      return {
+        userId, userName,
+        title: `title: ${userName}`,
+        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
+      }
+    })
+    dispatch(populateIdeas(theIdeasToBeSent))
+    clearInterval(askingInterval)
+    setAskingInterval(null)
+
+    alert('mock ideas successfully sent!')
+
+    navigate("/admin/waiting") // <--- for navigating to next page    
+  }
+
   return (
     <>
       <div>
@@ -128,7 +171,7 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {users.length && users.map(user => {
+        {(users.length || null) && users.map(user => {
           return <Button 
             key={user.id} 
             variant="outlined"
@@ -174,9 +217,24 @@ export default function Ideas () {
           >
             Next idea
           </Button>
-          <Button onClick={handleOnClickLink} to="/admin/waiting" variant="outlined">
+          <Button onClick={handleOnClickLink} variant="outlined">
             All ideas submitted - ready to vote
           </Button>
+          {mockbool && 
+          <>
+            <Button 
+              onClick={handleMockNames} 
+              variant="outlined"
+            >
+                Mock - user name addition
+            </Button>
+            <Button 
+              onClick={handleMockIdeas}
+              variant="outlined"
+            >
+              Mock - ideas addition
+            </Button>
+          </>}          
         </Box>
       </div>
     </>
