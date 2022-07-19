@@ -91,11 +91,16 @@ export default function Ideas () {
     // here, we (1)POST to database and (2)DELTA the redux state of the Ideas state
     // . Here, we use the ref object `myIdeas.current` that is an array, that will become the data for the POST of the async thunk
 
-    console.log('going to the database!')
+    // console.log('going to the database!')
     const theIdeasToBeSent = myIdeas.current
 
+    if (theIdeasToBeSent.length === 0) {
+      alert("There are NO ideas recorded!, Please enter atleast ONE idea")
+      return false
+    }
+
     // this is to include the current ideas page
-    if ( !(chosenUserName && nameOfIdea && descrOfIdea) &&  !confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
+    if ( (!chosenUserName || !nameOfIdea || !descrOfIdea) &&  !confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
       
       return false
     } else {
