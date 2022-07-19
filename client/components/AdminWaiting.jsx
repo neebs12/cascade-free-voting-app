@@ -35,27 +35,32 @@ export default function AdminWaiting () {
     const intervalId = setInterval(() => {
       dispatch(fetchUsers()) 
       dispatch(fetchUsersStatus())
-      if (userStatus) {
-        // IE: this exists. Then .voted and .notVoted MUST exists, therefore no need to use `?`. Also no need to use useEffect
-        const isNotVotedEmpty = userStatus.notVoted.length === 0
-        const isVotedEmpty = userStatus.notVoted.length === 0
-        if (isNotVotedEmpty && isVotedEmpty) {
-          // no users exists
-          setVoteSubmit(false)
-        } else if (!isVotedEmpty) {
-          // there are still users that need to vote
-          setVoteSubmit(false)
-        } else {
-          // here, users exists and the non-voted array is empty
-          // therefore true
-          setVoteSubmit(true)
-          // set voted and un voted states here
-        }
-      }
     }, 1000) // 1s update
 
     setAskingInterval(intervalId)
   }, []) // only executes once
+
+  useEffect(() => {
+    if (userStatus) {
+      // IE: this exists. Then .voted and .notVoted MUST exists, therefore no need to use `?`. Also no need to use useEffect
+      const isNotVotedEmpty = userStatus.notVoted.length === 0
+      const isVotedEmpty = userStatus.voted.length === 0
+      // console.log(userStatus.notVoted, userStatus.voted)
+      if (isNotVotedEmpty && isVotedEmpty) {
+        // no users exists
+        setVoteSubmit(false)
+      } else if (!isNotVotedEmpty) {
+        // there are still users that need to vote
+        setVoteSubmit(false)
+      } else {
+        // here, users exists and the non-voted array is empty
+        // therefore true
+        // debugger
+        setVoteSubmit(true)
+        // set voted and un voted states here
+      }
+    }
+  }, [userStatus])
 
   const handleClickNextPage = () => {
     // need GCL if can navigate to next page
@@ -65,7 +70,7 @@ export default function AdminWaiting () {
     // then, clear intervals & navigate accordingly
     clearInterval(askingInterval)
     setAskingInterval(null)    
-    // navigate('/admin/results')
+    navigate('/admin/results')
   }
 
   const [isMocked, setItMocked] = useState(false)
@@ -75,7 +80,7 @@ export default function AdminWaiting () {
       return console.log('already mocked, cannot mock again')
     }
     console.log('is mocking')
-    mockVotes(10) // 10 second duration for mocking votes
+    mockVotes(20) // n second duration for mocking votes
     setItMocked(true)
   }
 
