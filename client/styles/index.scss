@@ -9,10 +9,31 @@ h2 {
 }
 // Oops used underscores (may fix one day...)
 
-.login_center_div {
+.ideas-center-div-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.name-container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 100px;
+}
+
+.landing-center-div {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login-center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:75vh
 }
 
 .vote-results-div {
@@ -36,6 +57,23 @@ h2 {
   align-items: center;
 }
 
+.before-vote-center-div-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh
+}
+
+.ideas-vote-center-div-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh
+}
+
+
 .login-center-div-row {
   display: flex;
   flex-direction: row;
@@ -54,7 +92,7 @@ h2 {
   }
 }
 
-.form_container {
+.form-container {
   display: flex;
   flex-direction: column;
 }
@@ -245,3 +283,7 @@ h2 {
   text-align: center;
 
 }
+
+.MuiButton-root {
+  border-radius: 15px;
+} 

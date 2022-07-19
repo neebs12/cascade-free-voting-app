@@ -17,6 +17,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme({
   typography: {
+    button: {
+      // textTransform: 'none'
+    },
     fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(',')
   },
   palette: {
