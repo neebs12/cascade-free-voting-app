@@ -1,23 +1,58 @@
-import React, { useEffect } from 'react'
-import { selectAllIdeas, fetchIdeas } from '../features/ideas/ideasSlice'
+import React, { useState, useEffect } from 'react'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import Button from '@mui/material/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 export default function Ideas () {
+  const [askingInterval, setAskingInterval] = useState(null)
+  const [nameOfIdea, setNameOfIdea] = useState('')
+  const [descrOfIdea, setDescrOfIdea] = useState('')
+  const myIdeas = useRef([])
+  // becomes {current: []} at the start
+
+  const users = useSelector(selectAllUsers)
+  
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   useEffect(() => {
-    dispatch(fetchIdeas())
     dispatch(fetchUsers())
+    // set the asking interval here
+    
+    const intervalId = setInterval(() => {
+      console.log('getting new users!')
+      dispatch(fetchUsers())
+    }, 1000) // updates every 1 sec
+
+    setAskingInterval(intervalId)
   }, [])
 
-  const ideas = useSelector(selectAllIdeas)
-  const users = useSelector(selectAllUsers)
-  console.log(users)
+  const handleOnClickNextIdea = () => {
+    // this is where the ideas are stored (in the ref) `myIdeas`
+    // this is where we reset the states of `nameOfIdea` and `descrOfIdea`
+    // -- this will be done via setNameOfIdea('') && setDescrOfIdea('')
+    // therefore, we can do this one easily!
+    // what is the shape fitting?
+
+    
+  }
+
+
+  const handleOnClickLink = () => {
+    // clears the interval (no longer asking for new updates)
+    // here, we (1)POST to database and (2)DELTA the redux state of the Ideas state
+    // . Here, we use the ref object `myIdeas.current` that is an array, that will become the data for the POST of the async thunk
+
+    clearInterval(askingInterval)
+    setAskingInterval(null)
+    // navigate("/admin/waiting") // <--- for navigating to next page
+  }
+
   return (
     <>
       <div>
@@ -26,16 +61,14 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {/* {typeof users
-        users.map((name) => {
-          return <Button key={name.id}variant="outlined">{name.name}</Button>
-          return <IdeaTile key={idea.id} idea={idea} />
+        {users.length && users.map((name) => {
+          return <Button key={name.id} variant="outlined">{name.name}</Button>
         })
-        } */}
+        }
       </div>
-      <div>
-        <Button variant="outlined">Reload</Button>
-      </div>
+      {/* <div>
+        <Button onClick={handleOnClickUsers} variant="outlined">Reload</Button>
+      </div> */}
       <div className="form_container">
         <Box
           component="form"
@@ -50,6 +83,8 @@ export default function Ideas () {
             id="outlined-basic"
             label="Name of Idea"
             variant="outlined"
+            value={nameOfIdea}
+            onChange={e => setNameOfIdea(e.target.value)}
           />
           <TextField
             sx={{ display: 'flex' }}
@@ -58,11 +93,16 @@ export default function Ideas () {
             id="outlined-basic"
             label="Idea description"
             variant="outlined"
+            value={descrOfIdea}
+            onChange={e => setDescrOfIdea(e.target.value)}
           />
-          <Button variant="outlined">
+          <Button onClick={handleOnClickNextIdea} variant="outlined">
             Next idea
           </Button>
-          <Button component={Link} to="/admin/waiting" variant="outlined">
+          {/* <Button component={Link} to="/admin/waiting" variant="outlined">
+            All ideas submitted - ready to vote
+          </Button> */}
+          <Button onClick={handleOnClickLink} to="/admin/waiting" variant="outlined">
             All ideas submitted - ready to vote
           </Button>
         </Box>

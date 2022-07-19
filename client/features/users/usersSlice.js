@@ -8,7 +8,7 @@ import {
 // State and reducers:
 export const usersSlice = createSlice({
   name: 'users',
-  initialState: {},
+  initialState: {}, // <--- note! KEEP as {}, JA
   reducers: {
     addUsers (state, action) {
       console.log('addUsers action called')
@@ -20,7 +20,7 @@ export const usersSlice = createSlice({
         console.log('pending')
       })
       .addCase(fetchUsersStatus.fulfilled, (state, action) => {
-        console.log(action)
+        // console.log(action)
         state.userStatus = action.payload
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
@@ -37,7 +37,14 @@ export const usersSlice = createSlice({
 
 // Selectors:
 // Selector below is probably broken and should possibly be state.users.users
-export const selectAllUsers = (state) => state.users
+export const selectAllUsers = (state) => {
+  // debugger
+  if (state.users.users) {
+    return state.users.users
+  } else {
+    return {} // <--- empty object if this does not exists yet
+  }
+}
 
 export const selectResultsReady = (state) => {
   const votedObj = state.users.userStatus
@@ -62,7 +69,9 @@ export const fetchUsersStatus = createAsyncThunk(
 )
 
 export const fetchUsers = createAsyncThunk('fetchUsers', async () => {
+  // this one gets all the relevant users
   const response = await fetchAllUsers()
+  // debugger
   return response
 })
 
