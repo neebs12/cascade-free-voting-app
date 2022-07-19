@@ -25,7 +25,7 @@ export default function Ideas () {
     // set the asking interval here
     
     const intervalId = setInterval(() => {
-      console.log('getting new users!')
+      // console.log('getting new users!')
       dispatch(fetchUsers())
     }, 1000) // updates every 1 sec
 
@@ -39,7 +39,7 @@ export default function Ideas () {
     // therefore, we can do this one easily!
     // what is the shape fitting?
 
-    
+
   }
 
 
