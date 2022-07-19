@@ -18,7 +18,7 @@ import { selectNumVotes } from '../features/session/sessionSlice'
 const getVoteById = (state, id) => {
   const ideas = state.ideas
   const idea = ideas.find((idea) => idea.id === id)
-  const votes = idea.votes
+  const votes = idea.myvotes
   return votes
 }
 

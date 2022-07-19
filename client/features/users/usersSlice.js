@@ -11,7 +11,6 @@ export const usersSlice = createSlice({
   initialState: {}, // <--- note! KEEP as {}, JA
   reducers: {
     addUsers (state, action) {
-      console.log('addUsers action called')
     }
   },
   extraReducers (builder) {
@@ -49,7 +48,6 @@ export const selectAllUsers = (state) => {
 export const selectResultsReady = (state) => {
   const votedObj = state.users.userStatus
   const votedArr = votedObj?.voted
-  console.log('resultsReady ', votedArr?.length === 0)
   return votedArr?.length === 0
 }
 

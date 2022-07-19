@@ -1,17 +1,16 @@
-import { ActionTypes } from '@mui/base'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchCurrentSession, postCurrentSession, makeNewSession } from '../../apis/session'
+import { fetchCurrentSession, postCurrentSession } from '../../apis/session'
 
 // State and reducers:
 export const sessionSlice = createSlice({
   name: 'session',
   initialState: {},
   reducers: {
-    addSession(state, action) {
-      console.log('addSession action called')
-    },
+    newSession (state, action) {
+      return action.payload
+    }
   },
-  extraReducers(builder) {
+  extraReducers (builder) {
     builder
       .addCase(fetchSession.pending, (state, action) => {})
       .addCase(fetchSession.fulfilled, (state, action) => {
@@ -21,11 +20,7 @@ export const sessionSlice = createSlice({
       .addCase(populateSession.fulfilled, (state, action) => {
         return action.payload // <--- this poopulates/replaces the state
       })
-      .addCase(newSession.fulfilled, (state, action) => {
-        console.log('new session called')
-        return action.payload
-      })
-  },
+  }
 })
 
 // Selectors:
@@ -48,11 +43,13 @@ export const populateSession = createAsyncThunk(
   }
 )
 
-export const newSession = createAsyncThunk('newSession', async () => {
-  const response = await makeNewSession()
-  return response
-})
+// export const newSession = createAsyncThunk('newSession', async () => {
+//   const response = await makeNewSession()
+//   return response
+// })
 
 // Export Reducer:
 
 export default sessionSlice.reducer
+
+export const { newSession } = sessionSlice.actions

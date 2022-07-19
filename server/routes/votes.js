@@ -4,7 +4,6 @@ const db = require('../db/dbfunctions/db')
 const dbIdeas = require('../db/dbfunctions/ideas')
 const dbVotes = require('../db/dbfunctions/votes')
 
-
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -16,7 +15,7 @@ router.get('/', async (req, res) => {
   */
   const result = await dbIdeas.getIdeasWithOwnerAndVotes()
   // console.log(result)
-   
+
   res.status(200).json(result)
 })
 
@@ -32,15 +31,15 @@ router.get('/is_ready', async (req, res) => {
   // // filter `allUserIds` - `filteredUserId`
   // // -- iterate through `allUserIds`
   // // -- if an id exists within `userIdsInIdeas`, return false, else true
-  // // `booln` = filteredUserId.length === 0, return true, else false {votingReady: bool} 
+  // // `booln` = filteredUserId.length === 0, return true, else false {votingReady: bool}
   // const filteredUserId = allUserIds.filter(aId => {
   //   return !userIdsInIdeas.includes(aId)
   // })
 
   // note it is acceptable for some users to not have any ideas
 
-  res.status(200).json({ 
-    votingReady: ideas.length !== 0 
+  res.status(200).json({
+    votingReady: ideas.length !== 0
   })
 })
 
@@ -63,7 +62,7 @@ router.get('/is_finished', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  /* Expected: 
+  /* Expected:
   votes = [
     {
     userId: int,
@@ -73,9 +72,9 @@ router.post('/', async (req, res) => {
   ] */
   // This will populate the `votes` entity with new voteRecords! This will added 'dynamically' as each user adds their own vote (presses submit at U3)
   // The frontend will provide the userId and the associated ideaId that has been voted on
-  // intention with the return is to return the whole state of the database to the front-end. And it will do what it needs to do with it. 
+  // intention with the return is to return the whole state of the database to the front-end. And it will do what it needs to do with it.
   // assume that it wants to use the getIdeasWithOwnerAndVotes function
-  
+
   const data = req.body
   // here the `votes` entity is being changed
   await dbVotes.addVotes(data)
