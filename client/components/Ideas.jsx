@@ -129,7 +129,10 @@ export default function Ideas () {
       return console.log('already mocked, cannot execute again')
     }
     console.log('is mocking')
-    mockPostUsers()
+    mockPostUsers(
+      ['jason', 'graeme', 'jared', 'kotare', 'emily', 'kelly', 'joseph'],
+      10
+    )
     setIsMocked(true)
   }
 
