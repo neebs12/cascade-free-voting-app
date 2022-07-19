@@ -79,29 +79,54 @@ export async function mockVotes(durationSeconds = TIME) {
   -- -- then currIdea.freq += DISTRIBUTED_VOTES[ind]
   -- -- then this has constructed a new payload object
   -- -- therefore `localPayload.push(
-                    {userId, ideaId: currIdeas.ideaId, freq: currIdeas.freq}
+                    {userId, ideaId: currIdea.ideaId, freq: currIdea.freq}
                   )`
   -- -- end iteration
   -- push `localPayload` to `payload` via `payload.push(localPayload)`
   -- end iteration
-  
-  
   */
 
+  const payload = []
+  users.forEach(u => {
+    const localPayload = []
+    const userId = u.userId
+    const randomIndAry = getRandomInds(ideas, DISTRIBUTED_VOTES.length)
+
+    randomIndAry.forEach((rndElm, ind) => {
+      const currIdea = ideas[rndElm]
+      currIdea.freq += DISTRIBUTED_VOTES[ind]
+      localPayload.push({
+        userId, 
+        ideaId: currIdea.ideaId,
+        freq: currIdea.freq
+      })
+    })
+    payload.push(localPayload)
+  })
+
+  debugger
+
   // period of each interval dependent on duration / number of users
-  const INTERVAL_PERIOD = Math.floor(
-    (durationSeconds / users.length) * 1000
-  )
+  // const INTERVAL_PERIOD = Math.floor(
+  //   (durationSeconds / users.length) * 1000
+  // )
 
-  let intervalId = null
+  // let intervalId = null
 
+  // intervalId = setInterval(
+  //   myRequestCb, INTERVAL_PERIOD
+  // )
+  
+  // function myRequestCb() {
+  //   const foo = 1
+  // }
 
 }
 
-function getRandomInds(collection, length) {
+function getRandomInds(targetCollection, requiredLength) {
   const arry = []
-  for (let i = 0; i < length; i += 1) {
-    arry.push(Math.floor(Math.random() * collection.length))
+  for (let i = 0; i < requiredLength; i += 1) {
+    arry.push(Math.floor(Math.random() * targetCollection.length))
   }
   return arry
 }
