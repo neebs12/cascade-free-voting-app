@@ -18,7 +18,7 @@ import { selectNumVotes } from '../features/session/sessionSlice'
 const getVoteById = (state, id) => {
   const ideas = state.ideas
   const idea = ideas.find((idea) => idea.id === id)
-  const votes = idea.votes
+  const votes = idea.myvotes
   return votes
 }
 
@@ -30,6 +30,7 @@ export default function IdeaTile ({ idea }) {
   const votes = useSelector(state => getVoteById(state, id))
   const dispatch = useDispatch()
   const { title, description } = idea
+  console.log('votes', votes)
 
   return (
     <Card sx={{ minWidth: 275 }}>

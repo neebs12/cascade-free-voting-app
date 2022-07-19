@@ -1,5 +1,6 @@
 import request from 'superagent'
 
+
 export function makeNewSession () {
   return request.post('../api/v1/users').then(res => {
     console.log('new Session body: ', res.body)
