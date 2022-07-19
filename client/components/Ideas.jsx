@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,6 +11,9 @@ export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
   const [descrOfIdea, setDescrOfIdea] = useState('')
+  const [chosenUserId, setChosenUserId] = useState(0)
+  const [chosenUserName, setChosenUserName] = useState('')
+
   const myIdeas = useRef([])
   // becomes {current: []} at the start
 
@@ -32,14 +35,48 @@ export default function Ideas () {
     setAskingInterval(intervalId)
   }, [])
 
+  // is PFA
+  const handleChosenUserClicked = (id, name) => {
+    return () => {
+      // this is where we set the values accordingly
+      console.log(`Clicked on name: ${name} of id: ${id}`)
+      setChosenUserId(Number(id))
+      setChosenUserName(name)
+    }
+  }
+
   const handleOnClickNextIdea = () => {
-    // this is where the ideas are stored (in the ref) `myIdeas`
-    // this is where we reset the states of `nameOfIdea` and `descrOfIdea`
-    // -- this will be done via setNameOfIdea('') && setDescrOfIdea('')
-    // therefore, we can do this one easily!
     // what is the shape fitting?
+    /*
+    -- this is the required shape of the idea 
+    ideas = [
+      <-- see associations
+      {
+        userId: int, <-- chosenUserId
+        userName: 'string', <-- chosenUserName
+        title: 'string', <-- nameOfIdea
+        description: 'string' <-- descrOfIdea
+      }, {...}, ... 
+    ]
+    */
+    // therefore ...
+    const payloadIdea = {
+      userId: chosenUserId, 
+      userName: chosenUserName,
+      title: nameOfIdea,
+      description: descrOfIdea,
+    }
 
+    // then we push this to .current of the ref's object `myIdeas`
+    myIdeas.current.push(payloadIdea)
 
+    // then clear all the relevant states
+    setNameOfIdea('')
+    setDescrOfIdea('')
+    setChosenUserId(0)
+    setChosenUserName('')
+
+    console.log(myIdeas)
   }
 
 
@@ -61,8 +98,14 @@ export default function Ideas () {
       </div>
       <h3>Here are a list of names</h3>
       <div className="name-container">
-        {users.length && users.map((name) => {
-          return <Button key={name.id} variant="outlined">{name.name}</Button>
+        {users.length && users.map(user => {
+          return <Button 
+            key={user.id} 
+            variant="outlined"
+            onClick={handleChosenUserClicked(user.id, user.name)}
+          >
+            {user.name}
+          </Button>
         })
         }
       </div>
@@ -85,6 +128,7 @@ export default function Ideas () {
             variant="outlined"
             value={nameOfIdea}
             onChange={e => setNameOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
           />
           <TextField
             sx={{ display: 'flex' }}
@@ -95,6 +139,7 @@ export default function Ideas () {
             variant="outlined"
             value={descrOfIdea}
             onChange={e => setDescrOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
           />
           <Button onClick={handleOnClickNextIdea} variant="outlined">
             Next idea
