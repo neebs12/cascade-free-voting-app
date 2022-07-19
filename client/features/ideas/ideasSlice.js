@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { 
-  fetchAllIdeas, 
-  fetchWinningIdeasAPI, 
+import {
+  fetchAllIdeas,
+  fetchWinningIdeasAPI,
   postIdeasAPI,
-  postVotesAPI,
+  postVotesAPI
 } from '../../apis/ideas'
 
 // State and reducers:
@@ -69,11 +69,9 @@ export const selectVoteCount = (state) => {
 export const selectVoteReady = (state) => state.ideas.length > 0
 
 export const selectVoteArr = (state) => {
-  console.log('state.ideas', state.ideas)
   const ideasWithVotes = state.ideas.filter((idea) => idea.myvotes > 0)
-  console.log('ideasWithVotes', ideasWithVotes)
   const currentUserVotes = ideasWithVotes?.map((idea) => {
-    const preppedIdea = { 
+    const preppedIdea = {
       userId: state.session.id,
       ideaId: idea.id,
       freq: idea.myvotes
@@ -81,7 +79,6 @@ export const selectVoteArr = (state) => {
     delete preppedIdea.myvotes
     return preppedIdea
   })
-
 
   return currentUserVotes
 }

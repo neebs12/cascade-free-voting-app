@@ -27,16 +27,13 @@ export default function AdminWaiting () {
   useEffect(() => {
     if (user_status?.notVoted.length === 0 && user_status?.voted.length === 0) {
       setVoteSubmit(false)
-    }
-     else if (user_status?.notVoted.length === 0) {
-        setVoteSubmit(true)
+    } else if (user_status?.notVoted.length === 0) {
+      setVoteSubmit(true)
     } else {
       setVoteSubmit(false)
     }
   }, [user_status])
 
-
-  
   return (
     <>
       {user_status && (
