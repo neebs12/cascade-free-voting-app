@@ -118,7 +118,6 @@ export const postVotes = createAsyncThunk('postVotes', async (data) => {
 
 // a2-30 async thunk for placing ideas to the database
 export const populateIdeas = createAsyncThunk('populateIdeas', async (data) => {
-  debugger
   await postIdeasAPI(data)
   // do another await here for fetching all ideas, and this is the one stored in the redux state
   const response = await fetchAllIdeas()

@@ -63,6 +63,7 @@ export default function Ideas () {
     */
    // if any are empty, unable to move on
     if ( !(chosenUserName && nameOfIdea && descrOfIdea) ) {
+      alert('Please chose a user, name of idea and an idea description')
       return false
     }
 
@@ -93,10 +94,24 @@ export default function Ideas () {
     console.log('going to the database!')
     const theIdeasToBeSent = myIdeas.current
 
+    // this is to include the current ideas page
+    if ( !(chosenUserName && nameOfIdea && descrOfIdea) &&  !confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
+      
+      return false
+    } else {
+      // include current entries (as they are valid)
+      theIdeasToBeSent.push({
+        userId: chosenUserId, 
+        userName: chosenUserName,
+        title: nameOfIdea,
+        description: descrOfIdea,        
+      })
+    }
+
     dispatch(populateIdeas(theIdeasToBeSent))
     clearInterval(askingInterval)
     setAskingInterval(null)
-    // navigate("/admin/waiting") // <--- for navigating to next page
+    navigate("/admin/waiting") // <--- for navigating to next page
   }
 
   return (
