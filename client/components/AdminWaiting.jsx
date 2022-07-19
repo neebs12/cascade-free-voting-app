@@ -8,6 +8,8 @@ import {
 } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
+import mockbool from '../apis/mock/mockbool'
+
 export default function AdminWaiting () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [voteSubmit, setVoteSubmit] = useState()
