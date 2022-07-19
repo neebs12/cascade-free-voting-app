@@ -100,9 +100,10 @@ export default function Ideas () {
     }
 
     // this is to include the current ideas page
-    if ( (!chosenUserName || !nameOfIdea || !descrOfIdea) &&  !confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
-      
-      return false
+    if ( (!chosenUserName || !nameOfIdea || !descrOfIdea)) {
+      if (!confirm('Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?')) {
+        return false
+      }
     } else {
       // include current entries (as they are valid)
       theIdeasToBeSent.push({
