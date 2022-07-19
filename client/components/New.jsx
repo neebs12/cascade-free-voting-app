@@ -17,6 +17,14 @@ export default function New () {
 
   const onClickHandler = (nameOfEventParam, numFinalIdeasParam) => {
     // NOTE: remember the event object!
+    if ( // form validation
+      ( !mockbool && !(nameOfEvent && numFinalIdeas) ) && 
+      ( Number(numFinalIdeas) === 0 || Number.isNaN(Number(numFinalIdeas)) )
+    ) {
+      // if we are not mocking, form needs to be validated accordingly
+      return alert('Please enter a valid: name of event AND number of final ideas')
+    }
+
     nameOfEventParam = typeof nameOfEventParam === 'object' 
       ? undefined
       : nameOfEventParam
