@@ -185,26 +185,37 @@ export default function Ideas () {
               </Button>
             )
           })}
-        <TextField
-          sx={{ display: 'flex', my: 2 }}
-          id="outlined-basic"
-          label="Name of Idea"
-          variant="outlined"
-          value={nameOfIdea}
-          onChange={(e) => setNameOfIdea(e.target.value)}
-          disabled={chosenUserName === ''}
-        />
-        <TextField
-          sx={{ display: 'flex', my: 2 }}
-          multiline
-          rows={4}
-          id="outlined-basic"
-          label="Idea description"
-          variant="outlined"
-          value={descrOfIdea}
-          onChange={(e) => setDescrOfIdea(e.target.value)}
-          disabled={chosenUserName === ''}
-        />
+      </div>
+      <div className="ideas-vote-center-div-col">
+        <Box
+          component="form"
+          sx={{
+            '& > :not(style)': { width: '25ch' }
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            sx={{ display: 'flex' }}
+            id="outlined-basic"
+            label="Name of Idea"
+            variant="outlined"
+            value={nameOfIdea}
+            onChange={(e) => setNameOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
+          />
+          <TextField
+            sx={{ display: 'flex', my: 2 }}
+            multiline
+            rows={4}
+            id="outlined-basic"
+            label="Idea description"
+            variant="outlined"
+            value={descrOfIdea}
+            onChange={(e) => setDescrOfIdea(e.target.value)}
+            disabled={chosenUserName === ''}
+          />
+        </Box>
         <Button
           sx={{ width: 292.8 }}
           onClick={handleOnClickNextIdea}
@@ -217,19 +228,19 @@ export default function Ideas () {
           onClick={handleOnClickLink}
           variant="outlined"
         >
-          All ideas submitted - ready to vote
+          Ready to vote
         </Button>
-        {mockbool && (
-          <>
-            <Button onClick={handleMockNames} variant="outlined">
-              Mock - user name addition
-            </Button>
-            <Button onClick={handleMockIdeas} variant="outlined">
-              Mock - ideas addition
-            </Button>
-          </>
-        )}
       </div>
+      {mockbool && (
+        <>
+          <Button onClick={handleMockNames} variant="outlined">
+            Mock - user name addition
+          </Button>
+          <Button onClick={handleMockIdeas} variant="outlined">
+            Mock - ideas addition
+          </Button>
+        </>
+      )}
     </>
   )
 }
