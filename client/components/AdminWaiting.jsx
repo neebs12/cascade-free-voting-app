@@ -8,6 +8,8 @@ import {
 } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
+// MOCKS
+import { mockVotes } from '../apis/mock/mocking_users/add-new-votes'
 import mockbool from '../apis/mock/mockbool'
 
 export default function AdminWaiting () {
@@ -66,6 +68,17 @@ export default function AdminWaiting () {
     // navigate('/admin/results')
   }
 
+  const [isMocked, setItMocked] = useState(false)
+
+  const handleMockVotes = () => {
+    if (isMocked) {
+      return console.log('already mocked, cannot mock again')
+    }
+    console.log('is mocking')
+    mockVotes(10) // 10 second duration for mocking votes
+    setItMocked(true)
+  }
+
   return (
     <>
       <h1>A3</h1>
@@ -101,6 +114,16 @@ export default function AdminWaiting () {
       >
         Show Results
       </Button>      
+      {mockbool && 
+        <>
+          <Button 
+            variant="contained"  
+            onClick={handleMockVotes}
+          >
+            Mock - Place async votes
+          </Button>
+        </>
+      }
     </>
   )
 }
