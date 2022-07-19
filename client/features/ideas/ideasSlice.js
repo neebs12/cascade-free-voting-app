@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { 
-  fetchAllIdeas, 
-  fetchWinningIdeasAPI, 
+import {
+  fetchAllIdeas,
+  fetchWinningIdeasAPI,
   postIdeasAPI,
-  postVotesAPI,
+  postVotesAPI
 } from '../../apis/ideas'
 
 // State and reducers:

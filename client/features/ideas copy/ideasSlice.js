@@ -59,9 +59,7 @@ export const fetchWinningIdeas = createAsyncThunk('fetchWinningIdeas', async () 
   const response = await fetchWinningIdeasAPI()
   return response // action object --> {payload: response}
 })
-
 // Default export:
-
 export const { addVote, subtractVote } = ideasSlice.actions
 
 export default ideasSlice.reducer
