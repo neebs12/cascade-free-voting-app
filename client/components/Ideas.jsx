@@ -9,7 +9,9 @@ import TextField from '@mui/material/TextField'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { populateIdeas } from '../features/ideas/ideasSlice'
 
-import { mockPostUsers } from '../apis/mock/add-new-users' 
+import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users' 
+
+import mockbool from '../apis/mock/mockbool'
 
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
@@ -193,9 +195,9 @@ export default function Ideas () {
           <Button onClick={handleOnClickLink} variant="outlined">
             All ideas submitted - ready to vote
           </Button>
-          <Button onClick={handleMock} to="/admin/waiting" variant="outlined">
+          {mockbool && <Button onClick={handleMock} to="/admin/waiting" variant="outlined">
             Mock - user name addition
-          </Button>          
+          </Button>}          
         </Box>
       </div>
     </>

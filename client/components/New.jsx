@@ -7,24 +7,23 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { populateSession } from '../features/session/sessionSlice'
 
-export default function New () {
+import mockbool from '../apis/mock/mockbool'
 
+export default function New () {
   const [nameOfEvent, setNameOfEvent] = useState('')
   const [numFinalIdeas, setNumFinalIdeas] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const onClickHandler = (
-    nameOfEvent = nameOfEvent,
-    numFinalIdeas = numFinalIdeas
-  ) => {
-    const myNumWinners = (typeof numFinalIdeas === 'number') 
-      ? numFinalIdeas
-      : Number(numFinalIdeas[0])
+  const onClickHandler = (nameOfEventParam, numFinalIdeasParam) => {
+    // NOTE: remember the event object!
+    nameOfEventParam = typeof nameOfEventParam === 'object' 
+      ? undefined
+      : nameOfEventParam
 
     const payload = {
-      title: nameOfEvent,
-      numWinners: myNumWinners
+      title: nameOfEventParam || nameOfEvent,
+      numWinners: numFinalIdeasParam || numFinalIdeas,
     }
     
     // dispatch
@@ -73,13 +72,13 @@ export default function New () {
               label="Number of intended final ideas"
               variant="outlined"
               value={numFinalIdeas}
-              onChange={e => setNumFinalIdeas(e.target.value)}              
+              onChange={e => setNumFinalIdeas(Number(e.target.value[0]))}              
             />
             {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
             <Button onClick={onClickHandler} variant="outlined">Submit</Button>
-            <Button onClick={onClickMock} variant="outlined">
+            {mockbool && <Button onClick={onClickMock} variant="outlined">
               Mock - new idea addition
-            </Button>
+            </Button>}
           </Box>
         </div>
       </div>

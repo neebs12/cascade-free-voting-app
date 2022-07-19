@@ -1,5 +1,5 @@
 import request from "superagent"
-import { postOneUser } from "../users"
+import { postOneUser } from "../../users"
 /* 
 Async simulation of P2
 - problem: add `n` amount of users within time `t`
