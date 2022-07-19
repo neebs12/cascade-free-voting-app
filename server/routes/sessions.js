@@ -19,10 +19,18 @@ router.post('/', async (req, res) => {
       winningIdeasNum: rawData.numWinners
     })
     
-    res.status(204).end()
+    res.status(201).end() // 201 created
   } catch {
     res.status(500).json({message: 'unable to add session'})
   }
+})
+
+router.delete('/reset', async (req, res) => {
+  await db.deleteByTableName('sessions')
+  await db.deleteByTableName('users')
+  await db.deleteByTableName('ideas')
+  await db.deleteByTableName('votes')
+  res.status(204).end() // 204 no content
 })
 
 module.exports = router

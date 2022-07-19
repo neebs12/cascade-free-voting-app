@@ -9,6 +9,11 @@ import TextField from '@mui/material/TextField'
 import { selectAllUsers, fetchUsers } from '../features/users/usersSlice'
 import { populateIdeas } from '../features/ideas/ideasSlice'
 
+// MOCKS
+import { fetchAllUsers } from '../apis/users'
+import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users'
+import mockbool from '../apis/mock/mockbool'
+
 export default function Ideas () {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
@@ -98,13 +103,14 @@ export default function Ideas () {
     }
 
     // this is to include the current ideas page
-    if (
-      (!chosenUserName || !nameOfIdea || !descrOfIdea) &&
-      !confirm(
-        'Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?'
-      )
-    ) {
-      return false
+    if (!chosenUserName || !nameOfIdea || !descrOfIdea) {
+      if (
+        !confirm(
+          'Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?'
+        )
+      ) {
+        return false
+      }
     } else {
       // include current entries (as they are valid)
       theIdeasToBeSent.push({
@@ -121,76 +127,108 @@ export default function Ideas () {
     navigate('/admin/waiting') // <--- for navigating to next page
   }
 
+  const [isMocked, setIsMocked] = useState(false)
+  const handleMockNames = () => {
+    if (isMocked) {
+      return console.log('already mocked, cannot execute again')
+    }
+    console.log('is mocking')
+    mockPostUsers(
+      ['jason', 'graeme', 'jared', 'kotare', 'emily', 'kelly', 'joseph'],
+      5
+    )
+    setIsMocked(true)
+  }
+  const handleMockIdeas = async () => {
+    // YES when sending ideas, the usetName IS ignored by backend
+    if (
+      !confirm(
+        'WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again'
+      )
+    ) {
+      return false
+    }
+
+    const users = await fetchAllUsers()
+    const theIdeasToBeSent = users.map((u, ind) => {
+      const userId = u.id
+      const userName = u.name
+      return {
+        userId,
+        userName,
+        title: `title: ${userName}`,
+        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
+      }
+    })
+    dispatch(populateIdeas(theIdeasToBeSent))
+    clearInterval(askingInterval)
+    setAskingInterval(null)
+
+    alert('mock ideas successfully sent!')
+
+    navigate('/admin/waiting') // <--- for navigating to next page
+  }
+
   return (
     <>
-      {/* <div>
-        <h1>A2</h1>
-        <h2>This the page where the admin enters all the ideas</h2>
-      </div> */}
-      <div className="ideas-center-div-row">
-        <div className="name-container">
-          <h3>Here are a list of names</h3>
-          {users.length &&
-            users.map((user) => {
-              return (
-                <Button
-                  sx={{ display: 'flex', my: 1 }}
-                  key={user.id}
-                  variant="outlined"
-                  onClick={handleChosenUserClicked(user.id, user.name)}
-                >
-                  {user.name}
-                </Button>
-              )
-            })}
-        </div>{' '}
-        <br />
-        <div className="ideas-vote-center-div-col">
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { width: '25ch' }
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField
-              sx={{ display: 'flex', my: 2 }}
-              id="outlined-basic"
-              label="Name of Idea"
-              variant="outlined"
-              value={nameOfIdea}
-              onChange={(e) => setNameOfIdea(e.target.value)}
-              disabled={chosenUserName === ''}
-            />
-            <TextField
-              sx={{ display: 'flex', my: 2 }}
-              multiline
-              rows={4}
-              id="outlined-basic"
-              label="Idea description"
-              variant="outlined"
-              value={descrOfIdea}
-              onChange={(e) => setDescrOfIdea(e.target.value)}
-              disabled={chosenUserName === ''}
-            />
-          </Box>
-          <Button
-            sx={{ width: 292.8 }}
-            onClick={handleOnClickNextIdea}
-            variant="outlined"
-          >
-            Next idea
-          </Button>
-          <Button
-            sx={{ width: 292.8, my: 2 }}
-            onClick={handleOnClickLink}
-            to="/admin/waiting"
-            variant="outlined"
-          >
-            Ready to vote
-          </Button>
-        </div>
+      <h3>Here are a list of names</h3>
+      <div className="name-container">
+        {(users.length || null) &&
+          users.map((user) => {
+            return (
+              <Button
+                key={user.id}
+                variant="outlined"
+                onClick={handleChosenUserClicked(user.id, user.name)}
+              >
+                {user.name}
+              </Button>
+            )
+          })}
+        <TextField
+          sx={{ display: 'flex', my: 2 }}
+          id="outlined-basic"
+          label="Name of Idea"
+          variant="outlined"
+          value={nameOfIdea}
+          onChange={(e) => setNameOfIdea(e.target.value)}
+          disabled={chosenUserName === ''}
+        />
+        <TextField
+          sx={{ display: 'flex', my: 2 }}
+          multiline
+          rows={4}
+          id="outlined-basic"
+          label="Idea description"
+          variant="outlined"
+          value={descrOfIdea}
+          onChange={(e) => setDescrOfIdea(e.target.value)}
+          disabled={chosenUserName === ''}
+        />
+        <Button
+          sx={{ width: 292.8 }}
+          onClick={handleOnClickNextIdea}
+          variant="outlined"
+        >
+          Next idea
+        </Button>
+        <Button
+          sx={{ width: 292.8, my: 2 }}
+          onClick={handleOnClickLink}
+          variant="outlined"
+        >
+          All ideas submitted - ready to vote
+        </Button>
+        {mockbool && (
+          <>
+            <Button onClick={handleMockNames} variant="outlined">
+              Mock - user name addition
+            </Button>
+            <Button onClick={handleMockIdeas} variant="outlined">
+              Mock - ideas addition
+            </Button>
+          </>
+        )}
       </div>
     </>
   )
