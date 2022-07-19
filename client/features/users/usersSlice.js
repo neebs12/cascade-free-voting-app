@@ -53,7 +53,6 @@ export const selectResultsReady = (state) => {
 
 export const selectUserStatus = (state) => {
   return state.users?.userStatus
-  // console.log(state)
 }
 
 // Thunk
