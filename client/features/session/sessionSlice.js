@@ -1,4 +1,3 @@
-import { ActionTypes } from '@mui/base'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchCurrentSession, postCurrentSession, makeNewSession } from '../../apis/session'
 
