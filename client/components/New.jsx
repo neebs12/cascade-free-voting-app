@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { populateSession } from '../features/session/sessionSlice'
+import { resetCurrentSession } from '../apis/session'
 
 import mockbool from '../apis/mock/mockbool'
 
@@ -41,14 +42,20 @@ export default function New () {
     navigate("/admin/ideas")
   }
 
-  const onClickMock = () => {
-    alert('mock: \nname of event: summer jared\nnumber of ideas: 5')
-    // setNameOfEvent('summer jared')
-    // setNumFinalIdeas(5) // ignoring local state
-    onClickHandler('summer jared', 5)
-    // setTimeout(onClickHandler, 1000) // 1 sec delay (dangerous code)
+  const onClickHandlerReset = async () => {
+    await resetCurrentSession()
+    alert('The current session has been reset! You can now start adding users')
   }
 
+
+  // MOCK CODE
+  const onClickMock = () => {
+    const name = 'summer jared'
+    const number = 5
+    alert(`mock: \nname of event: ${name}\nnumber of ideas: ${number}`)
+
+    onClickHandler(name, number)
+  }
 
   return (
     <>
@@ -84,6 +91,7 @@ export default function New () {
             />
             {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
             <Button onClick={onClickHandler} variant="outlined">Submit</Button>
+            <Button onClick={onClickHandlerReset} variant="outlined">Reset Database</Button>
             {mockbool && <Button onClick={onClickMock} variant="outlined">
               Mock - new idea addition
             </Button>}
