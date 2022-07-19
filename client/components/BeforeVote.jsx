@@ -4,10 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  fetchIdeas,
-  selectVoteReady
-} from '../features/ideas/ideasSlice'
+import { fetchIdeas, selectVoteReady } from '../features/ideas/ideasSlice'
 import { fetchSession } from '../features/session/sessionSlice'
 
 export default function BeforeVote () {
@@ -24,19 +21,21 @@ export default function BeforeVote () {
 
   return (
     <>
-      {/* <h1>U2</h1> */}
-      <h2>Hi User, we are waiting for voting to Start</h2>
-      {!voteReady && (
-        <Box sx={{ display: 'flex' }}>
-          <CircularProgress />
-        </Box>
-      )}
-      <Button variant="contained">Reload</Button>
-      {/* Better fix the sneaky p tags here */}
-      <p></p>
-      <Button variant="contained" disabled={!voteReady} onClick={handleClick}>
-        Proceed to Voting
-      </Button>
+      <div className='before-vote-center-div-col'>
+        {/* <h1>U2</h1> */}
+        <h2 style={{ margin: 30 }}>Hi User, we are waiting for voting to Start</h2>
+        {!voteReady && (
+          <Box sx={{ my: 5 }}>
+            <CircularProgress />
+          </Box>
+        )}
+        {/* <Button variant="contained">Reload</Button> */}
+        {/* Better fix the sneaky p tags here */}
+        <p></p>
+        <Button variant="contained" disabled={!voteReady} onClick={handleClick}>
+          Proceed to Voting
+        </Button>
+      </div>
     </>
   )
 }

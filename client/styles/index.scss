@@ -4,74 +4,112 @@ html,
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
-h2{
+h2 {
   margin-left: 10px;
 }
 // Oops used underscores (may fix one day...)
 
-.login_center_div{
+.ideas-center-div-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.name-container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 100px;
+}
+
+.landing-center-div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.vote-results-div{
+.login-center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:75vh
+}
+
+.vote-results-div {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 20px;
 }
 
-.admin-new-center-div{
+.admin-new-center-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 600px
+  height: 600px;
 }
 
-.login_center_div_col{
+.login_center_div_col {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
-.login-center-div-row{
+.before-vote-center-div-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh
+}
+
+.ideas-vote-center-div-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh
+}
+
+
+.login-center-div-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 75vh;
-
 }
+
 @media only screen and (max-width: 600px) {
-  .login-center-div-row{
+  .login-center-div-row {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 75vh;
-  
   }
 }
 
-.form_container {
+.form-container {
   display: flex;
   flex-direction: column;
 }
 
-.tile-container{
+.tile-container {
   margin: 50px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  align-content: space-between;
 }
-
 
 .plus-minus-input {
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .plus-minus-input .input-group-field {
@@ -81,18 +119,16 @@ h2{
   padding: 1rem;
 }
 
-
 .plus-minus-input .input-group-field::-webkit-inner-spin-button,
 .plus-minus-input .input-group-field ::-webkit-outer-spin-button {
   -webkit-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 
 .plus-minus-input .input-group-button .circle {
   border-radius: 50%;
   padding: 0.25em 0.8em;
 }
-
 
 .fa {
   display: inline-block;
@@ -109,17 +145,17 @@ h2{
 }
 
 .fa-plus-square:before {
-  content: "\f0fe";
+  content: '\f0fe';
 }
 .fa-plus-square:before {
-  content: "\f0fe";
+  content: '\f0fe';
 }
 .fa-plus-square-o:before {
-  content: "\f196";
+  content: '\f196';
 }
 
 .fa-plus-circle:before {
-  content: "\f055";
+  content: '\f055';
 }
 
 .input-group {
@@ -129,8 +165,8 @@ h2{
   width: 100%;
   margin-bottom: 1rem;
   -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 .input-group > :first-child {
@@ -141,7 +177,10 @@ h2{
   border-radius: 0 0 0 0;
 }
 
-.input-group-label, .input-group-field, .input-group-button, .input-group-button a,
+.input-group-label,
+.input-group-field,
+.input-group-button,
+.input-group-button a,
 .input-group-button input,
 .input-group-button button,
 .input-group-button label {
@@ -160,11 +199,11 @@ h2{
   display: -ms-flexbox;
   display: flex;
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .input-group-label:first-child {
@@ -178,8 +217,8 @@ h2{
 .input-group-field {
   border-radius: 0;
   -webkit-flex: 1 1 0px;
-      -ms-flex: 1 1 0px;
-          flex: 1 1 0px;
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0px;
   height: auto;
   min-width: 0;
 }
@@ -189,8 +228,8 @@ h2{
   padding-bottom: 0;
   text-align: center;
   -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .input-group-button a,
@@ -203,26 +242,25 @@ h2{
   font-size: 1rem;
 }
 
-.vote-counter{
-  margin: 10px
+.vote-counter {
+  margin: 10px;
 }
 
-.admin-waiting-vote-table{
-  display:flex;
-  justify-content: center
+.admin-waiting-vote-table {
+  display: flex;
+  justify-content: center;
 }
 
-.admin-waiting-vote-col{
+.admin-waiting-vote-col {
   width: 500px;
   height: 500px;
   text-align: center;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  align-items: center
-
+  align-items: center;
 }
 
-.admin-waiting-vote-name{
+.admin-waiting-vote-name {
   width: 120px;
   height: 30px;
   background-color: aqua;
@@ -231,5 +269,21 @@ h2{
   vertical-align: middle;
   line-height: 30px;
   margin: 10px;
+}
+
+.MuiCardHeader-root {
+  background-color: #ab47bc;
+  color: white;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.MuiCardContent-root {
+  background-color: #eeeeee;
+  text-align: center;
 
 }
+
+.MuiButton-root {
+  border-radius: 15px;
+} 

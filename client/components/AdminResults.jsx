@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import CardHeader from '@material-ui/core/CardHeader'
+import { makeStyles } from '@material-ui/styles'
+
 import ResultsTile from './ResultTile'
 import WinningResultsTile from './WinningResultsTile'
 
@@ -30,9 +34,9 @@ export default function AdminResults () {
     }
   ] // hard coded information
 
-  /* 
+  /*
   - when this component is hit, it needs to be able to load the top n ideas from the server
-  - (1) This will need to hit the "GET: api/v1/ideas/winners" -- this will be for the apis -- apis/ideas.js 
+  - (1) This will need to hit the "GET: api/v1/ideas/winners" -- this will be for the apis -- apis/ideas.js
   - then within this component, this needs a useEffect cb
   --- this cb will do a dispatch redux store useDispatch
   --- features/ideas/ideasSlice.js
@@ -49,8 +53,8 @@ export default function AdminResults () {
 
   return (
     <>
-      <h1>A4</h1>
-      <h2>This is the page showing the results for the admin to see</h2>
+      {/* <h1>A4</h1>
+      <h2>This is the page showing the results for the admin to see</h2> */}
       <div className="tile-container">
         {/* {ideas.map((result) => {
           return <ResultsTile key={result.id} result={result} />

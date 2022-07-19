@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { postUser } from '../features/users/usersSlice'
 import { useDispatch } from 'react-redux'
 import { newSession } from '../features/session/sessionSlice'
+import { textAlign } from '@mui/system'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -29,35 +30,27 @@ export default function Login () {
   }
   return (
     <>
-      <div className="login_center_div">
-        <div className="form_container">
-          <h2>Enter your name to sign up </h2>
+      <div className="login-center-div">
+        <div className="form-container">
+          <h2 style={{ textAlign: 'center', marginLeft: 0 }}>Enter name to sign in</h2>
           <Box
             sx={{
-              '& > :not(style)': { m: 1, width: '25ch' }
+              '& > :not(style)': { width: '25ch' }
             }}
             noValidate
             autoComplete="off"
           >
             <form onSubmit={handleSubmit}>
               <TextField
-                sx={{ display: 'flex' }}
+                sx={{ display: 'flex', my: 2 }}
                 id="outlined-basic"
                 label="Name"
                 variant="outlined"
                 name="name"
                 onChange={handleChange}
               />
-              {/* <TextField
-              sx={{ display: 'flex' }}
-              multiline
-              rows={4}
-              maxRows={4}
-              id="outlined-basic"
-              label="Idea"
-              variant="outlined"
-            /> */}
               <Button
+                sx={{ width: 292.8 }}
                 onClick={handleSubmit}
                 type="submit"
                 // component={Link}

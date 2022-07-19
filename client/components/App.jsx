@@ -17,19 +17,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme({
   typography: {
+    button: {
+      // textTransform: 'none'
+    },
     fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(',')
   },
   palette: {
     primary: {
-      light: '#6a1b9a',
-      main: '#9c4dcc',
-      dark: '#38006b',
+      light: '#df78ef',
+      main: '#ab47bc',
+      dark: '#790e8b',
       contrastText: '#fff'
     },
     secondary: {
-      light: '#fff263',
-      main: '#fbc02d',
-      dark: '#c49000',
+      light: '#eeeeee',
+      main: '#bcbcbc',
+      dark: '#8c8c8c',
       contrastText: '#000'
     }
   }
