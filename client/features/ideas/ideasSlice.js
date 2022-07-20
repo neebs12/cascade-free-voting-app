@@ -15,7 +15,6 @@ export const ideasSlice = createSlice({
     addVote (state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
       if (idea.myvotes < 5) idea.myvotes++
-
     },
     // ideas/subtractVote
     subtractVote (state, action) {
