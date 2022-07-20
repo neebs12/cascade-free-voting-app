@@ -14,7 +14,7 @@ import { fetchAllUsers } from '../apis/users'
 import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users'
 import mockbool from '../apis/mock/mockbool'
 
-export default function Ideas () {
+export default function Ideas() {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
   const [descrOfIdea, setDescrOfIdea] = useState('')
@@ -76,7 +76,7 @@ export default function Ideas () {
       userId: chosenUserId,
       userName: chosenUserName,
       title: nameOfIdea,
-      description: descrOfIdea
+      description: descrOfIdea,
     }
 
     // then we push this to .current of the ref's object `myIdeas`
@@ -117,7 +117,7 @@ export default function Ideas () {
         userId: chosenUserId,
         userName: chosenUserName,
         title: nameOfIdea,
-        description: descrOfIdea
+        description: descrOfIdea,
       })
     }
 
@@ -157,7 +157,7 @@ export default function Ideas () {
         userId,
         userName,
         title: `title: ${userName}`,
-        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
+        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`,
       }
     })
     dispatch(populateIdeas(theIdeasToBeSent))
@@ -177,23 +177,40 @@ export default function Ideas () {
 
           {(users.length || null) &&
             users.map((user) => {
+              const selectedButton = user.name === chosenUserName
+
               return (
-                <Button style={{ backgroundColor: 'transparent' }}
-                  sx={{ display: 'flex', my: 1 }}
-                  key={user.id}
-                  variant="outlined"
-                  onClick={handleChosenUserClicked(user.id, user.name)}
-                >
-                  {user.name}
-                </Button>
+                <>
+                  <Button
+                    // style={{ backgroundColor: 'transparent' }}
+                    sx={{
+                      '&:hover': {
+                        color: 'white',
+                        backgroundColor: '#ab47bc'},
+                      display: 'flex',
+                      my: 1,
+                      borderColor: selectedButton ? 'white' : '#ab47bc',
+                      backgroundColor: selectedButton ? '#ab47bc' : 'white',
+                      color: selectedButton ? 'white' : '#ab47bc' 
+                    }}
+                    key={user.id}
+                    variant="outlined"
+                    onClick={handleChosenUserClicked(user.id, user.name)}
+                  >
+                    {user.name}
+                  </Button>
+                  <p>{console.log(selectedButton
+            )}</p>
+                </>
               )
             })}
         </div>
+
         <div className="ideas-vote-center-div-col">
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { width: '25ch' }
+              '& > :not(style)': { width: '25ch' },
             }}
             noValidate
             autoComplete="off"

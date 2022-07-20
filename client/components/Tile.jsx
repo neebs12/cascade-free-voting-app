@@ -68,7 +68,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
         <CardContent>
           <Typography variant="body2">{description}</Typography>
           <div className="vote-results-div">
-            {isUserPath && !isResultsPage && (
+            {(isUserPath && !isResultsPage) && (
               <IconButton
                 disabled={atVoteMax || myvotes === 0}
                 onClick={onClickDecrease}
@@ -89,7 +89,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
             <Typography variant="h2" component="div">
               {fromResults && votes}
             </Typography>
-            {isUserPath && !isResultsPage && (
+            {(isUserPath && !isResultsPage) && (
               <IconButton
                 disabled={atVoteMin || myvotes === 5}
                 onClick={onClickIncrease}
