@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addVote, subtractVote } from '../features/ideas/ideasSlice'
 import {
   selectIsUserPath,
-  selectResultsReady
+  selectResultsReady,
 } from '../features/users/usersSlice'
 // Here are a few unused imports that may be helpful if I import some stuff
 // import Box from '@mui/material/Box'
@@ -26,7 +26,7 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile ({ idea, votesLeft, fromResults }) {
+export default function Tile({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
   const isResultsPage = useSelector(selectResultsReady)
   console.log('isUserPath', isUserPath)
@@ -64,9 +64,11 @@ export default function Tile ({ idea, votesLeft, fromResults }) {
       <Card sx={{ width: 300, margin: 2, borderRadius: 5 }}>
         <CardHeader title={title}></CardHeader>
         <CardContent>
-          <Typography variant="body2">{description}</Typography>
-          <div className="vote-results-div">
-            {(isUserPath && !isResultsPage) && (
+          <Typography variant="body2" className="desc-text">
+            {description}
+          </Typography>
+          <div className="container space-around">
+            {isUserPath && !isResultsPage && (
               <IconButton
                 disabled={atVoteMax || myvotes === 0}
                 onClick={onClickDecrease}
@@ -75,26 +77,32 @@ export default function Tile ({ idea, votesLeft, fromResults }) {
                   sx={{
                     mx: 3,
                     fontSize: 48,
-                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey
+                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey,
                   }}
                 />
               </IconButton>
             )}
+
             {isUserPath && (
-              <Typography variant="h2" component="div">
+              <Typography variant="h2" component="div" className="my-votes-text">
                 {myvotes}
               </Typography>
             )}
             <Typography variant="h2" component="div">
               {fromResults && votes}
             </Typography>
-            {(isUserPath && !isResultsPage) && (
+
+            {isUserPath && !isResultsPage && (
               <IconButton
                 disabled={atVoteMin || myvotes === 5}
                 onClick={onClickIncrease}
               >
                 <AddCircleIcon
-                  sx={{ mx: 3, fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }}
+                  sx={{
+                    mx: 3,
+                    fontSize: 48,
+                    color: atVoteMin ? lightGrey : darkGrey,
+                  }}
                 />
               </IconButton>
             )}

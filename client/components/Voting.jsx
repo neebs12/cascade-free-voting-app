@@ -20,28 +20,28 @@ export default function Voting() {
 
   return (
     <>
-
       <div id="topRightFixed">{numVotes - voteCount}</div>
-
 
       <div className="voting-center-div-col">
         <div className="voting-votes-submit-box">
-          <h3>Votes total: {numVotes} </h3>
-          <h3>Votes remaining</h3>
+          {/* <h3>Votes total: {numVotes} </h3> */}
           <h1>{numVotes - voteCount}</h1>
-          <Button
-            backgroundColor="#21b6ae"
-            onClick={() => {
-              dispatch(postVotes(voteArr))
-            }}
-            component={Link}
-            to="/user/after_vote"
-            variant="contained"
-            disabled={!(numVotes - voteCount <= 0)}
-          >
-            Submit
-          </Button>
+          <h3>Votes remaining</h3>
+          
         </div>
+        <Button
+          // backgroundcolor="#21b6ae"
+          onClick={() => {
+            dispatch(postVotes(voteArr))
+          }}
+          component={Link}
+          to="/user/after_vote"
+          variant="contained"
+          disabled={!(numVotes - voteCount <= 0)}
+        >
+          Submit
+        </Button>
+        
       </div>
       <TileHolder number={numVotes - voteCount} />
     </>

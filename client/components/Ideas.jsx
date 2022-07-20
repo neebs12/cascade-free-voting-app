@@ -96,6 +96,7 @@ export default function Ideas() {
 
     // console.log('going to the database!')
     const theIdeasToBeSent = myIdeas.current
+    console.log(theIdeasToBeSent)
 
     if (theIdeasToBeSent.length === 0) {
       alert('There are NO ideas recorded!, Please enter atleast ONE idea')
@@ -140,7 +141,7 @@ export default function Ideas() {
     setIsMocked(true)
   }
   const handleMockIdeas = async () => {
-    // YES when sending ideas, the usetName IS ignored by backend
+    // YES when sending ideas, the userName IS ignored by backend
     if (
       !confirm(
         'WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again'
@@ -169,18 +170,19 @@ export default function Ideas() {
     navigate('/admin/waiting') // <--- for navigating to next page
   }
 
+
+
   return (
     <>
       <div className="ideas-center-div-row">
         <div className="name-container">
-          <h3>Here are a list of names</h3>
+          <h3>Who is proposing the  idea?</h3>
 
           {(users.length || null) &&
             users.map((user) => {
               const selectedButton = user.name === chosenUserName
-
               return (
-                <>
+                <React.Fragment key={user.id}>
                   <Button
                     // style={{ backgroundColor: 'transparent' }}
                     sx={{
@@ -193,14 +195,13 @@ export default function Ideas() {
                       backgroundColor: selectedButton ? '#ab47bc' : 'white',
                       color: selectedButton ? 'white' : '#ab47bc' 
                     }}
-                    key={user.id}
                     variant="outlined"
                     onClick={handleChosenUserClicked(user.id, user.name)}
                   >
                     {user.name}
                   </Button>
 
-                </>
+                </React.Fragment>
               )
             })}
         </div>
@@ -246,6 +247,7 @@ export default function Ideas() {
             sx={{ width: 292.8, my: 2 }}
             onClick={handleOnClickLink}
             variant="outlined"
+            disabled={Boolean(myIdeas.current.length === 0)}
           >
             Ready to vote
           </Button>

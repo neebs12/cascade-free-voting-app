@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import {
   fetchUsersStatus,
   fetchUsers,
-  selectUserStatus
+  selectVoted,
+  selectNotVoted
 } from '../features/users/usersSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -23,6 +24,10 @@ export default function AdminWaiting () {
     return globalState.users?.userStatus
   })
 
+  const voted = useSelector(selectVoted)
+  const notVoted = useSelector(selectNotVoted)
+
+
   useEffect(() => {
     // OK this sets the users in the redux store
     // populates state.users.users
@@ -33,6 +38,8 @@ export default function AdminWaiting () {
     dispatch(fetchUsersStatus())
 
     const intervalId = setInterval(() => {
+      
+
       dispatch(fetchUsers())
       dispatch(fetchUsersStatus())
     }, 1000) // 1s update
@@ -74,7 +81,6 @@ export default function AdminWaiting () {
     setAskingInterval(null)
     navigate('/admin/results')
   }
-
   const [isMocked, setItMocked] = useState(false)
 
   const handleMockVotes = () => {
@@ -85,7 +91,6 @@ export default function AdminWaiting () {
     mockVotes(20) // n second duration for mocking votes
     setItMocked(true)
   }
-
   return (
     <>
       {/* <h1>A3</h1> */}
@@ -102,9 +107,6 @@ export default function AdminWaiting () {
               >
                 {name.name}
               </Button>
-              // <div className="admin-waiting-vote-name" key={name.id}>
-              //   {name.name}
-              // </div>
             )
           })}
         </div>
@@ -123,9 +125,11 @@ export default function AdminWaiting () {
           })}
         </div>
       </div>
-      <Button variant="contained" onClick={handleClickNextPage}>
+      {userStatus &&
+      <Button variant="contained" disabled={!(notVoted.length === 0 && voted.length > 0)} onClick={handleClickNextPage}>
         Show Results
-      </Button>
+      </Button>}
+<p></p>
       {mockbool && (
         <>
           <Button variant="contained" onClick={handleMockVotes}>

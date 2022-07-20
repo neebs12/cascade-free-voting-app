@@ -7,7 +7,25 @@ body {
 h2 {
   margin-left: 10px;
 }
-// Oops used underscores (may fix one day...)
+
+.my-votes-text {
+  color: #ab47bc
+}
+
+.desc-text {
+  min-height : 40px;
+}
+
+.container {
+  display: flex;
+
+}
+.container.space-around {
+  justify-content: space-around;
+}
+.container.space-between {  
+  justify-content: space-between;
+}
 
 .ideas-center-div-row {
   display: flex;
@@ -285,11 +303,11 @@ h2 {
 .voting-votes-submit-box {
   margin: 25px;
   width: 150px;
-  height: 150px;
+  height: auto;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color:#ab47bc;
+  background-color: #ab47bc;
   border-radius: 20px;
   padding: 20px;
   h1 {
@@ -344,3 +362,4 @@ h2 {
   color: white;
   font-size: 1.4em;
 }
+
