@@ -18,35 +18,37 @@ export default function New () {
 
   const onClickHandler = (nameOfEventParam, numFinalIdeasParam) => {
     // NOTE: remember the event object!
-    if ( // form validation
-      ( !mockbool && !(nameOfEvent && numFinalIdeas) ) && 
-      ( Number(numFinalIdeas) === 0 || Number.isNaN(Number(numFinalIdeas)) )
+    if (
+      // form validation
+      !mockbool &&
+      !(nameOfEvent && numFinalIdeas) &&
+      (Number(numFinalIdeas) === 0 || Number.isNaN(Number(numFinalIdeas)))
     ) {
       // if we are not mocking, form needs to be validated accordingly
-      return alert('Please enter a valid: name of event AND number of final ideas')
+      return alert(
+        'Please enter a valid: name of event AND number of final ideas'
+      )
     }
 
-    nameOfEventParam = typeof nameOfEventParam === 'object' 
-      ? undefined
-      : nameOfEventParam
+    nameOfEventParam =
+      typeof nameOfEventParam === 'object' ? undefined : nameOfEventParam
 
     const payload = {
       title: nameOfEventParam || nameOfEvent,
-      numWinners: numFinalIdeasParam || numFinalIdeas,
+      numWinners: numFinalIdeasParam || numFinalIdeas
     }
-    
+
     // dispatch
     dispatch(populateSession(payload))
 
     // renavigate
-    navigate("/admin/ideas")
+    navigate('/admin/ideas')
   }
 
   const onClickHandlerReset = async () => {
     await resetCurrentSession()
     alert('The current session has been reset! You can now start adding users')
   }
-
 
   // MOCK CODE
   const onClickMock = () => {
@@ -62,40 +64,45 @@ export default function New () {
       {/* <h1>A1</h1>
       <h2>This is the Admin - New page</h2> */}
       <div className="admin-new-center-div">
-        <div className="form_container">
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '25ch' }
-            }}
-            noValidate
-            autoComplete="off"
+        <div className="form-container">
+          <TextField
+            sx={{ display: 'flex' }}
+            id="outlined-basic"
+            label="Name of Event"
+            variant="outlined"
+            value={nameOfEvent}
+            onChange={(e) => setNameOfEvent(e.target.value)}
+          />
+          <TextField
+            sx={{ display: 'flex', my: 2 }}
+            multiline
+            rows={1}
+            id="outlined-basic"
+            label="Number of intended final ideas"
+            variant="outlined"
+            value={numFinalIdeas}
+            onChange={(e) => setNumFinalIdeas(Number(e.target.value[0]))}
+          />
+          {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
+          <Button
+            sx={{ width: 292.8 }}
+            onClick={onClickHandler}
+            variant="outlined"
           >
-            <TextField
-              sx={{ display: 'flex' }}
-              id="outlined-basic"
-              label="Name of Event"
-              variant="outlined"
-              value={nameOfEvent}
-              onChange={e => setNameOfEvent(e.target.value)}
-            />
-            <TextField
-              sx={{ display: 'flex' }}
-              multiline
-              rows={1}
-              id="outlined-basic"
-              label="Number of intended final ideas"
-              variant="outlined"
-              value={numFinalIdeas}
-              onChange={e => setNumFinalIdeas(Number(e.target.value[0]))}              
-            />
-            {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
-            <Button onClick={onClickHandler} variant="outlined">Submit</Button>
-            <Button onClick={onClickHandlerReset} variant="outlined">Reset Database</Button>
-            {mockbool && <Button onClick={onClickMock} variant="outlined">
+            Submit
+          </Button>
+          <Button
+            sx={{ width: 292.8, my: 2 }}
+            onClick={onClickHandlerReset}
+            variant="outlined"
+          >
+            Reset Database
+          </Button>
+          {mockbool && (
+            <Button onClick={onClickMock} variant="outlined">
               Mock - new idea addition
-            </Button>}
-          </Box>
+            </Button>
+          )}
         </div>
       </div>
     </>

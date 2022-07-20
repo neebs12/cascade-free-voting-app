@@ -20,8 +20,8 @@ export const usersSlice = createSlice({
         {
           voted: [...],
           notVoted: [...]
-        }        
-        Shape: output ----> 
+        }
+        Shape: output ---->
           {
             users : {
               id: n (local id)
@@ -66,7 +66,7 @@ export const selectResultsReady = (state) => {
     return false
   }
 
-  // here .userStatus exists. 
+  // here .userStatus exists.
   // This will only exists and therefore .voted and .notVoted will also exist!
   // therefore shape is @ proper shape
   const votedArr = state.users.userStatus.voted
@@ -84,7 +84,7 @@ export const selectResultsReady = (state) => {
     // here, users exists and the non-voted array is empty
     // therefore true
     return true
-  }  
+  }
 }
 
 export const selectUserStatus = (state) => {
