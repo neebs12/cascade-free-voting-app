@@ -20,7 +20,7 @@ export default function BeforeVote () {
     const intervalId = setInterval(() => {
       dispatch(fetchIdeas())
       dispatch(fetchSession())
-    }, 1000) // updates every 1 second
+    }, 3000) // 3 second update
 
     setAskingInterval(intervalId)    
   }, [])

@@ -36,7 +36,7 @@ export default function Ideas() {
     const intervalId = setInterval(() => {
       // console.log('getting new users!')
       dispatch(fetchUsers())
-    }, 1000) // updates every 1 sec
+    }, 3000) // 3000 sec update
 
     setAskingInterval(intervalId)
   }, [])

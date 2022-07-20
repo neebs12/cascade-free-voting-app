@@ -42,7 +42,7 @@ export default function AdminWaiting () {
 
       dispatch(fetchUsers())
       dispatch(fetchUsersStatus())
-    }, 1000) // 1s update
+    }, 3000) // 3 sec update
 
     setAskingInterval(intervalId)
   }, []) // only executes once

@@ -21,7 +21,7 @@ export default function AfterVote () {
 
     const intervalId = setInterval(() => {
       dispatch(fetchUsersStatus())
-    }, 1000) // 1 sec update
+    }, 3000) // 3 sec update
 
     setAskingInterval(intervalId)
   }, [])
