@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import Button from '@mui/material/Button'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchIdeasMyVotes,
+  selectAllIdeas,
   selectVoteCount,
   selectVoteArr,
-  postVotes,
+  postVotes
 } from '../features/ideas/ideasSlice'
 import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
-import TileHolder from './TileHolder'
+import Tile from './Tile'
 
-export default function Voting() {
+export default function TileHolder () {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -23,28 +22,16 @@ export default function Voting() {
   // Hard coded in the slice for now
   const numVotes = useSelector(selectNumVotes)
   const voteCount = useSelector(selectVoteCount)
+  const ideas = useSelector(selectAllIdeas)
   const voteArr = useSelector(selectVoteArr)
 
   return (
     <>
-      <div>
-        <h3>Votes total: {numVotes} </h3>
-        <h3>Votes remaining</h3>
-        <h1>{numVotes - voteCount}</h1>
-        <div>
-          <Button
-            onClick={() => {
-              dispatch(postVotes(voteArr))
-            }}
-            component={Link}
-            to="/user/after_vote"
-            variant="outlined"
-            disabled={!(numVotes - voteCount <= 0)}
-          >
-            Submit
-          </Button>
-        </div>
-        <TileHolder />
+ 
+      <div className="tile-container">
+        {ideas.map((idea) => {
+          return <Tile key={idea.id} idea={idea} />
+        })}
       </div>
     </>
   )

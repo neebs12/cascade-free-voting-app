@@ -1,5 +1,15 @@
 import React from 'react'
-import ResultsTile from './ResultTile'
+// import ResultsTile from './ResultTile'
+
+  /*
+  - when this component is hit, it needs to be able to load the top n ideas from the server
+  - (1) This will need to hit the "GET: api/v1/ideas/winners" -- this will be for the apis -- apis/ideas.js
+  - then within this component, this needs a useEffect cb
+  --- this cb will do a dispatch redux store useDispatch
+  --- features/ideas/ideasSlice.js
+  - This will also need a useSelector
+  --- the cb for this needs to get from globalState => globalState.ideas
+  */
 
 export default function Winners () {
   const results = [
