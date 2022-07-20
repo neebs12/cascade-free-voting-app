@@ -3,7 +3,7 @@ import {
   fetchAllIdeas,
   fetchWinningIdeasAPI,
   postIdeasAPI,
-  postVotesAPI
+  postVotesAPI,
 } from '../../apis/ideas'
 
 // State and reducers:
@@ -12,17 +12,17 @@ export const ideasSlice = createSlice({
   initialState: [],
   reducers: {
     // ideas/addVote
-    addVote (state, action) {
+    addVote(state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
-      if (idea.myvotes < 5) idea.myvotes++
+      if (+idea.myvotes < 5) idea.myvotes++
     },
     // ideas/subtractVote
-    subtractVote (state, action) {
+    subtractVote(state, action) {
       const idea = state.find((idea) => idea.id === action.payload)
-      if (idea.myvotes > 0) idea.myvotes--
-    }
+      if (+idea.myvotes > 0) idea.myvotes--
+    },
   },
-  extraReducers (builder) {
+  extraReducers(builder) {
     builder
       .addCase(fetchIdeas.pending, (state, action) => {})
       .addCase(fetchIdeas.fulfilled, (state, action) => {
@@ -47,7 +47,7 @@ export const ideasSlice = createSlice({
           // we need to find the existing state which matches the receveived idea
           const currId = idea.id
           let oldmyvotes = 0
-          const oldIdeaFromCurrId = (state || []).find(s => s.id === currId)
+          const oldIdeaFromCurrId = (state || []).find((s) => s.id === currId)
           // note the non-cased variable
           if (oldIdeaFromCurrId) {
             oldmyvotes = oldIdeaFromCurrId.myvotes || 0
@@ -56,16 +56,15 @@ export const ideasSlice = createSlice({
           const value = +oldmyvotes || 0
           return {
             ...idea,
-            myvotes: value
+            myvotes: value,
           }
         })
         return ideasArr
       })
       .addCase(fetchIdeasMyVotes.rejected, (state, action) => {
-        console.log('fetchIdeasMyVotes rejected'
-        )
+        console.log('fetchIdeasMyVotes rejected')
       })
-  }
+  },
 })
 
 // Selectors:
@@ -75,7 +74,7 @@ export const selectAllIdeas = (state) => state.ideas
 export const selectVoteCount = (state) => {
   const ideas = state.ideas
   const totalVotes = ideas.reduce(
-    (runningTotal, idea) => idea.myvotes + runningTotal,
+    (runningTotal, idea) => (idea.myvotes || 0) + runningTotal,
     0
   )
   return totalVotes
@@ -89,7 +88,7 @@ export const selectVoteArr = (state) => {
     const preppedIdea = {
       userId: state.users.id,
       ideaId: idea.id,
-      freq: idea.myvotes
+      freq: idea.myvotes,
     }
     delete preppedIdea.myvotes
     return preppedIdea

@@ -3,12 +3,10 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  fetchIdeasMyVotes,
   selectVoteCount,
   selectVoteArr,
   postVotes,
 } from '../features/ideas/ideasSlice'
-import { fetchSession } from '../features/session/sessionSlice'
 import TileHolder from './TileHolder'
 
 export default function Voting() {
@@ -39,7 +37,7 @@ export default function Voting() {
             Submit
           </Button>
         </div>
-        <TileHolder />
+        <TileHolder number={numVotes - voteCount} />
       </div>
     </>
   )
