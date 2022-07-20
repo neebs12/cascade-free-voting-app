@@ -92,6 +92,7 @@ export const selectUserStatus = (state) => {
 }
 
 export const selectIsUserPath = (state) => {
+  console.log('selector', state.users.id)
   return Boolean(state.users.id)
 }
 
