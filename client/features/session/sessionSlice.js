@@ -16,6 +16,9 @@ export const sessionSlice = createSlice({
       .addCase(fetchSession.fulfilled, (state, action) => {
         return action.payload[0]
       })
+      .addCase(fetchSession.rejected, (state, action) => {
+        console.log("fetchSession rejected")
+      })
       .addCase(populateSession.pending, (state, action) => {})
       .addCase(populateSession.fulfilled, (state, action) => {
         return action.payload // <--- this poopulates/replaces the state
@@ -30,11 +33,11 @@ export const selectNumVotes = (state) => state.session.numVotes
 // THUNKS
 
 export const fetchSession = createAsyncThunk(
-  'fetchSession', 
+  'fetchSession',
   async () => {
-  const response = await fetchCurrentSession()
-  return response
-})
+    const response = await fetchCurrentSession()
+    return response
+  })
 
 export const populateSession = createAsyncThunk(
   'populateSession',

@@ -8,7 +8,9 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   const result = await dbIdeas.getIdeasWithOwnerAndVotes()
   // console.log(result)
-   
+  result.forEach((r) => {
+    r.myvotes = 0
+  })
   res.status(200).json(result)
 })
 
@@ -16,7 +18,8 @@ router.get('/winners', async (req, res) => {
   // have a customized fn already, simply sort through
 
   // is an int
-  const winningIdeasNum = (await db.getByTableName('sessions'))[0].winningIdeasNum
+  const winningIdeasNum = (await db.getByTableName('sessions'))[0]
+    .winningIdeasNum
 
   // then get all the ideas with owners and votes
   const populatedIdeas = await dbIdeas.getIdeasWithOwnerAndVotes()
@@ -32,8 +35,8 @@ router.get('/winners', async (req, res) => {
 
 router.post('/', async (req, res) => {
   /*
-  // Adding new ideas to the `ideas` entity 
-  Expecting: 
+  // Adding new ideas to the `ideas` entity
+  Expecting:
   [{
     userId: int,
     userName: 'string', // ignored - YES
@@ -42,16 +45,16 @@ router.post('/', async (req, res) => {
   }, {...}, ...]
   */
   const rawData = req.body
-  const data = rawData.map(rd => {
+  const data = rawData.map((rd) => {
     return {
       title: rd.title,
       description: rd.description,
-      userId: rd.userId
+      userId: rd.userId,
     }
   })
 
   await dbIdeas.populateIdeas(data)
-  
+
   // then query the database for the whole state
   const ideasState = await db.getByTableName('ideas')
 

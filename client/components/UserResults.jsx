@@ -1,25 +1,25 @@
-import React from 'react'
-import ResultTile from './ResultTile'
-import { useSelector } from 'react-redux'
-import { selectAllIdeas } from '../features/ideas/ideasSlice'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectAllIdeas, fetchIdeasMyVotes } from '../features/ideas/ideasSlice'
+import { fetchSession } from '../features/session/sessionSlice'
 
-export default function UserResults () {
-  const results = useSelector(selectAllIdeas)
+import TileHolder from './TileHolder'
+
+export default function UserResults () {  
+  // const results = useSelector(selectAllIdeas)
+  const dispatch = useDispatch()
+
+  const fromResults = true
+
+  useEffect(() => {
+    dispatch(fetchSession())
+  }, [])
+
   return (
     <>
       <h1>U5</h1>
       <h2>This is the user results page</h2>
-      <div>
-        <p></p>
-        <p></p>
-
-      </div>
-
-      <div className="tile-container">
-        {results.map((result) => {
-          return <ResultTile key={result.id} result={result} />
-        })}
-      </div>
+      <TileHolder fromResults={fromResults}/>
     </>
   )
 }
