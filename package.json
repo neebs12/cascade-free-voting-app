@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "start": "npm run knex:reset && npm run start:start",
-    "start:server": "CI=prod node server/index.js",
+    "start:server": "CI=prod NODE_ENV=production node server/index.js",
     "start:client": "npm run dev:client",
     "start:start": "run-p start:client start:server",
     "test": "jest",
