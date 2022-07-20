@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { selectAllIdeas } from '../features/ideas/ideasSlice'
 import Tile from './Tile'
 
-export default function TileHolder() {
+export default function TileHolder({ number }) {
   // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record.
   // Hard coded in the slice for now
   // const numVotes = useSelector(selectNumVotes)
@@ -15,7 +15,7 @@ export default function TileHolder() {
     <>
       <div className="tile-container">
         {ideas.map((idea) => {
-          return <Tile key={idea.id} idea={idea} />
+          return <Tile number={number} key={idea.id} idea={idea} />
         })}
       </div>
     </>

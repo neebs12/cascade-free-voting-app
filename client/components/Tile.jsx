@@ -11,14 +11,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   addVote,
   subtractVote,
+  selectVoteCount,
+  selectVoteArr,
 } from '../features/ideas/ideasSlice'
-
+import { selectIsUserPath } from '../features/users/usersSlice'
 // Here are a few unused imports that may be helpful if I import some stuff
 // import Box from '@mui/material/Box'
 // import Button from '@mui/material/Button'
 // import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-//TODO: Move to idea slice
+// TODO: Move to idea slice
 const getMyVotesById = (state, id) => {
   const ideas = state.ideas
   const idea = ideas.find((idea) => idea.id === id)
@@ -26,26 +28,44 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea }) {
-  //hard coded booleans below need to be replaced with selectors
+export default function Tile({ idea, number }) {
+  // const numVotes = 5
+  // const voteCount = useSelector(selectVoteCount)
+  // const voteArr = useSelector(selectVoteArr)
+
+  // hard coded booleans below need to be replaced with selectors
   const resultsTile = true
-  // const isUserPath = useSelector(selectIsUserPath)
+  const isUserPath = useSelector(selectIsUserPath)
 
   const id = idea.id
   const myvotes = useSelector((state) => getMyVotesById(state, id))
   const dispatch = useDispatch()
   const { title, description, votes } = idea
 
+  const onClickDecrease = () => {
+    if (number <= -5) {
+      return alert('cannot vote less than 0')
+    }
+    dispatch(subtractVote(id))
+  }
+
+  const onClickIncrease = () => {
+    if (number <= 0) {
+      return alert('cannot vote more than 5')
+    }
+    dispatch(addVote(id))
+  }
+
   return (
     <>
-      {/* {isUserPath} */}
+      {isUserPath}
       <Card sx={{ maxWidth: 300, margin: 2, borderRadius: 5 }}>
         <CardHeader title={title}></CardHeader>
         <CardContent>
           <Typography variant="body2">{description}</Typography>
           <div className="vote-results-div">
-            <IconButton onClick={() => dispatch(subtractVote(id))}>
-              <RemoveCircleIcon sx={{ fontSize: 48, color: '#8c8c8c' }} />
+            <IconButton onClick={onClickDecrease}>
+              <RemoveCircleIcon  sx={{ fontSize: 48, color: '#8c8c8c' }} />
             </IconButton>
             <Typography variant="h2" component="div">
               {myvotes}
@@ -53,8 +73,8 @@ export default function Tile({ idea }) {
             <Typography variant="h2" component="div">
               {votes}
             </Typography>
-            <IconButton onClick={() => dispatch(addVote(id))}>
-              <AddCircleIcon sx={{ fontSize: 48, color: '#8c8c8c' }} />
+            <IconButton  onClick={onClickIncrease}>
+              <AddCircleIcon  sx={{ fontSize: 48, color: '#8c8c8c' }} />
             </IconButton>
           </div>
         </CardContent>
