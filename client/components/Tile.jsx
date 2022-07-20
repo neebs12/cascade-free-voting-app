@@ -26,7 +26,7 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea, votesLeft, fromResults }) {
+export default function Tile ({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
   // TODO need a better proxy than this selector for assessing if we
   // are at a results page (will cause problems on reload)
@@ -63,20 +63,21 @@ export default function Tile({ idea, votesLeft, fromResults }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300, margin: 2, borderRadius: 5 }}>
+      <Card sx={{ width: 300, margin: 2, borderRadius: 5 }}>
         <CardHeader title={title}></CardHeader>
         <CardContent>
           <Typography variant="body2">{description}</Typography>
           <div className="vote-results-div">
-            {isUserPath && !isResultsPage && (
+            {(isUserPath && !isResultsPage) && (
               <IconButton
                 disabled={atVoteMax || myvotes === 0}
                 onClick={onClickDecrease}
               >
                 <RemoveCircleIcon
                   sx={{
+                    mx: 3,
                     fontSize: 48,
-                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey,
+                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey
                   }}
                 />
               </IconButton>
@@ -89,13 +90,13 @@ export default function Tile({ idea, votesLeft, fromResults }) {
             <Typography variant="h2" component="div">
               {fromResults && votes}
             </Typography>
-            {isUserPath && !isResultsPage && (
+            {(isUserPath && !isResultsPage) && (
               <IconButton
                 disabled={atVoteMin || myvotes === 5}
                 onClick={onClickIncrease}
               >
                 <AddCircleIcon
-                  sx={{ fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }}
+                  sx={{ mx: 3, fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }}
                 />
               </IconButton>
             )}
