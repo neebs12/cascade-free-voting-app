@@ -7,10 +7,10 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {
   selectResultsReady,
-  fetchUsersStatus
+  fetchUsersStatus,
 } from '../features/users/usersSlice'
 
-export default function AfterVote () {
+export default function AfterVote() {
   const [askingInterval, setAskingInterval] = useState(null)
   const resultsReady = useSelector(selectResultsReady)
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ export default function AfterVote () {
 
   useEffect(() => {
     dispatch(fetchUsersStatus())
-    
+
     const intervalId = setInterval(() => {
       dispatch(fetchUsersStatus())
     }, 1000) // 1 sec update
@@ -33,44 +33,18 @@ export default function AfterVote () {
 
     clearInterval(askingInterval)
     setAskingInterval(null)
-    navigate("/user/results")
+    navigate('/user/results')
   }
 
   return (
     <>
-<<<<<<< HEAD
-      <div className="before-vote-center-div-col">
-        {/* <h1>U4</h1> */}
-        <h2>
-         Please wait for all users to finish voting
-        </h2>
-        {resultsReady && (
-          <Box sx={{ my: 5 }}>
-            <CircularProgress />
-          </Box>
-        )}
-        <Button variant="contained" onClick={() => window.location.reload()}>
-          Reload
-        </Button>
-        {/* Better fix the sneaky p tags here */}
-        <p></p>
-        <Button
-          component={Link}
-          to="/user/results"
-          variant="contained"
-          disabled={resultsReady}
-        >
-          Proceed to Results
-        </Button>{' '}
-      </div>
-=======
       <h1>U4</h1>
       <h2>
         This is the user waiting page after the vote - waiting for all users to
         finish voting
       </h2>
       {!resultsReady && (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ my: 5 }}>
           <CircularProgress />
         </Box>
       )}
@@ -81,13 +55,9 @@ export default function AfterVote () {
       {/* <Button component={Link} to="/user/results" variant="contained" disabled={resultsReady}>
         Proceed to Results
       </Button>{' '} */}
-      <Button 
-        variant="contained"
-        onClick={handleOnClickProgress}
-      >
+      <Button variant="contained" onClick={handleOnClickProgress}>
         Proceed to Results
       </Button>{' '}
->>>>>>> 5308257447a9b8f55b751cad2b445a8833cf3fe9
     </>
   )
 }
