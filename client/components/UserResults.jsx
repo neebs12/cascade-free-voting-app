@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-
-import {
-  fetchIdeasMyVotes,
-
-} from '../features/ideas/ideasSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectAllIdeas, fetchIdeasMyVotes } from '../features/ideas/ideasSlice'
 import { fetchSession } from '../features/session/sessionSlice'
+
 import TileHolder from './TileHolder'
 
-export default function UserResults () {
+export default function UserResults () {  
+  // const results = useSelector(selectAllIdeas)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchIdeasMyVotes())
     dispatch(fetchSession())
   }, [])
 

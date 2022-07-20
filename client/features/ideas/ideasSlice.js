@@ -43,9 +43,20 @@ export const ideasSlice = createSlice({
       .addCase(fetchIdeasMyVotes.fulfilled, (state, action) => {
         console.log('payload', action.payload)
         const ideasArr = action.payload.map((idea) => {
+          // therefore at this location, state is an array [{id, ...}]
+          // we need to find the existing state which matches the receveived idea
+          const currId = idea.id
+          let oldmyvotes = 0
+          const oldIdeaFromCurrId = (state || []).find(s => s.id === currId)
+          // note the non-cased variable
+          if (oldIdeaFromCurrId) {
+            oldmyvotes = oldIdeaFromCurrId.myvotes || 0
+          }
+
+          const value = +oldmyvotes || 0
           return {
             ...idea,
-            myvotes: 0
+            myvotes: value
           }
         })
         return ideasArr
