@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   selectVoteCount,
   selectVoteArr,
-  postVotes,
+  postVotes
 } from '../features/ideas/ideasSlice'
 import TileHolder from './TileHolder'
 
-export default function Voting() {
+export default function Voting () {
   const dispatch = useDispatch()
 
   // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record.
@@ -20,25 +20,26 @@ export default function Voting() {
 
   return (
     <>
-      <div>
-        <h3>Votes total: {numVotes} </h3>
-        <h3>Votes remaining</h3>
-        <h1>{numVotes - voteCount}</h1>
-        <div>
+      <div className='voting-center-div-col'>
+        <div className="voting-votes-submit-box">
+          <h3>Votes total: {numVotes} </h3>
+          <h3>Votes remaining</h3>
+          <h1>{numVotes - voteCount}</h1>
           <Button
+            backgroundColor="#21b6ae"
             onClick={() => {
               dispatch(postVotes(voteArr))
             }}
             component={Link}
             to="/user/after_vote"
-            variant="outlined"
+            variant="contained"
             disabled={!(numVotes - voteCount <= 0)}
           >
             Submit
           </Button>
         </div>
-        <TileHolder number={numVotes - voteCount} />
       </div>
+      <TileHolder number={numVotes - voteCount} />
     </>
   )
 }
