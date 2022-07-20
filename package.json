@@ -7,7 +7,10 @@
     "fullstack"
   ],
   "scripts": {
-    "start": "node server",
+    "start": "npm run knex:reset && npm run start:start",
+    "start:server": "CI=prod node server/index.js",
+    "start:client": "npm run dev:client",
+    "start:start": "run-p start:client start:server",
     "test": "jest",
     "test:watch": "jest --noStackTrace --watchAll",
     "dev": "run-p dev:client dev:server",
