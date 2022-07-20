@@ -81,7 +81,7 @@ export default function New () {
             label="Number of intended final ideas"
             variant="outlined"
             value={numFinalIdeas}
-            onChange={(e) => setNumFinalIdeas(Number(e.target.value[0]))}
+            onChange={(e) => setNumFinalIdeas(Number(e.target.value[0]) || '')}
           />
           {/* <Button component={Link} to="/admin/ideas" variant="outlined">Submit</Button> */}
           <Button
