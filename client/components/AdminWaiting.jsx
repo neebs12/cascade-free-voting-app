@@ -88,11 +88,8 @@ export default function AdminWaiting () {
 
   return (
     <>
-      <h1>A3</h1>
-      <h2>
-        This is the page where the admin waits for the voting to finish and can
-        see who still is left to vote
-      </h2>
+      {/* <h1>A3</h1> */}
+      <h2>Voting status as below:</h2>
       <div className="admin-waiting-vote-table">
         <div className="admin-waiting-vote-col">
           <h3>Still waiting to submit vote</h3>
@@ -115,9 +112,13 @@ export default function AdminWaiting () {
           <h3>Voting completed</h3>
           {(userStatus || { voted: [] }).voted.map((name) => {
             return (
-              <div className="admin-waiting-vote-name" key={name.id}>
+              <Button
+                sx={{ display: 'flex', my: 1 }}
+                key={name.id}
+                variant="contained"
+              >
                 {name.name}
-              </div>
+              </Button>
             )
           })}
         </div>
