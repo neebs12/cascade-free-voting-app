@@ -17,7 +17,7 @@ h2 {
   height: 75vh;
 }
 
-.name-container{
+.name-container {
   display: flex;
   flex-direction: column;
   margin-right: 100px;
@@ -33,7 +33,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height:75vh
+  height: 75vh;
 }
 
 .vote-results-div {
@@ -57,12 +57,13 @@ h2 {
   align-items: center;
 }
 
+
 .before-vote-center-div-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 75vh
+  height: 75vh;
 }
 
 .ideas-vote-center-div-col {
@@ -70,9 +71,8 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 75vh
+  height: 75vh;
 }
-
 
 .login-center-div-row {
   display: flex;
@@ -271,6 +271,44 @@ h2 {
   margin: 10px;
 }
 
+.voting-center-div-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.voting-votes-submit-box {
+  margin: 25px;
+  width: 150px;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color:#ab47bc;
+  border-radius: 20px;
+  padding: 20px;
+  h1 {
+    font-size: 48pt;
+    margin: 0;
+    color: white
+  }
+  h3 {
+    font-size: 14pt;
+    margin: 0;
+    color: white
+
+
+  }
+  .MuiButton-root {
+    border-radius: 15px;
+    background-color: white;
+    color: #ab47bc;
+    width: 150px
+  }
+}
+
 .MuiCardHeader-root {
   background-color: #ab47bc;
   color: white;
@@ -281,9 +319,8 @@ h2 {
 .MuiCardContent-root {
   background-color: #eeeeee;
   text-align: center;
-
 }
 
 .MuiButton-root {
   border-radius: 15px;
-} 
+}

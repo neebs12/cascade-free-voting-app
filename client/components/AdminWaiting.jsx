@@ -19,7 +19,7 @@ export default function AdminWaiting () {
   const navigate = useNavigate() // OK
   const dispatch = useDispatch() // OK
 
-  const userStatus = useSelector(globalState => {
+  const userStatus = useSelector((globalState) => {
     return globalState.users?.userStatus
   })
 
@@ -27,13 +27,13 @@ export default function AdminWaiting () {
     // OK this sets the users in the redux store
     // populates state.users.users
     // needs to be fetched multiple times. New users may come in after the ideas have been added
-    dispatch(fetchUsers()) 
+    dispatch(fetchUsers())
     // OK this sets the user statuses in the redux store
     // populates state.users.users
     dispatch(fetchUsersStatus())
 
     const intervalId = setInterval(() => {
-      dispatch(fetchUsers()) 
+      dispatch(fetchUsers())
       dispatch(fetchUsersStatus())
     }, 1000) // 1s update
 
@@ -65,11 +65,13 @@ export default function AdminWaiting () {
   const handleClickNextPage = () => {
     // need GCL if can navigate to next page
     if (!voteSubmit) {
-      return alert('Voting is not finished (either no users OR all users have yet to vote)')
+      return alert(
+        'Voting is not finished (either no users OR all users have yet to vote)'
+      )
     }
     // then, clear intervals & navigate accordingly
     clearInterval(askingInterval)
-    setAskingInterval(null)    
+    setAskingInterval(null)
     navigate('/admin/results')
   }
 
@@ -88,47 +90,48 @@ export default function AdminWaiting () {
     <>
       <h1>A3</h1>
       <h2>
-        This is the page where the admin waits for the voting to finish and
-        can see who still is left to vote
+        This is the page where the admin waits for the voting to finish and can
+        see who still is left to vote
       </h2>
       <div className="admin-waiting-vote-table">
         <div className="admin-waiting-vote-col">
           <h3>Still waiting to submit vote</h3>
-            {(userStatus || {notVoted: []}).notVoted.map((name) => {
-              return (
-                <div className="admin-waiting-vote-name" key={name.id}>
-                  {name.name}
-                </div>
-              )
-            })}
-          </div>
-          <div className="admin-waiting-vote-col">
-            <h3>Voting completed</h3>
-            {(userStatus || {voted: []}).voted.map((name) => {
-              return (
-                <div className="admin-waiting-vote-name" key={name.id}>
-                  {name.name}
-                </div>
-              )
-            })}
+          {(userStatus || { notVoted: [] }).notVoted.map((name) => {
+            return (
+              <Button
+                sx={{ display: 'flex', my: 1 }}
+                key={name.id}
+                variant="outlined"
+              >
+                {name.name}
+              </Button>
+              // <div className="admin-waiting-vote-name" key={name.id}>
+              //   {name.name}
+              // </div>
+            )
+          })}
+        </div>
+        <div className="admin-waiting-vote-col">
+          <h3>Voting completed</h3>
+          {(userStatus || { voted: [] }).voted.map((name) => {
+            return (
+              <div className="admin-waiting-vote-name" key={name.id}>
+                {name.name}
+              </div>
+            )
+          })}
         </div>
       </div>
-      <Button 
-        variant="contained"  
-        onClick={handleClickNextPage}
-      >
+      <Button variant="contained" onClick={handleClickNextPage}>
         Show Results
-      </Button>      
-      {mockbool && 
+      </Button>
+      {mockbool && (
         <>
-          <Button 
-            variant="contained"  
-            onClick={handleMockVotes}
-          >
+          <Button variant="contained" onClick={handleMockVotes}>
             Mock - Place async votes
           </Button>
         </>
-      }
+      )}
     </>
   )
 }

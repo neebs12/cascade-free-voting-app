@@ -171,65 +171,69 @@ export default function Ideas () {
 
   return (
     <>
-      <h3>Here are a list of names</h3>
-      <div className="name-container">
-        {(users.length || null) &&
-          users.map((user) => {
-            return (
-              <Button
-                key={user.id}
-                variant="outlined"
-                onClick={handleChosenUserClicked(user.id, user.name)}
-              >
-                {user.name}
-              </Button>
-            )
-          })}
-      </div>
-      <div className="ideas-vote-center-div-col">
-        <Box
-          component="form"
-          sx={{
-            '& > :not(style)': { width: '25ch' }
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            sx={{ display: 'flex' }}
-            id="outlined-basic"
-            label="Name of Idea"
+      <div className="ideas-center-div-row">
+        <div className="name-container">
+          <h3>Here are a list of names</h3>
+
+          {(users.length || null) &&
+            users.map((user) => {
+              return (
+                <Button style={{ backgroundColor: 'transparent' }}
+                  sx={{ display: 'flex', my: 1 }}
+                  key={user.id}
+                  variant="outlined"
+                  onClick={handleChosenUserClicked(user.id, user.name)}
+                >
+                  {user.name}
+                </Button>
+              )
+            })}
+        </div>
+        <div className="ideas-vote-center-div-col">
+          <Box
+            component="form"
+            sx={{
+              '& > :not(style)': { width: '25ch' }
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              sx={{ display: 'flex' }}
+              id="outlined-basic"
+              label="Name of Idea"
+              variant="outlined"
+              value={nameOfIdea}
+              onChange={(e) => setNameOfIdea(e.target.value)}
+              disabled={chosenUserName === ''}
+            />
+            <TextField
+              sx={{ display: 'flex', my: 2 }}
+              multiline
+              rows={4}
+              id="outlined-basic"
+              label="Idea description"
+              variant="outlined"
+              value={descrOfIdea}
+              onChange={(e) => setDescrOfIdea(e.target.value)}
+              disabled={chosenUserName === ''}
+            />
+          </Box>
+          <Button
+            sx={{ width: 292.8 }}
+            onClick={handleOnClickNextIdea}
             variant="outlined"
-            value={nameOfIdea}
-            onChange={(e) => setNameOfIdea(e.target.value)}
-            disabled={chosenUserName === ''}
-          />
-          <TextField
-            sx={{ display: 'flex', my: 2 }}
-            multiline
-            rows={4}
-            id="outlined-basic"
-            label="Idea description"
+          >
+            Next idea
+          </Button>
+          <Button
+            sx={{ width: 292.8, my: 2 }}
+            onClick={handleOnClickLink}
             variant="outlined"
-            value={descrOfIdea}
-            onChange={(e) => setDescrOfIdea(e.target.value)}
-            disabled={chosenUserName === ''}
-          />
-        </Box>
-        <Button
-          sx={{ width: 292.8 }}
-          onClick={handleOnClickNextIdea}
-          variant="outlined"
-        >
-          Next idea
-        </Button>
-        <Button
-          sx={{ width: 292.8, my: 2 }}
-          onClick={handleOnClickLink}
-          variant="outlined"
-        >
-          Ready to vote
-        </Button>
+          >
+            Ready to vote
+          </Button>
+        </div>
       </div>
       {mockbool && (
         <>
