@@ -39,11 +39,13 @@ export default function BeforeVote () {
     navigate('/user/voting', { replace: true })
   }
 
+  const name = useSelector(state => state.users.name)
+
   return (
     <>
       <div className='before-vote-center-div-col'>
         {/* <h1>U2</h1> */}
-        <h2 style={{ margin: 30 }}>Hi User, we are waiting for voting to Start</h2>
+        <h2 style={{ margin: 30 }}>Hi {name}, we are waiting for voting to Start</h2>
         {!voteReady && (
           <Box sx={{ my: 5 }}>
             <CircularProgress />

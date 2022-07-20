@@ -14,7 +14,7 @@ import { fetchAllUsers } from '../apis/users'
 import { mockPostUsers } from '../apis/mock/mocking_users/add-new-users'
 import mockbool from '../apis/mock/mockbool'
 
-export default function Ideas () {
+export default function Ideas() {
   const [askingInterval, setAskingInterval] = useState(null)
   const [nameOfIdea, setNameOfIdea] = useState('')
   const [descrOfIdea, setDescrOfIdea] = useState('')
@@ -76,7 +76,7 @@ export default function Ideas () {
       userId: chosenUserId,
       userName: chosenUserName,
       title: nameOfIdea,
-      description: descrOfIdea
+      description: descrOfIdea,
     }
 
     // then we push this to .current of the ref's object `myIdeas`
@@ -96,6 +96,7 @@ export default function Ideas () {
 
     // console.log('going to the database!')
     const theIdeasToBeSent = myIdeas.current
+    console.log(theIdeasToBeSent)
 
     if (theIdeasToBeSent.length === 0) {
       alert('There are NO ideas recorded!, Please enter atleast ONE idea')
@@ -117,7 +118,7 @@ export default function Ideas () {
         userId: chosenUserId,
         userName: chosenUserName,
         title: nameOfIdea,
-        description: descrOfIdea
+        description: descrOfIdea,
       })
     }
 
@@ -140,7 +141,7 @@ export default function Ideas () {
     setIsMocked(true)
   }
   const handleMockIdeas = async () => {
-    // YES when sending ideas, the usetName IS ignored by backend
+    // YES when sending ideas, the userName IS ignored by backend
     if (
       !confirm(
         'WARNING: has the mock names completed? If so, press OK, if not press CANCEL and try again'
@@ -157,7 +158,7 @@ export default function Ideas () {
         userId,
         userName,
         title: `title: ${userName}`,
-        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`
+        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`,
       }
     })
     dispatch(populateIdeas(theIdeasToBeSent))
@@ -169,31 +170,47 @@ export default function Ideas () {
     navigate('/admin/waiting') // <--- for navigating to next page
   }
 
+
+
   return (
     <>
       <div className="ideas-center-div-row">
         <div className="name-container">
-          <h3>Here are a list of names</h3>
+          <h3>Who is proposing the  idea?</h3>
 
           {(users.length || null) &&
             users.map((user) => {
+              const selectedButton = user.name === chosenUserName
               return (
-                <Button style={{ backgroundColor: 'transparent' }}
-                  sx={{ display: 'flex', my: 1 }}
-                  key={user.id}
-                  variant="outlined"
-                  onClick={handleChosenUserClicked(user.id, user.name)}
-                >
-                  {user.name}
-                </Button>
+                <React.Fragment key={user.id}>
+                  <Button
+                    // style={{ backgroundColor: 'transparent' }}
+                    sx={{
+                      '&:hover': {
+                        color: 'white',
+                        backgroundColor: '#ab47bc'},
+                      display: 'flex',
+                      my: 1,
+                      borderColor: selectedButton ? 'white' : '#ab47bc',
+                      backgroundColor: selectedButton ? '#ab47bc' : 'white',
+                      color: selectedButton ? 'white' : '#ab47bc' 
+                    }}
+                    variant="outlined"
+                    onClick={handleChosenUserClicked(user.id, user.name)}
+                  >
+                    {user.name}
+                  </Button>
+
+                </React.Fragment>
               )
             })}
         </div>
+
         <div className="ideas-vote-center-div-col">
           <Box
             component="form"
             sx={{
-              '& > :not(style)': { width: '25ch' }
+              '& > :not(style)': { width: '25ch' },
             }}
             noValidate
             autoComplete="off"
@@ -230,6 +247,7 @@ export default function Ideas () {
             sx={{ width: 292.8, my: 2 }}
             onClick={handleOnClickLink}
             variant="outlined"
+            disabled={Boolean(myIdeas.current.length === 0)}
           >
             Ready to vote
           </Button>
