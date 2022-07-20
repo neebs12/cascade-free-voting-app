@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ResultTile from './ResultTile'
-import { useSelector } from 'react-redux'
-import { selectAllIdeas } from '../features/ideas/ideasSlice'
+import { useSelector, useDispatch } from 'react-redux'
+
+import {
+  fetchIdeasMyVotes,
+  selectAllIdeas,
+  selectVoteCount,
+  selectVoteArr,
+  postVotes
+} from '../features/ideas/ideasSlice'
+import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
+import Tile from './Tile'
 
 export default function UserResults () {
-  const results = useSelector(selectAllIdeas)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchIdeasMyVotes())
+    dispatch(fetchSession())
+  }, [])
+
+  const numVotes = useSelector(selectNumVotes)
+  const voteCount = useSelector(selectVoteCount)
+  const ideas = useSelector(selectAllIdeas)
+  const voteArr = useSelector(selectVoteArr)
   return (
     <>
       <h1>U5</h1>
@@ -16,8 +35,8 @@ export default function UserResults () {
       </div>
 
       <div className="tile-container">
-        {results.map((result) => {
-          return <ResultTile key={result.id} result={result} />
+        {ideas.map((idea) => {
+          return <Tile key={idea.id} idea={idea} />
         })}
       </div>
     </>

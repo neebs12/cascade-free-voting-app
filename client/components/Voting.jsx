@@ -11,6 +11,7 @@ import {
   postVotes
 } from '../features/ideas/ideasSlice'
 import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
+import Tile from './Tile'
 
 export default function Voting () {
   const dispatch = useDispatch()
@@ -49,7 +50,7 @@ export default function Voting () {
       </div>
       <div className="tile-container">
         {ideas.map((idea) => {
-          return <IdeaTile key={idea.id} idea={idea} />
+          return <Tile key={idea.id} idea={idea} />
         })}
       </div>
     </>

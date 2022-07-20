@@ -15,21 +15,19 @@ import { selectNumVotes } from '../features/session/sessionSlice'
 // import Button from '@mui/material/Button'
 // import { ThemeProvider, createTheme } from '@mui/material/styles'
 
-const getVoteById = (state, id) => {
-  const ideas = state.ideas
-  const idea = ideas.find((idea) => idea.id === id)
-  const votes = idea.myvotes
-  return votes
-}
+
 
 export default function IdeaTile ({ idea }) {
+  const resultsTile = true
+  const userTile = false
+
   const voteCount = useSelector(selectVoteCount)
   const numVotes = useSelector(selectNumVotes)
 
   const id = idea.id
-  const votes = useSelector(state => getVoteById(state, id))
+  const myvotes = useSelector(state => getMyVotesById(state, id))
   const dispatch = useDispatch()
-  const { title, description } = idea
+  const { title, description, votes} = idea
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -66,8 +64,10 @@ export default function IdeaTile ({ idea }) {
             >
               -            </button>
           </div>
+          {userTile &&
+          <span className="vote-counter">{myvotes}</span>}
           <span className="vote-counter">{votes}</span>
-          <div className="input-group-button">
+          {!resultsTile && <div className="input-group-button">
             <button onClick={() => dispatch(addVote(id))}
               type="button"
               className="button hollow circle"
@@ -77,7 +77,7 @@ export default function IdeaTile ({ idea }) {
             >
               +<i className="fa fa-plus" aria-hidden="true"></i>
             </button>
-          </div>
+          </div>}
         </div>
         {/* </ThemeProvider> */}
       </CardActions>
