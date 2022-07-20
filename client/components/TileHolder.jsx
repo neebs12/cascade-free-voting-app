@@ -19,9 +19,17 @@ export default function TileHolder({ number, fromResults }) {
 
   return (
     <>
+      <div id="topRightFixed">{number}</div>
       <div className="tile-container">
         {ideas.map((idea) => {
-          return <Tile fromResults={fromResults} votesLeft={number} key={idea.id} idea={idea} />
+          return (
+            <Tile
+              fromResults={fromResults}
+              votesLeft={number}
+              key={idea.id}
+              idea={idea}
+            />
+          )
         })}
       </div>
     </>

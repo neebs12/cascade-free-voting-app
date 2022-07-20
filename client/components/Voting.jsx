@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   selectVoteCount,
   selectVoteArr,
-  postVotes
+  postVotes,
 } from '../features/ideas/ideasSlice'
 import TileHolder from './TileHolder'
 
-export default function Voting () {
+export default function Voting() {
   const dispatch = useDispatch()
 
   // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record.
@@ -20,7 +20,8 @@ export default function Voting () {
 
   return (
     <>
-      <div className='voting-center-div-col'>
+
+      <div className="voting-center-div-col">
         <div className="voting-votes-submit-box">
           <h3>Votes total: {numVotes} </h3>
           <h3>Votes remaining</h3>

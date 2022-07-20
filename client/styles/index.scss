@@ -324,3 +324,14 @@ h2 {
 .MuiButton-root {
   border-radius: 15px;
 }
+
+#topRightFixed {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  background: purple;
+  margin: 5px;
+  padding: 6px;
+  color: white;
+  font-size: 1.4em;
+}
