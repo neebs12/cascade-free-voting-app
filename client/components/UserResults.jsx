@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ResultTile from './ResultTile'
-import { useSelector } from 'react-redux'
-import { selectAllIdeas } from '../features/ideas/ideasSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectAllIdeas, fetchIdeasMyVotes } from '../features/ideas/ideasSlice'
+
+
 
 export default function UserResults () {
   const results = useSelector(selectAllIdeas)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchIdeasMyVotes())
+  }, [])
+
   return (
     <>
       <h1>U5</h1>
