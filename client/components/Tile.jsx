@@ -12,7 +12,7 @@ import {
   addVote,
   subtractVote,
   selectVoteCount,
-  selectVoteArr,
+  selectVoteArr
 } from '../features/ideas/ideasSlice'
 import { selectIsUserPath } from '../features/users/usersSlice'
 // Here are a few unused imports that may be helpful if I import some stuff
@@ -28,7 +28,7 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea, votesLeft, fromResults }) {
+export default function Tile ({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
 
   const id = idea.id
@@ -53,7 +53,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
     if (fromResults) return false
     if (atVoteMin) {
       console.log('no votes left')
-      return 
+      return
     }
     dispatch(addVote(id))
   }
@@ -61,13 +61,13 @@ export default function Tile({ idea, votesLeft, fromResults }) {
   return (
     <>
       {isUserPath}
-      <Card sx={{ maxWidth: 300, margin: 2, borderRadius: 5 }}>
+      <Card sx={{ width: 300, margin: 2, borderRadius: 5 }}>
         <CardHeader title={title}></CardHeader>
         <CardContent>
           <Typography variant="body2">{description}</Typography>
           <div className="vote-results-div">
             <IconButton disabled={atVoteMax || (myvotes === 0)} onClick={onClickDecrease}>
-              <RemoveCircleIcon sx={{ fontSize: 48, color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey}} />
+              <RemoveCircleIcon sx={{ mx: 3, fontSize: 48, color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey }} />
             </IconButton>
             <Typography variant="h2" component="div">
               {myvotes}
@@ -77,7 +77,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
               {fromResults && votes}
             </Typography>
             <IconButton disabled={atVoteMin || myvotes === 5} onClick={onClickIncrease}>
-              <AddCircleIcon sx={{ fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }} />
+              <AddCircleIcon sx={{ mx: 3, fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }} />
             </IconButton>
           </div>
         </CardContent>
