@@ -19,7 +19,7 @@ export default function AdminResults () {
     <>
     <h1>A4</h1>
       <h2>This is the admin results page</h2>
-    <TileHolder />
+    <TileHolder fromResults={true}/>
     </>
   )
 }

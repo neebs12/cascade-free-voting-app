@@ -9,6 +9,8 @@ export default function UserResults () {
   // const results = useSelector(selectAllIdeas)
   const dispatch = useDispatch()
 
+  const fromResults = true
+
   useEffect(() => {
     dispatch(fetchSession())
   }, [])
@@ -17,7 +19,7 @@ export default function UserResults () {
     <>
       <h1>U5</h1>
       <h2>This is the user results page</h2>
-      <TileHolder />
+      <TileHolder fromResults={fromResults}/>
     </>
   )
 }

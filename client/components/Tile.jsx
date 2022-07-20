@@ -28,13 +28,13 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea, number }) {
+export default function Tile({ idea, number, fromResults }) {
   // const numVotes = 5
   // const voteCount = useSelector(selectVoteCount)
   // const voteArr = useSelector(selectVoteArr)
 
   // hard coded booleans below need to be replaced with selectors
-  const resultsTile = true
+  // const resultsTile = true
   const isUserPath = useSelector(selectIsUserPath)
 
   const id = idea.id
@@ -43,6 +43,7 @@ export default function Tile({ idea, number }) {
   const { title, description, votes } = idea
 
   const onClickDecrease = () => {
+    if (fromResults) return false
     if (number <= -5) {
       return alert('cannot vote less than 0')
     }
@@ -50,6 +51,7 @@ export default function Tile({ idea, number }) {
   }
 
   const onClickIncrease = () => {
+    if (fromResults) return false
     if (number <= 0) {
       return alert('cannot vote more than 5')
     }
@@ -71,7 +73,7 @@ export default function Tile({ idea, number }) {
               {myvotes}
             </Typography>
             <Typography variant="h2" component="div">
-              {votes}
+              {fromResults && votes}
             </Typography>
             <IconButton  onClick={onClickIncrease}>
               <AddCircleIcon  sx={{ fontSize: 48, color: '#8c8c8c' }} />
