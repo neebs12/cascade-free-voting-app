@@ -26,7 +26,7 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea, votesLeft, fromResults }) {
+export default function Tile ({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
   const isResultsPage = useSelector(selectResultsReady)
   console.log('isUserPath', isUserPath)
@@ -61,7 +61,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300, margin: 2, borderRadius: 5 }}>
+      <Card sx={{ width: 300, margin: 2, borderRadius: 5 }}>
         <CardHeader title={title}></CardHeader>
         <CardContent>
           <Typography variant="body2">{description}</Typography>
@@ -73,8 +73,9 @@ export default function Tile({ idea, votesLeft, fromResults }) {
               >
                 <RemoveCircleIcon
                   sx={{
+                    mx: 3,
                     fontSize: 48,
-                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey,
+                    color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey
                   }}
                 />
               </IconButton>
@@ -93,7 +94,7 @@ export default function Tile({ idea, votesLeft, fromResults }) {
                 onClick={onClickIncrease}
               >
                 <AddCircleIcon
-                  sx={{ fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }}
+                  sx={{ mx: 3, fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }}
                 />
               </IconButton>
             )}

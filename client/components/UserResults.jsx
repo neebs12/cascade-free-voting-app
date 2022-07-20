@@ -5,7 +5,7 @@ import { fetchSession } from '../features/session/sessionSlice'
 
 import TileHolder from './TileHolder'
 
-export default function UserResults () {  
+export default function UserResults () {
   // const results = useSelector(selectAllIdeas)
   const dispatch = useDispatch()
 
@@ -17,8 +17,8 @@ export default function UserResults () {
 
   return (
     <>
-      <h1>U5</h1>
-      <h2>This is the user results page</h2>
+      {/* <h1>U5</h1> */}
+      {/* <h2>This is the user results page</h2> */}
       <TileHolder fromResults={fromResults}/>
     </>
   )

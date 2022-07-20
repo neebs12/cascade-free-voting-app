@@ -4,9 +4,6 @@ import { fetchWinningIdeas } from '../features/ideas/ideasSlice'
 import TileHolder from './TileHolder'
 
 export default function AdminResults () {
-  
-
-
   const winningIdeas = useSelector(globalState => globalState.ideas)
   const dispatch = useDispatch()
 
@@ -17,9 +14,9 @@ export default function AdminResults () {
 
   return (
     <>
-    <h1>A4</h1>
-      <h2>This is the admin results page</h2>
-    <TileHolder fromResults={true}/>
+      {/* <h1>A4</h1>
+      <h2>This is the admin results page</h2> */}
+      <TileHolder fromResults={true}/>
     </>
   )
 }
