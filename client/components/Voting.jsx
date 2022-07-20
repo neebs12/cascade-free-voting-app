@@ -21,6 +21,9 @@ export default function Voting() {
   return (
     <>
 
+      <div id="topRightFixed">{numVotes - voteCount}</div>
+
+
       <div className="voting-center-div-col">
         <div className="voting-votes-submit-box">
           <h3>Votes total: {numVotes} </h3>

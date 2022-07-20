@@ -199,8 +199,7 @@ export default function Ideas() {
                   >
                     {user.name}
                   </Button>
-                  <p>{console.log(selectedButton
-            )}</p>
+
                 </>
               )
             })}

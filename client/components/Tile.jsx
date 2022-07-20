@@ -28,8 +28,6 @@ const getMyVotesById = (state, id) => {
 
 export default function Tile({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
-  // TODO need a better proxy than this selector for assessing if we
-  // are at a results page (will cause problems on reload)
   const isResultsPage = useSelector(selectResultsReady)
   console.log('isUserPath', isUserPath)
   console.log('isResultsPage', isResultsPage)
