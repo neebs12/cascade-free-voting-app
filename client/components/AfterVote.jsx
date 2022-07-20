@@ -28,7 +28,7 @@ export default function AfterVote () {
 
   const handleOnClickProgress = () => {
     if (!resultsReady) {
-      return alert('We are still waiting for other users to finish voting!')
+      return alert('Hang tight! Other users are still voting!')
     }
 
     clearInterval(askingInterval)
