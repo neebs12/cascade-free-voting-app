@@ -27,6 +27,7 @@ export const usersSlice = createSlice({
       })
       .addCase(postUser.fulfilled, (state, action) => {
         console.log('postUser fulfilled')
+        state.id = action.payload.id
       })
       .addCase(postUser.rejected, (state, action) => {
         console.log('postUser rejected: ', action)

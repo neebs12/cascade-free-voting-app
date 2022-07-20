@@ -39,8 +39,6 @@ export default function BeforeVote () {
     navigate('/user/voting', { replace: true })
   }
 
-  
-
   return (
     <>
       <div className='before-vote-center-div-col'>
@@ -51,7 +49,6 @@ export default function BeforeVote () {
             <CircularProgress />
           </Box>
         )}
-        {/* <Button variant="contained">Reload</Button> */}
         {/* Better fix the sneaky p tags here */}
         <p></p>
         <Button variant="contained" disabled={!voteReady} onClick={handleClick}>
@@ -61,11 +58,3 @@ export default function BeforeVote () {
     </>
   )
 }
-
-// export default function CircularIndeterminate() {
-//   return (
-//     <Box sx={{ display: 'flex' }}>
-//       <CircularProgress />
-//     </Box>
-//   );
-// }

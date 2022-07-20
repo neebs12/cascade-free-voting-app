@@ -72,7 +72,7 @@ export const selectVoteArr = (state) => {
   const ideasWithVotes = state.ideas.filter((idea) => idea.myvotes > 0)
   const currentUserVotes = ideasWithVotes?.map((idea) => {
     const preppedIdea = {
-      userId: state.session.id,
+      userId: state.users.id,
       ideaId: idea.id,
       freq: idea.myvotes
     }

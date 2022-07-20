@@ -29,8 +29,6 @@ export default function Voting () {
 
   return (
     <>
-      {/* <h1>U3</h1>
-      <h2>This is the Voting page with the whiteboard</h2> */}
       <div>
         <h3>Votes total: {numVotes} </h3>
         <h3>Votes remaining</h3>
