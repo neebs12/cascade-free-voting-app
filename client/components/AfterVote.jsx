@@ -21,14 +21,14 @@ export default function AfterVote () {
 
     const intervalId = setInterval(() => {
       dispatch(fetchUsersStatus())
-    }, 1000) // 1 sec update
+    }, 3000) // 3 sec update
 
     setAskingInterval(intervalId)
   }, [])
 
   const handleOnClickProgress = () => {
     if (!resultsReady) {
-      return alert('We are still waiting for other users to finish voting!')
+      return alert('Hang tight! Other users are still voting!')
     }
 
     clearInterval(askingInterval)

@@ -42,7 +42,7 @@ export default function AdminWaiting () {
 
       dispatch(fetchUsers())
       dispatch(fetchUsersStatus())
-    }, 1000) // 1s update
+    }, 3000) // 3 sec update
 
     setAskingInterval(intervalId)
   }, []) // only executes once
@@ -73,7 +73,7 @@ export default function AdminWaiting () {
     // need GCL if can navigate to next page
     if (!voteSubmit) {
       return alert(
-        'Voting is not finished (either no users OR all users have yet to vote)'
+        'Voting is not finished. Please ensure that either:\nAtleast one user has logged in\nOR\nAll users have voted'
       )
     }
     // then, clear intervals & navigate accordingly
@@ -88,7 +88,7 @@ export default function AdminWaiting () {
       return console.log('already mocked, cannot mock again')
     }
     console.log('is mocking')
-    mockVotes(20) // n second duration for mocking votes
+    mockVotes(10) // n second duration for mocking votes
     setItMocked(true)
   }
   return (

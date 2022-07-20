@@ -36,7 +36,7 @@ export default function Ideas() {
     const intervalId = setInterval(() => {
       // console.log('getting new users!')
       dispatch(fetchUsers())
-    }, 1000) // updates every 1 sec
+    }, 3000) // 3000 sec update
 
     setAskingInterval(intervalId)
   }, [])
@@ -67,7 +67,7 @@ export default function Ideas() {
     */
     // if any are empty, unable to move on
     if (!(chosenUserName && nameOfIdea && descrOfIdea)) {
-      alert('Please chose a user, name of idea and an idea description')
+      alert('To progress to next idea - please chose \nA user\nName of idea \nAND \nAn idea description')
       return false
     }
 
@@ -107,7 +107,7 @@ export default function Ideas() {
     if (!chosenUserName || !nameOfIdea || !descrOfIdea) {
       if (
         !confirm(
-          'Currently, we are missing either a user, name of idea and/or an idea description, do you want the current entries to be discarded and send information to the server?'
+          'Currently, we are missing either a user, name of idea and/or an idea description, \nDo you want the current entries to be discarded?'
         )
       ) {
         return false

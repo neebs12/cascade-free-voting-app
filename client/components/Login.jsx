@@ -24,7 +24,10 @@ export default function Login () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(userName)
+    // console.log(userName)
+    if (userName.length < 3) {
+      return alert('Please enter a name with more than 3 characters!')
+    }
     dispatch(postUser(userName))
     navigate('/user/before_vote', { replace: true })
   }
