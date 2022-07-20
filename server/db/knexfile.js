@@ -4,6 +4,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
+      // filename: path.join(__dirname, 'dev.sqlite3')
       filename: path.join(__dirname, 'dev.sqlite3')
     },
     useNullAsDefault: true
@@ -12,7 +13,8 @@ module.exports = {
   production: {
     client: 'sqlite3',
     connection: {
-      filename: 'dev.sqlite3'
+      // filename: 'dev.sqlite3'
+      filename: path.join(__dirname, 'dev.sqlite3')
     },
     useNullAsDefault: true
   },
