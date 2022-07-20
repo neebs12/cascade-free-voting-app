@@ -91,6 +91,11 @@ export const selectUserStatus = (state) => {
   return state.users?.userStatus
 }
 
+export const selectIsUserPath = (state) => {
+  console.log('hit user path selector')
+  return Boolean(state.users.id)
+}
+
 // Thunk
 
 export const fetchUsersStatus = createAsyncThunk(

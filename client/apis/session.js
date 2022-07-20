@@ -1,5 +1,7 @@
 import request from 'superagent'
 
+
+//Pretty sure the fetchCurrentSession function below can be deleted
 export function fetchCurrentSession () {
   return request.get('../api/v1/sessions').then((res) => {
     // Code below is hard coding an extra key/value pair that can be handled on backend

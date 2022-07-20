@@ -8,20 +8,15 @@ import {
   selectVoteArr,
   postVotes,
 } from '../features/ideas/ideasSlice'
-import { fetchSession, selectNumVotes } from '../features/session/sessionSlice'
+import { fetchSession } from '../features/session/sessionSlice'
 import TileHolder from './TileHolder'
 
 export default function Voting() {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchIdeasMyVotes())
-    dispatch(fetchSession())
-  }, [])
-
   // The number of votes should be calculated by a formula when the ideas are submitted and the result saved to the session database record.
   // Hard coded in the slice for now
-  const numVotes = useSelector(selectNumVotes)
+  const numVotes = 5
   const voteCount = useSelector(selectVoteCount)
   const voteArr = useSelector(selectVoteArr)
 

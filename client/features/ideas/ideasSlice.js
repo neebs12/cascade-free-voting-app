@@ -61,6 +61,10 @@ export const ideasSlice = createSlice({
         })
         return ideasArr
       })
+      .addCase(fetchIdeasMyVotes.rejected, (state, action) => {
+        console.log('fetchIdeasMyVotes rejected'
+        )
+      })
   }
 })
 
