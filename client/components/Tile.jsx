@@ -28,32 +28,32 @@ const getMyVotesById = (state, id) => {
   return votes
 }
 
-export default function Tile({ idea, number, fromResults }) {
-  // const numVotes = 5
-  // const voteCount = useSelector(selectVoteCount)
-  // const voteArr = useSelector(selectVoteArr)
-
-  // hard coded booleans below need to be replaced with selectors
-  // const resultsTile = true
+export default function Tile({ idea, votesLeft, fromResults }) {
   const isUserPath = useSelector(selectIsUserPath)
 
   const id = idea.id
   const myvotes = useSelector((state) => getMyVotesById(state, id))
   const dispatch = useDispatch()
   const { title, description, votes } = idea
+  const atVoteMin = votesLeft <= 0
+  const atVoteMax = votesLeft >= 5
+
+  const lightGrey = '#cccccc'
+  const darkGrey = '#8c8c8c'
 
   const onClickDecrease = () => {
     if (fromResults) return false
-    if (number <= -5) {
-      return alert('cannot vote less than 0')
+    if (atVoteMax) {
+      return
     }
     dispatch(subtractVote(id))
   }
 
   const onClickIncrease = () => {
     if (fromResults) return false
-    if (number <= 0) {
-      return alert('cannot vote more than 5')
+    if (atVoteMin) {
+      console.log('no votes left')
+      return 
     }
     dispatch(addVote(id))
   }
@@ -66,17 +66,18 @@ export default function Tile({ idea, number, fromResults }) {
         <CardContent>
           <Typography variant="body2">{description}</Typography>
           <div className="vote-results-div">
-            <IconButton onClick={onClickDecrease}>
-              <RemoveCircleIcon  sx={{ fontSize: 48, color: '#8c8c8c' }} />
+            <IconButton disabled={atVoteMax || (myvotes === 0)} onClick={onClickDecrease}>
+              <RemoveCircleIcon sx={{ fontSize: 48, color: atVoteMax || myvotes === 0 ? lightGrey : darkGrey}} />
             </IconButton>
             <Typography variant="h2" component="div">
               {myvotes}
+              {console.log(myvotes)}
             </Typography>
             <Typography variant="h2" component="div">
               {fromResults && votes}
             </Typography>
-            <IconButton  onClick={onClickIncrease}>
-              <AddCircleIcon  sx={{ fontSize: 48, color: '#8c8c8c' }} />
+            <IconButton disabled={atVoteMin || myvotes === 5} onClick={onClickIncrease}>
+              <AddCircleIcon sx={{ fontSize: 48, color: atVoteMin ? lightGrey : darkGrey }} />
             </IconButton>
           </div>
         </CardContent>
