@@ -5,9 +5,12 @@ import Box from '@mui/material/Box'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { selectResultsReady, fetchUsersStatus } from '../features/users/usersSlice'
+import {
+  selectResultsReady,
+  fetchUsersStatus,
+} from '../features/users/usersSlice'
 
-export default function AfterVote () {
+export default function AfterVote() {
   const [askingInterval, setAskingInterval] = useState(null)
   const resultsReady = useSelector(selectResultsReady)
   const navigate = useNavigate()
@@ -15,7 +18,7 @@ export default function AfterVote () {
 
   useEffect(() => {
     dispatch(fetchUsersStatus())
-    
+
     const intervalId = setInterval(() => {
       dispatch(fetchUsersStatus())
     }, 1000) // 1 sec update
@@ -30,7 +33,7 @@ export default function AfterVote () {
 
     clearInterval(askingInterval)
     setAskingInterval(null)
-    navigate("/user/results")
+    navigate('/user/results')
   }
 
   return (
@@ -41,7 +44,7 @@ export default function AfterVote () {
         finish voting
       </h2>
       {!resultsReady && (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ my: 5 }}>
           <CircularProgress />
         </Box>
       )}
@@ -52,10 +55,7 @@ export default function AfterVote () {
       {/* <Button component={Link} to="/user/results" variant="contained" disabled={resultsReady}>
         Proceed to Results
       </Button>{' '} */}
-      <Button 
-        variant="contained"
-        onClick={handleOnClickProgress}
-      >
+      <Button variant="contained" onClick={handleOnClickProgress}>
         Proceed to Results
       </Button>{' '}
     </>
