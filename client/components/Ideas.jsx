@@ -274,38 +274,38 @@ function getIdeasByName(name) {
   */
   const seeds = {
     'Jason': {
-      title: "Touch screen service kiosks in stores",
-      description: "This should reduce queue length"
+      title: "Longer lunch breaks",
+      description: "Bigger tummy, better nourishment"
     }, 
     'Graeme': {
-      title: "Tighten up back room processing",
-      description: "Greatly shortens processing time"
+      title: "Less Sports",
+      description: "I get tired easily - and other people too"
     },
     'Jared': {
-      title: "Digitise offline forms",
-      description: "...so they can be handled purely online. Its 2022 people!"
+      title: "Expand friday ice creams",
+      description: "We only have one day for ice creams. We need this on thursdays too"
     },
     'Tayla': {
-      title: "Digital licensing as a service",
-      description: "We can offer our services to NZTA"
+      title: "No public speeches",
+      description: "I get too anxious!"
     }, 
     'Jore' : {
-      title: "Automate timesheets",
-      description: "I hate hate hate making timesheets on friday afternoons!"
+      title: "Shorter tests",
+      description: "Tests are way too long, I cant sit for that long"
     },
     'Ben' : {
-      title: "Double waiting times for irrating customers",
-      description: "Looking at you Frank!"
+      title: "Allowed IPADs to class",
+      description: "Use tablets during class, totally not playing clash of clans"
     },
     'Chris' : {
-      title: "Move team lunches to fridays",
-      description: "Never do it on a monday, everyone is grumpy on mondays!"
+      title: "No more classses on monday",
+      description: "Im very groggy at mondays, longer weekends!"
     }
   }
 
   const objPayload = seeds[name] || {
-    title: "10% pay rises!",
-    description: 'inflation is at a 30 year high!',
+    title: "No more detentions",
+    description: 'Detentions are not very cool at all!',
   }
 
   return objPayload
