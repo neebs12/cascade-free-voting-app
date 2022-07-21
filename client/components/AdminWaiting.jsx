@@ -88,7 +88,7 @@ export default function AdminWaiting () {
       return console.log('already mocked, cannot mock again')
     }
     console.log('is mocking')
-    mockVotes(10) // n second duration for mocking votes
+    mockVotes(12) // n second duration for mocking votes
     setItMocked(true)
   }
   return (

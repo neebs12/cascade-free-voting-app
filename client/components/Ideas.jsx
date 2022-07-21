@@ -135,8 +135,8 @@ export default function Ideas() {
     }
     console.log('is mocking')
     mockPostUsers(
-      ['jason', 'graeme', 'jared', 'kotare', 'emily', 'kelly', 'joseph'],
-      5
+      ['Jason', 'Graeme', 'Jared', 'Tayla', 'Jore', 'Ben', 'Chris'],
+      10
     )
     setIsMocked(true)
   }
@@ -154,11 +154,12 @@ export default function Ideas() {
     const theIdeasToBeSent = users.map((u, ind) => {
       const userId = u.id
       const userName = u.name
+      const payload = getIdeasByName(userName)
       return {
         userId,
         userName,
-        title: `title: ${userName}`,
-        description: `description: name - ${userName}, id - ${userId}, index - ${ind}`,
+        title: payload.title,
+        description: payload.description,
       }
     })
     dispatch(populateIdeas(theIdeasToBeSent))
@@ -265,4 +266,47 @@ export default function Ideas() {
       )}
     </>
   )
+}
+
+function getIdeasByName(name) {
+  /*
+    ['jason_232', 'graeme_444', 'jared123', 'kotare 2022', 'emily', 'kelly', 'joseph'],
+  */
+  const seeds = {
+    'Jason': {
+      title: "Touch screen service kiosks in stores",
+      description: "This should reduce queue length"
+    }, 
+    'Graeme': {
+      title: "Tighten up back room processing",
+      description: "Greatly shortens processing time"
+    },
+    'Jared': {
+      title: "Digitise offline forms",
+      description: "...so they can be handled purely online. Its 2022 people!"
+    },
+    'Tayla': {
+      title: "Digital licensing as a service",
+      description: "We can offer our services to NZTA"
+    }, 
+    'Jore' : {
+      title: "Automate timesheets",
+      description: "I hate hate hate making timesheets on friday afternoons!"
+    },
+    'Ben' : {
+      title: "Double waiting times for irrating customers",
+      description: "Looking at you Frank!"
+    },
+    'Chris' : {
+      title: "Move team lunches to fridays",
+      description: "Never do it on a monday, everyone is grumpy on mondays!"
+    }
+  }
+
+  const objPayload = seeds[name] || {
+    title: "10% pay rises!",
+    description: 'inflation is at a 30 year high!',
+  }
+
+  return objPayload
 }
